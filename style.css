@@ -669,6 +669,59 @@ body {
       position: relative;
 }
 
+
+/* === ЛИПКИЙ ПОИСК: слайд вниз/вверх без фейда === */
+.search-sticky{
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: calc(env(safe-area-inset-top) + 0px);
+  z-index: 1100;
+
+  background:#fff;
+  padding:10px;
+  border-radius: 0;
+
+  /* спрятан за верхним краем (полностью) */
+  transform: translateY(-120%);
+  /* без фейда */
+  opacity: 1;
+  /* клики не проходят, пока скрыт */
+  pointer-events: none;
+
+  transition: transform .28s cubic-bezier(.22,.7,.23,1);
+  will-change: transform;
+}
+
+/* Показать (приехал вниз) */
+.search-sticky.is-on{
+  transform: translateY(0);
+  pointer-events: auto;   /* снова кликабелен */
+}
+
+/* внутрянка как раньше */
+.search-sticky .search{
+  background:#F2F1F0;
+  border-radius:16px;
+  padding:0 12px;
+  height:52px;
+}
+.search-sticky input{ background:#F2F1F0; }
+.search-sticky .search-icon{ transform: translateY(-1px) scale(.95); }
+.search-sticky .filter-icon{ transform: translateY(-1px) scale(.95); }
+
+/* Сентинел */
+#search-sentinel{ height:1px; }
+
+/* уважение к reduce-motion */
+@media (prefers-reduced-motion: reduce){
+  .search-sticky{ transition:none; }
+}
+
+
+
+
+
 /*РУБРИКАТОР*/
 
 .tabs {

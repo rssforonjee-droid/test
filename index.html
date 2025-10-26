@@ -21,12 +21,21 @@
     </label>
   </div>
 
+
+
   <div class="search-caption">
     <div class="h3">Кемпинг в Твери</div>
     <div class="s20">Снаряжение и маршруты</div>
+    <div id="search-sentinel" aria-hidden="true"></div> <!-- Сентинел: тонкая «зарубка», где включать липкую версию -->
   </div>
 
+       
+  
+
   <div class="search-hero"></div>
+
+
+
 </div>
 
 
@@ -438,6 +447,39 @@ document.querySelectorAll('.tabbar__btn').forEach(btn=>{
   window.addEventListener('resize', onScroll);
 })();
 </script>
+
+
+<script>
+(() => {
+  const originalRow = document.querySelector('.search-row');
+  const sentinel    = document.getElementById('search-sentinel');
+  if (!originalRow || !sentinel) return;
+
+  const sticky = document.createElement('div');
+  sticky.className = 'search-sticky';
+  sticky.setAttribute('aria-hidden', 'true');
+
+  // делаем строку (бейдж + инпут)
+  const stickyRow    = document.createElement('div');
+  stickyRow.className = 'search-row'; // чтобы переиспользовать базовые стили
+
+  const stickyBadge  = originalRow.querySelector('.search-badge')?.cloneNode(true);
+  const stickySearch = originalRow.querySelector('.search')?.cloneNode(true);
+
+  if (stickyBadge)  stickyRow.appendChild(stickyBadge);
+  if (stickySearch) stickyRow.appendChild(stickySearch);
+
+  sticky.appendChild(stickyRow);
+  document.body.appendChild(sticky);
+
+  const io = new IntersectionObserver(([entry]) => {
+    sticky.classList.toggle('is-on', !entry.isIntersecting);
+  }, { threshold: 0 });
+  io.observe(sentinel);
+})();
+
+</script>
+
 
 
 </body>
