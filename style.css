@@ -116,8 +116,6 @@ body {
   color:#1f2535;
 }
 
-.card-title{}
-
 /* строка заголовка */
 .title-row{
   position: relative;      /* чтобы сердце позиционировалось внутри */
@@ -193,8 +191,6 @@ body {
     color:#F71B47;
     white-space: nowrap; /* чтобы -20% точно не переносилось само по себе */
 }
-
-.card-subtitle,.card-meta{}
 
 /* ====== ГАЛЕРЕЯ ====== */
 
@@ -338,8 +334,6 @@ body {
     height: 22px; 
     display:block; 
 }  
-
-.heart.saved{ }
 
 /* контейнер с частицами */
 .particles {
