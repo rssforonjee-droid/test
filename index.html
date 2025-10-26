@@ -4,135 +4,81 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Объявления</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   
 </head>
 <body>
-  <div class="phone">
-    <div class="status-bar">
-      <span>10:00</span>
-      <div class="status-icons">
-        <span class="signal"></span>
-        <span class="wifi"></span>
-        <span class="battery"></span>
-      </div>
-    </div>
-    <label class="search">
-      <span class="search-icon"></span>
-      <input class="hidden-input" type="text" placeholder="Поиск в Москве" value="Поиск в Москве" readonly>
-      <span class="label-text">Поиск в Москве</span>
-      <span class="filter-icon"></span>
-    </label>
-    <nav class="tabs">
-      <div class="tab-row first">
-        <div class="tab active">Товары</div>
-        <div class="tab">Недвижимость</div>
-        <div class="tab">Путешествия</div>
-      </div>
-      <div class="tab-row second">
-        <div class="tab">Авто</div>
-        <div class="tab">Услуги</div>
-        <div class="tab">Работа</div>
-        <div class="tab">Всё</div>
-      </div>
-    </nav>
-    <section class="promo">
-      <div class="tag">акция</div>
-      <h2>Квартиры со скидками до 50%</h2>
-      <div class="logo">ПИК Аренда</div>
-    </section>
-    <section class="cards">
-      <div class="card-row">
-        <article class="card">
-          <div class="image" style="background: linear-gradient(135deg, #d1d8ff, #7ca0ff);"></div>
-          <div class="card-content">
-            <div class="card-tools">
-              <div class="heart">♡</div>
-            </div>
-            <div class="card-title">2-к. квартира, 13 м², 4/4 эт.</div>
-            <div class="price">17 000 000 ₽</div>
-            <div class="card-subtitle">Москва, м. Сокол</div>
-            <div class="card-meta">5–10 дней</div>
-          </div>
-        </article>
-        <article class="card">
-          <div class="image" style="background: linear-gradient(135deg, #fff1d6, #ffac72);"></div>
-          <div class="card-content">
-            <div class="card-tools">
-              <div class="heart">♡</div>
-            </div>
-            <div class="card-title">New Balance 574</div>
-            <div class="price">13 990 ₽</div>
-            <div class="card-subtitle" style="color:#f24949;">Скидка 20%</div>
-            <div class="card-meta">Размеры 35, 44</div>
-          </div>
-        </article>
-      </div>
-      <div class="card-row">
-        <article class="card">
-          <div class="image" style="background: linear-gradient(135deg, #34d399, #059669);"></div>
-          <div class="badge">Лучшая цена</div>
-          <div class="card-content">
-            <div class="card-tools">
-              <div class="heart">♡</div>
-            </div>
-            <div class="card-title">Садовое пончо</div>
-            <div class="price">12 000 ₽</div>
-            <div class="card-subtitle">5–10 дней</div>
-          </div>
-        </article>
-        <article class="card">
-          <div class="image" style="background: linear-gradient(135deg, #d6eaff, #5aa7ff);"></div>
-          <div class="card-content">
-            <div class="card-tools">
-              <div class="heart">♡</div>
-            </div>
-            <div class="card-title">Худи женское</div>
-            <div class="price">9 000 ₽</div>
-            <div class="card-subtitle">Размеры S, M, L</div>
-            <div class="card-meta">5–10 дней</div>
-          </div>
-        </article>
-      </div>
-      <div class="card-row">
-        <article class="card small">
-          <div class="image" style="background: linear-gradient(135deg, #f1f5f9, #cbd5f5);"></div>
-          <div class="card-content">
-            <div class="card-tools">
-              <div class="heart">♡</div>
-            </div>
-            <div class="card-title">Свитер на заказ</div>
-            <div class="price">15 000 ₽</div>
-            <div class="card-subtitle">5–10 дней</div>
-          </div>
-        </article>
-        <article class="card small">
-          <div class="image" style="background: linear-gradient(135deg, #222831, #4b5563);"></div>
-          <div class="card-content">
-            <div class="card-tools">
-              <div class="heart">♡</div>
-            </div>
-            <div class="card-title">Volkswagen ID.6</div>
-            <div class="price">4 500 000 ₽</div>
-            <div class="card-subtitle">Пробег 25 000 км</div>
-            <div class="card-meta">5–10 дней</div>
-          </div>
-        </article>
-      </div>
-    </section>
-    <footer>
-      <span>Избранное</span>
-      <div class="nav-icons">
-        <span class="nav-line"></span>
-        <span class="nav-dot"></span>
-        <span class="nav-line" style="opacity:0.3;"></span>
-      </div>
-      <span>Профиль</span>
-    </footer>
+
+<div class="search-layer">
+  <label class="search">
+    <span class="search-icon"></span>
+    <input class="hidden-input m20" type="text" placeholder="Поиск в Москве" value="Поиск в Москве" readonly>
+    <span class="filter-icon"></span>
+  </label>
+
+  <div class="search-caption">
+    <div class="h3">Кемпинг в Твери</div>
+    <div class="s20">Снаряжение и маршруты</div>
   </div>
+  <div class="search-hero"></div>
+</div>
+
+<section class="tabs s20">
+  <div class="tab-row first">
+    <div class="tab goods">Товары</div>
+    <div class="tab realty">Недвижимость</div>
+    <div class="tab travel">Путешествия</div>
+  </div>
+  <div class="tab-row second">
+    <div class="tab auto">Авто</div>
+    <div class="tab service">Услуги</div>
+    <div class="tab job">Работа</div>
+    <div class="tab all">Всё</div>
+  </div>
+</section>
+
+<section class="promo">
+      <div class="tag">Реклама</div>
+      <div class="img-right"></div>
+      <div class="img-left"></div>
+</section>
+
+
+
+
+
+
+
+    
+    
+
+
+<section class="cards" id="cards"></section>
+
+
+
+<footer class="tabbar" role="navigation" aria-label="Основная навигация">
+  <button class="tabbar__btn is-active" aria-label="Главная"></button>
+  <button class="tabbar__btn" aria-label="Избранное"></button>
+  <button class="tabbar__btn" aria-label="Кошелёк"></button>
+  <button class="tabbar__btn" aria-label="Чат"></button>
+  <button class="tabbar__btn brand" aria-label="Профиль"></button>
+</footer>
+
+
+
+
+
+
+  </div>
+
+
+
+
+
   <script>
     document.querySelectorAll('.tab').forEach(function (tab) {
       tab.addEventListener('click', function () {
@@ -151,5 +97,292 @@
       });
     });
   </script>
+
+
+<script>
+(async function () {
+  const mount = document.getElementById('cards');
+
+  const HEART_OFF = './res/heart_snippet.svg';
+  const HEART_ON  = './res/heart_snippet_full.svg';
+
+  const el = (t, c, h) => {
+    const n = document.createElement(t);
+    if (c) n.className = c;
+    if (h != null) n.innerHTML = h;
+    return n;
+  };
+
+  function attachSwipe(rail, dots){
+    const container = rail.parentElement;            // .image (внутренний квадрат)
+    const count = rail.children.length;
+    if (count <= 1) return;
+
+    let idx = 0, startX = 0, startY = 0, curX = 0;
+    let dragging = false, baseX = 0;
+
+    const width = () => container.clientWidth;
+
+    const setIdx = (i, animate = true) => {
+      idx = Math.max(0, Math.min(count - 1, i));
+      const target = -idx * width();
+      rail.style.transition = animate ? 'transform 320ms ease' : 'none';
+      rail.style.transform  = `translateX(${target}px)`;
+      baseX = target;
+      if (dots) [...dots.children].forEach((d, k) => d.classList.toggle('active', k === idx));
+    };
+
+    const onStart = e => {
+      if (e.type === 'mousedown' && e.button !== 0) return;
+      dragging = true;
+      rail.style.transition = 'none';
+      const t = e.touches ? e.touches[0] : e;
+      startX = t.clientX; startY = t.clientY; curX = startX;
+      container.classList.add('grabbing');
+    };
+
+    const onMove = e => {
+      if (!dragging) return;
+      const t = e.touches ? e.touches[0] : e;
+      curX = t.clientX;
+      const dx = curX - startX;
+      const dy = t.clientY - startY;
+
+      // горизонтальный жест — блокируем скролл страницы
+      if (Math.abs(dx) > Math.abs(dy)) e.preventDefault();
+
+      rail.style.transform = `translateX(${baseX + dx}px)`;
+    };
+
+    const onEnd = () => {
+      if (!dragging) return;
+      dragging = false;
+      container.classList.remove('grabbing');
+
+      const dx = curX - startX;
+      const th = Math.max(40, width() * 0.12);   // порог
+      if (dx <= -th) setIdx(idx + 1);
+      else if (dx >= th) setIdx(idx - 1);
+      else setIdx(idx);
+    };
+
+    // слушаем ЖЕСТ на КОНТЕЙНЕРЕ, а не на ленте
+    container.addEventListener('touchstart', onStart, { passive: true  });
+    container.addEventListener('touchmove',  onMove,  { passive: false });
+    container.addEventListener('touchend',   onEnd);
+
+    container.addEventListener('mousedown',  onStart);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup',   onEnd);
+
+    // пересчёт при изменении размеров карточки
+    const ro = new ResizeObserver(() => setIdx(idx, false));
+    ro.observe(container);
+
+    setIdx(0, false);
+  }
+
+  // загрузка данных
+  const res = await fetch('./cards.json', { cache: 'no-store' });
+  if (!res.ok) throw new Error('Не удалось загрузить cards.json: ' + res.status);
+  const items = await res.json();
+
+  // helpers для типов источников
+  const isGradientOrColor = s => /^(?:linear|radial|conic)-gradient\(|^#|^rgb[a]?\(/i.test(s);
+  const isVideo = s => /\.(mp4|webm|ogg)$/i.test(s);
+  const resolveSrc = (src) => {
+    const isAbs = /^(https?:|data:|\/|\.\/|\.\.\/)/i.test(src);
+    return encodeURI(isAbs ? src : './' + src);   // добавим ./ если относительный
+  };
+
+  items.forEach(item => {
+    const card = el('article', 'card');
+
+    // --- галерея ---
+    const pics = Array.isArray(item.images) && item.images.length
+      ? item.images.slice()
+      : (item.image ? [item.image] : []);
+
+    const imgHost = el('div', 'image-host'); // наружная обёртка (для бейджа/точек)
+    const imgWrap = el('div', 'image');      // квадратный viewport, клипует ленту
+    const rail    = el('div', 'image-rail');
+
+    imgWrap.appendChild(rail);
+    imgHost.appendChild(imgWrap);
+
+    // слайды (добавлена поддержка видео)
+    pics.forEach(src => {
+      const slide = el('div','image-slide');
+
+      if (isGradientOrColor(src)) {
+        slide.style.background = src;          // градиент/цвет
+
+      } else if (isVideo(src)) {
+        const v = document.createElement('video');
+        v.src = resolveSrc(src);
+        v.muted = true;          // для автоплея на мобильных
+        v.loop = true;
+        v.autoplay = true;
+        v.playsInline = true;    // iOS
+        v.preload = 'metadata';
+        v.controls = false;      // включи по желанию
+        slide.appendChild(v);
+
+      } else {
+        const img = new Image();
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        img.src = resolveSrc(src);
+        img.alt = item.title || '';
+        img.style.width  = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'cover';
+        img.style.objectPosition = 'center';
+        img.onerror = () => {
+          console.warn('Не удалось загрузить изображение:', img.src);
+          slide.style.background = '#e8edf6';
+        };
+        slide.appendChild(img);
+      }
+
+      rail.appendChild(slide);
+    });
+
+    // индикаторы (один раз)
+    let dots = null;
+    if (pics.length > 1) {
+      dots = el('div','image-dots');
+      for (let i = 0; i < pics.length; i++) dots.appendChild(el('span','image-dot'));
+      imgHost.appendChild(dots);
+    }
+
+    // бейдж
+    if (item.badge) imgHost.appendChild(makeRibbon(item.badge, item.badgeColor));
+
+    // добавить галерею в карточку
+    card.appendChild(imgHost);
+
+    // свайп включаем только если >1 фото
+    if (pics.length > 1) attachSwipe(rail, dots);
+    else imgWrap.classList.add('image--static');
+
+    // --- контент ---
+    const content = el('div','card-content');
+    const titleRow = el('div','title-row');
+    titleRow.appendChild(el('div','card-title m20', item.title));
+
+    // избранное (SVG)
+    const heart = el('button','heart');
+    heart.type = 'button';
+    heart.setAttribute('aria-pressed','false');
+    heart.setAttribute('aria-label','Добавить в избранное');
+
+    const heartIcon = new Image();
+    heartIcon.src = HEART_OFF;
+    heartIcon.alt = '';
+    heartIcon.width = 18; heartIcon.height = 18;
+    heart.appendChild(heartIcon);
+
+    heart.addEventListener('click', () => {
+      const saved = heart.classList.toggle('saved');
+      heart.setAttribute('aria-pressed', saved ? 'true' : 'false');
+      heart.setAttribute('aria-label', saved ? 'Убрать из избранного' : 'Добавить в избранное');
+      heartIcon.src = saved ? HEART_ON : HEART_OFF;
+      if (typeof burstFrom === 'function') {
+        heart.classList.add('animating'); burstFrom(heart);
+        setTimeout(() => heart.classList.remove('animating'), 320);
+      }
+    });
+
+    titleRow.appendChild(heart);
+    content.appendChild(titleRow);
+
+    // цена
+    const priceRow = el('div','price-row');
+    priceRow.appendChild(el('div','price h4', item.price));
+
+    const oldLine = el('div','old-line');
+    if (item.oldPrice) oldLine.appendChild(el('div','price-old s10', item.oldPrice));
+    if (item.discount) oldLine.appendChild(el('div','discount s10', item.discount));
+    if (oldLine.childNodes.length) priceRow.appendChild(oldLine);
+
+    content.appendChild(priceRow);
+
+    if (item.subtitle) content.appendChild(el('div','s10 card-subtitle', item.subtitle));
+    if (item.meta)     content.appendChild(el('div','s10 card-meta', item.meta));
+
+    card.appendChild(content);
+    mount.appendChild(card);
+  });
+})();
+</script>
+
+
+
+
+
+<script>
+function burstFrom(btn){
+  // палитра шариков
+  const colors = ['#FF6B6B','#FFD93D','#6BCB77','#4D96FF','#B892FF','#FF8FAB'];
+
+  const layer = document.createElement('span');
+  layer.className = 'particles';
+  btn.appendChild(layer);
+
+  const COUNT = 14;                    // сколько частиц
+  for(let i=0;i<COUNT;i++){
+    const p = document.createElement('i');
+    p.className = 'particle';
+
+    // случайный угол и дальность
+    const angle = Math.random() * Math.PI * 2;
+    const dist  = 22 + Math.random() * 26;       // px
+    const dx = Math.cos(angle) * dist;
+    const dy = Math.sin(angle) * dist;
+
+    p.style.setProperty('--dx', dx.toFixed(1) + 'px');
+    p.style.setProperty('--dy', dy.toFixed(1) + 'px');
+    p.style.setProperty('--c', colors[i % colors.length]);
+    p.style.animationDelay = (Math.random()*60|0) + 'ms';
+
+    layer.appendChild(p);
+    p.addEventListener('animationend', () => p.remove());
+  }
+
+  // убрать слой после анимации
+  setTimeout(() => layer.remove(), 700);
+}
+</script>
+
+
+
+<script> 
+// один раз над forEach
+function makeRibbon(text, color = '#30c977') {
+  const wrap = document.createElement('span');
+  wrap.className = 'ribbon';
+  wrap.style.setProperty('--ribbon', color);
+
+  const left = document.createElement('span');
+  left.className = 'ribbon__cap ribbon__cap--left';
+  left.setAttribute('aria-hidden', 'true');
+
+  const body = document.createElement('span');
+  body.className = 'ribbon__body s10';   // ← добавили s10 сюда
+  body.textContent = text;
+
+  const right = document.createElement('span');
+  right.className = 'ribbon__cap ribbon__cap--right';
+  right.setAttribute('aria-hidden', 'true');
+
+  wrap.append(left, body, right);
+  return wrap;
+}
+
+</script>
+
+
+
 </body>
 </html>

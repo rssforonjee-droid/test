@@ -1,0 +1,62 @@
+[
+  {
+  "title": "2-к. квартира, 41\u00A0м², 4\u00A0из\u00A016 эт.",
+  "price": "17 000 000 ₽",
+  "subtitle": "Москва, Белорусская",
+  "badge": "Лучшая цена",
+  "badgeColor": "#02D15C",
+  "image": "img_snippets/1.jpg"
+},
+  {
+    "title": "New Balance\u00A0574",
+    "price": "13 990 ₽",
+    "oldPrice": "16 800 ₽",
+    "discount": "–20%",
+    "subtitle": "В наличии 40, 43, 44",
+    "meta": "5—10 дней",
+    "images": [
+        "img_snippets/2.png",
+        "img_snippets/2_2.png",
+        "img_snippets/2_3.png",
+        "img_snippets/2_4.png",
+        "img_snippets/2_5.png"
+    ]
+},
+  {
+    "title": "Садовое пончо из\u00A0шерсти",
+    "price": "12 000 ₽",
+    "subtitle": "от 1 дня",
+    "badgeColor": "#30c977",
+    "image": "img_snippets/3.mp4"
+},
+  {
+    "title": "Mercedes-Benz GLE-класс 3.0 AT, 2023",
+    "price": "8 900 000 ₽",
+    "subtitle": "Пробег 15 000\u00A0км",
+    "meta": "Москва, Коломенская",
+    "image": "img_snippets/4.jpg"
+},
+  {
+  "title": "AirPods Max USB-C 2024",
+  "price": "45 000 ₽",
+  "subtitle": "Новые",
+  "meta": "2—4 дня",
+  "images": [
+        "img_snippets/5.jpg",
+        "img_snippets/5_2.jpg",
+        "img_snippets/5_3.jpg"
+  ]
+},
+  {
+    "title": "iPhone 17\u00A0Pro Max, 256\u00A0ГБ",
+    "price": "100 000 ₽",
+    "oldPrice": "116 000 ₽",
+    "discount": "–16%",
+    "subtitle": "от 7 дней",
+    "badgeColor": "#FF2D4B",
+    "badge": "Распродажа",
+    "image": "img_snippets/6.jpg"
+}
+
+
+]
