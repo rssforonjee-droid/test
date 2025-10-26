@@ -675,7 +675,7 @@ body {
       display: flex;
       flex-direction: column;
       gap: 6px;
-      margin: 24px 10px 22px;
+      margin: 24px 10px 24px;
     }
 
 .tab-row {
@@ -756,7 +756,7 @@ body {
   background: linear-gradient(to right, #56A1D9 0%, #4598D6 100%);
   border-radius:16px;
   padding:16px;
-  margin:0 10px 26px;
+  margin:0 10px 24px;
   position:relative;   /* якорь для абсолютных элементов */
   overflow:hidden;
 }
