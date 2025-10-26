@@ -369,52 +369,146 @@ body {
 
 /*ТАББАР*/
 
-/* таббар «в край» */
+/* таббар */
 .tabbar{
+  --tabbar-h: 50px;
+  position: fixed; left:0; right:0; bottom:0;
+  height: calc(var(--tabbar-h) + env(safe-area-inset-bottom));
+  padding: 0 clamp(12px,4vw,24px) env(safe-area-inset-bottom);
+  display:flex; align-items:center; justify-content:space-evenly;
+  gap: clamp(24px,8vw,40px);
+  background:#fff; border-top:1px solid rgba(0,0,0,.08);
+  z-index:1000;
+}
+
+/* базовый вид кнопки */
+.tabbar__btn{
+  --icon: none;               /* сюда у каждой кнопки подставим свой url(...) */
+  --active-color: #111;       /* цвет активной иконки */
+  width:30px; height:30px; flex:0 0 30px;
+  border:0; border-radius:6px; cursor:pointer;
+  background: no-repeat center / contain;
+  background-image: var(--icon);           /* неактивные рисуются как картинка */
+}
+
+/* активная: красим через mask */
+.tabbar__btn.is-active{
+  background-image: none;                  /* убираем фон-картинку */
+  background-color: var(--active-color);   /* зальём нужным цветом */
+  -webkit-mask: var(--icon) no-repeat center / contain;
+          mask: var(--icon) no-repeat center / contain;
+  filter: none;
+}
+
+
+
+/* назначаем svg каждой кнопке (одна строка на кнопку) */
+.tabbar__btn.home      { --icon: url("./res/tabbar_home.svg"); }
+.tabbar__btn.favorites { --icon: url("./res/tabbar_favourites.svg"); }
+.tabbar__btn.wallet    { --icon: url("./res/tabbar_wallet.svg"); }
+.tabbar__btn.messenger { --icon: url("./res/tabbar_message.svg"); }
+.tabbar__btn.assistent { --icon: url("./res/tabbar_assistent.svg"); }
+/* brand уже выше */
+
+
+/* убираем рамку у кнопок в таббаре */
+.tabbar__btn{
+  -webkit-tap-highlight-color: transparent; /* iOS/Android: убирает синий “флэш” */
+  outline: none;                             /* базово – без outline */
+}
+
+/* на всякий */
+.tabbar__btn:focus{ outline: none; box-shadow: none; }
+.tabbar__btn:focus-visible{ outline: none; box-shadow: none; } /* убери наш кастомный */
+.tabbar__btn::-moz-focus-inner{ border: 0; } /* Firefox */
+
+
+/*ПЛАВАЮЩИЕ КНОПКИ*/
+
+/* Контейнер кнопок — по центру, над таббаром */
+.float-cta{
   position: fixed;
   left: 0;
   right: 0;
-  bottom: 0;
-
-  /* учитываем нижний вырез (iOS) */
-  height: calc(var(--tabbar-h) + env(safe-area-inset-bottom));
-  padding: 0 clamp(12px, 4vw, 24px) env(safe-area-inset-bottom);
-
+  bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom) + 12px);
   display: flex;
-  align-items: center;
-  justify-content: space-evenly;        /* адаптивный промежуток */
-  gap: clamp(24px, 8vw, 40px);          /* доп. контроль расстояния */
+  justify-content: center;
+  gap: 6px;
 
-  background: #fff;
-  border-top: 1px solid rgba(0,0,0,.08);
-  border-radius: 0;                      /* без скруглений — в край */
-  box-shadow: none;
-  z-index: 1000;
+  /* под таббаром 1000 — так кнопки уедут ПОД него */
+  z-index: 950;
+
+  transition: transform .32s ease, opacity .2s ease;
+  pointer-events: none;          /* клики только по самим кнопкам */
 }
 
-/* иконки-заглушки 30×30 */
-.tabbar__btn{
-  width: 30px;
-  height: 30px;
-  flex: 0 0 30px;
+/* Состояние: «уплыли под таббар» */
+.float-cta.is-away{
+  transform: translateY(calc(var(--tabbar-h) + 28px));
+  opacity: 0;
+}
+
+/* Кнопки */
+.cta{
+  pointer-events: auto;
   border: 0;
-  border-radius: 6px;
-  background: #cfcfd2;
+  border-radius: 999px;
   cursor: pointer;
+  /* убрать синий хайлайт на iOS/Android */
+  -webkit-tap-highlight-color: transparent;
+
+  /* не выделять текст при тапе */
+  user-select: none;
 }
 
-.tabbar__btn.is-active{ background:#111; }
-
-.tabbar__btn.brand{
-  background: linear-gradient(135deg,#52a8ff,#8e62ff 55%, #ff5b7a);
+.cta--primary{
+  color: #fff;
+  background: #000;
+  height: 44px;
+  width: 44px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+  border:0;
+  border-radius:999px;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
+  box-sizing:border-box;
 }
 
-/* аккуратный фокус */
-.tabbar__btn:focus{ outline: none; }
-.tabbar__btn:focus-visible{
-  box-shadow: 0 0 0 3px rgba(80,140,255,.35);
-  border-radius: 8px;
+.cta--ghost{
+  color: #1f2535;
+  background: #fff;
+  padding: 0 20px;
+  box-shadow: 0 4px 30px 0px rgba(0, 0, 0, 0.12);
 }
+
+.cta__icon_add {
+    width:18px; 
+    height:18px;
+    flex:0 0 18px;
+    background: url("./res/icon_floating_add.svg") center / contain no-repeat;
+}
+
+/* полностью отключаем любые визуальные состояния */
+.cta:hover,
+.cta:active,
+.cta:focus,
+.cta:focus-visible{
+  outline: none;
+  box-shadow: inherit;   /* не менять тень */
+  transform: none;       /* не сдвигать кнопку */
+}
+
+
+
+
+
+
+
+
 
 
 /*ПОИСК*/
@@ -467,6 +561,40 @@ body {
   padding:0 16px;
   color:#1f2535; 
   margin:0; /* без внешних отступов */
+}
+
+.search-row{
+  display:flex;
+  align-items:center;
+  gap:6px;                 /* отступ между кругом и поиском */
+}
+
+/* круг 50×50 слева */
+.search-badge{
+  position: relative;          /* для центрирования псевдо-элемента */
+  width:52px;
+  height:52px;
+  flex:0 0 52px;
+  border-radius:16px;
+  background:#fff;         /* белая заливка */
+}
+
+/* внутренняя иконка 46×46 по центру */
+.search-badge::before{
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 50px; height: 50px;
+  transform: translate(-50%, -50%);
+  background: url("./res/ava_search.png") center / contain no-repeat;
+  pointer-events: none;        /* декоративная, не перехватывает клики */
+    border-radius:16px;
+}
+
+/* чтобы поиск занимал оставшееся место в ряду */
+.search-row .search{ 
+  flex:1 1 auto; 
+  width: auto;             /* переопределяем, если раньше был width:100% */
 }
 
 .search-icon{

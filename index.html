@@ -13,18 +13,25 @@
 <body>
 
 <div class="search-layer">
-  <label class="search">
-    <span class="search-icon"></span>
-    <input class="hidden-input m20" type="text" placeholder="Поиск в Москве" value="Поиск в Москве" readonly>
-    <span class="filter-icon"></span>
-  </label>
+  <!-- новый ряд с кругом и строкой поиска -->
+  <div class="search-row">
+    <span class="search-badge" aria-hidden="true"></span>
+
+    <label class="search">
+      <span class="search-icon"></span>
+      <input class="hidden-input m20" type="text" placeholder="Поиск в Москве" value="Поиск в Москве" readonly>
+      <span class="filter-icon"></span>
+    </label>
+  </div>
 
   <div class="search-caption">
     <div class="h3">Кемпинг в Твери</div>
     <div class="s20">Снаряжение и маршруты</div>
   </div>
+
   <div class="search-hero"></div>
 </div>
+
 
 <section class="tabs s20">
   <div class="tab-row first">
@@ -46,26 +53,25 @@
       <div class="img-left"></div>
 </section>
 
-
-
-
-
-
-
-    
-    
-
-
 <section class="cards" id="cards"></section>
 
 
 
+<!-- Плавающие CTA -->
+<div class="float-cta m20">
+  <button class="cta cta--ghost" type="button">Мои объявления</button>
+  <button class="cta cta--primary" type="button">
+    <span class="cta__icon_add" aria-hidden="true"></span>
+  </button>
+</div>
+
+
 <footer class="tabbar" role="navigation" aria-label="Основная навигация">
-  <button class="tabbar__btn is-active" aria-label="Главная"></button>
-  <button class="tabbar__btn" aria-label="Избранное"></button>
-  <button class="tabbar__btn" aria-label="Кошелёк"></button>
-  <button class="tabbar__btn" aria-label="Чат"></button>
-  <button class="tabbar__btn brand" aria-label="Профиль"></button>
+  <button class="tabbar__btn home is-active" aria-label="Главная"></button>
+  <button class="tabbar__btn favorites" aria-label="Избранное"></button>
+  <button class="tabbar__btn wallet" aria-label="Кошелёк"></button>
+  <button class="tabbar__btn messenger" aria-label="Чат"></button>
+  <button class="tabbar__btn assistent" aria-label="Ассистент"></button>
 </footer>
 
 
@@ -73,7 +79,7 @@
 
 
 
-  </div>
+
 
 
 
@@ -382,6 +388,59 @@ function makeRibbon(text, color = '#30c977') {
 
 </script>
 
+
+<script>
+document.querySelectorAll('.tabbar__btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    // снять активность со всех
+    document.querySelectorAll('.tabbar__btn').forEach(b=>{
+      b.classList.remove('is-active');
+      b.setAttribute('aria-current','false');
+      b.setAttribute('aria-pressed','false');
+    });
+    // активировать текущую
+    btn.classList.add('is-active');
+    btn.setAttribute('aria-current','page');
+    btn.setAttribute('aria-pressed','true');
+  });
+});
+</script>
+
+
+<script>
+(function(){
+  const floater = document.querySelector('.float-cta');
+  if (!floater) return;
+
+  let lastY = window.scrollY;
+  let hidden = false;
+  let raf = null;
+
+  const onScroll = () => {
+    const y = window.scrollY;
+    const goingDown = y > lastY;
+    lastY = y;
+
+    // не прячем на самом верху
+    const atTop = y < 8;
+
+    const shouldHide = goingDown && !atTop;
+    if (shouldHide !== hidden) {
+      hidden = shouldHide;
+      floater.classList.toggle('is-away', hidden);
+    }
+  };
+
+  // Троттлим через rAF — мягко и экономно
+  window.addEventListener('scroll', () => {
+    if (raf) return;
+    raf = requestAnimationFrame(() => { raf = null; onScroll(); });
+  }, {passive:true});
+
+  // на ресайз/ориентацию тоже корректно реагируем
+  window.addEventListener('resize', onScroll);
+})();
+</script>
 
 
 </body>
