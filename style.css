@@ -20,6 +20,16 @@
 .promo,
 .header{ position: relative; z-index: 1; }
 
+/* если у тебя была такая штука */
+.statusbar-backdrop{ display:none; }
+
+/* либо, если фон рисовался так */
+.search-sticky::before{ content:none; }
+
+
+
+
+
 
 /* Подключаем 2 начертания Manrope Cut */
 @font-face {
