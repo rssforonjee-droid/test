@@ -1,13 +1,5 @@
 :root { --tabbar-h: 50px;}
 
-
-
-
-.statusbar-backdrop,
-.search-sticky::before { content:none !important; display:none !important; }
-html, body, .app, .phone { overflow: visible; }   /* проверь свои реальные классы */
-
-
 /* Подключаем 2 начертания Manrope Cut */
 @font-face {
   font-family: "Manrope Cut";
