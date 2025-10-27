@@ -1,4 +1,5 @@
-:root { --tabbar-h: 50px; }
+:root { --tabbar-h: 50px; 
+--safe-top: env(safe-area-inset-top, 0px); /* фолбэк = 0 */}
 
 
 /* Подключаем 2 начертания Manrope Cut */
@@ -38,7 +39,7 @@ input, button, select, textarea {
 body {
       background: #ffffff;
       color: #0f1729;
-      padding: 32px 0 48px;
+      padding: 16px 0 48px;
       padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom));
 }
 
