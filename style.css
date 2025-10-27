@@ -47,7 +47,6 @@ body {
       color: #0f1729;
       padding: 32px 0 48px;
       padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom));
-      
 
 }
 
@@ -534,6 +533,9 @@ body {
                    var(--border-light) 0 180deg,
                    var(--border-dark)  0 360deg) border-box;
 
+  /* тень */
+  box-shadow: 0 0 40px 10px rgba(150,94,235,0.4);
+
   /* размещение контента */
   display: flex;
   flex-direction: column;
@@ -541,28 +543,6 @@ body {
   padding: 6px;        /* отступ сверху под инпут */
   gap: 12px;
 }
-
-
-
-/* обёртка, которая рендерит тень, а НЕ сама карточка */
-.search-shadow{
-  /* тень через drop-shadow — её не «режет» скругление */
-  filter: drop-shadow(0 14px 30px rgba(150, 94, 235, .5));
-  /* позволяем тени ехать под статусбар */
-  margin-top: calc(-1 * env(safe-area-inset-top, 0px));
-  padding-top: calc(env(safe-area-inset-top, 0px));
-  /* на всякий случай */
-  overflow: visible;
-}
-
-/* картинка/карточка — без тени, можно оставлять overflow:hidden и скругления */
-.search-layer{
-  box-shadow: none;             /* было: 0 0 40px 10px ... — убираем */
-  /* остальное твое как есть */
-}
-
-
-
 
 /* На всякий случай уничтожаем старые декоративные слои */
 .search-layer::before,
