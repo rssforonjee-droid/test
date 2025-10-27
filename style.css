@@ -1,5 +1,24 @@
-:root { --tabbar-h: 50px; 
---safe-top: env(safe-area-inset-top, 0px); /* фолбэк = 0 */}
+:root { --tabbar-h: 50px;}
+
+
+:root { --safe-top: env(safe-area-inset-top, 0px); }
+
+/* подложка ПОД всем, не ловит клики */
+.statusbar-backdrop{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--safe-top);
+  z-index: 0;                        /* ниже контента */
+  pointer-events: none;
+  /* плавно уходит в ноль, чтобы тени под ней были видны */
+  background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,0));
+}
+
+/* все блоки с тенями должны быть выше backdrop */
+.search-layer,
+.search-sticky,
+.promo,
+.header{ position: relative; z-index: 1; }
 
 
 /* Подключаем 2 начертания Manrope Cut */
