@@ -1,34 +1,11 @@
 :root { --tabbar-h: 50px;}
 
 
-:root { --safe-top: env(safe-area-inset-top, 0px); }
-
-/* подложка ПОД всем, не ловит клики */
-.statusbar-backdrop{
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  height: var(--safe-top);
-  z-index: 0;                        /* ниже контента */
-  pointer-events: none;
-  /* плавно уходит в ноль, чтобы тени под ней были видны */
-  background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,0));
-}
-
-/* все блоки с тенями должны быть выше backdrop */
-.search-layer,
-.search-sticky,
-.promo,
-.header{ position: relative; z-index: 1; }
-
-/* если у тебя была такая штука */
-.statusbar-backdrop{ display:none; }
-
-/* либо, если фон рисовался так */
-.search-sticky::before{ content:none; }
 
 
-
-
+.statusbar-backdrop,
+.search-sticky::before { content:none !important; display:none !important; }
+html, body, .app, .phone { overflow: visible; }   /* проверь свои реальные классы */
 
 
 /* Подключаем 2 начертания Manrope Cut */
@@ -70,7 +47,8 @@ body {
       color: #0f1729;
       padding: 32px 0 48px;
       padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom));
-      margin: -32px 0 0 0;
+      
+
 }
 
 * {
@@ -432,7 +410,6 @@ body {
 }
 
 
-
 /* назначаем svg каждой кнопке (одна строка на кнопку) */
 .tabbar__btn.home      { --icon: url("./res/tabbar_home.svg"); }
 .tabbar__btn.favorites { --icon: url("./res/tabbar_favourites.svg"); }
@@ -534,14 +511,6 @@ body {
 }
 
 
-
-
-
-
-
-
-
-
 /*ПОИСК*/
 
 .search-layer{
@@ -565,9 +534,6 @@ body {
                    var(--border-light) 0 180deg,
                    var(--border-dark)  0 360deg) border-box;
 
-  /* тень */
-  box-shadow: 0 0 40px 10px rgba(150,94,235,0.4);
-
   /* размещение контента */
   display: flex;
   flex-direction: column;
@@ -575,6 +541,28 @@ body {
   padding: 6px;        /* отступ сверху под инпут */
   gap: 12px;
 }
+
+
+
+/* обёртка, которая рендерит тень, а НЕ сама карточка */
+.search-shadow{
+  /* тень через drop-shadow — её не «режет» скругление */
+  filter: drop-shadow(0 14px 30px rgba(150, 94, 235, .5));
+  /* позволяем тени ехать под статусбар */
+  margin-top: calc(-1 * env(safe-area-inset-top, 0px));
+  padding-top: calc(env(safe-area-inset-top, 0px));
+  /* на всякий случай */
+  overflow: visible;
+}
+
+/* картинка/карточка — без тени, можно оставлять overflow:hidden и скругления */
+.search-layer{
+  box-shadow: none;             /* было: 0 0 40px 10px ... — убираем */
+  /* остальное твое как есть */
+}
+
+
+
 
 /* На всякий случай уничтожаем старые декоративные слои */
 .search-layer::before,
@@ -751,8 +739,6 @@ body {
 
 
 
-
-
 /*РУБРИКАТОР*/
 
 .tabs {
@@ -894,76 +880,3 @@ body {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-    
-
-    
-
-    
-
-    
-    
-
-    
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
