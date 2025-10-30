@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>test</title>
   <link rel="stylesheet" href="style.css">
-  
 </head>
 <body>
 
@@ -24,17 +23,16 @@
   <div class="search-caption">
     <div class="h3">Кемпинг в Твери</div>
     <div class="s20">Снаряжение и маршруты</div>
-    <div id="search-sentinel" aria-hidden="true"></div> <!-- Сентинел: тонкая «зарубка», где включать липкую версию -->
+    <div id="search-sentinel" aria-hidden="true"></div>
   </div>
   <div class="search-hero"></div>
 </div>
 
-
 <section class="tabs s20">
   <div class="tab-row first">
     <div class="tab goods">Товары</div>
-    <div class="tab realty">Недвижимость</div>
-    <div class="tab travel">Путешествия</div>
+    <div class="tab realty">Недвижи-<br>мость</div>
+    <div class="tab travel">Путеше-<br>ствия</div>
   </div>
   <div class="tab-row second">
     <div class="tab auto">Авто</div>
@@ -45,14 +43,12 @@
 </section>
 
 <section class="promo">
-      <div class="tag">Реклама</div>
-      <div class="img-right"></div>
-      <div class="img-left"></div>
+  <div class="tag"><span class="tag__label">Реклама</span></div>
+  <div class="img-right"></div>
+  <div class="img-left"></div>
 </section>
 
 <section class="cards" id="cards"></section>
-
-
 
 <!-- Плавающие CTA -->
 <div class="float-cta m20">
@@ -62,45 +58,33 @@
   </button>
 </div>
 
-
 <footer class="tabbar" role="navigation" aria-label="Основная навигация">
   <button class="tabbar__btn home is-active" aria-label="Главная"></button>
   <button class="tabbar__btn favorites" aria-label="Избранное"></button>
   <button class="tabbar__btn wallet" aria-label="Кошелёк"></button>
   <button class="tabbar__btn messenger" aria-label="Чат"></button>
-  <button class="tabbar__btn assistent" aria-label="Ассистент"></button>
+  <a href="assistant.html" class="tabbar__btn assistent" aria-label="Ассистент" role="button"></a>
 </footer>
 
-
-
-
-
-
-
-
-
-
-
-
-  <script>
-    document.querySelectorAll('.tab').forEach(function (tab) {
-      tab.addEventListener('click', function () {
-        document.querySelectorAll('.tab').forEach(function (item) {
-          item.classList.remove('active');
-        });
-        this.classList.add('active');
+<script>
+  document.querySelectorAll('.tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.tab').forEach(function (item) {
+        item.classList.remove('active');
       });
+      this.classList.add('active');
     });
+  });
 
-    document.querySelectorAll('.card .heart').forEach(function (heart) {
-      heart.addEventListener('click', function (event) {
-        event.stopPropagation();
-        heart.classList.toggle('saved');
-        heart.textContent = heart.classList.contains('saved') ? '❤' : '♡';
-      });
+  // (не ломает ничего, если на странице нет .card .heart)
+  document.querySelectorAll('.card .heart').forEach(function (heart) {
+    heart.addEventListener('click', function (event) {
+      event.stopPropagation();
+      heart.classList.toggle('saved');
+      heart.textContent = heart.classList.contains('saved') ? '❤' : '♡';
     });
-  </script>
-
+  });
+</script>
 
 <script>
 (async function () {
@@ -116,8 +100,22 @@
     return n;
   };
 
+  /* === ЛЕНИВАЯ ПОДГРУЗКА СКРИПТА КОНФЕТТИ (вынесено во внешний файл) === */
+  const _loadedScripts = new Map();
+  function loadScriptOnce(url, doc){
+    if (_loadedScripts.has(url)) return _loadedScripts.get(url);
+    const p = new Promise((resolve, reject)=>{
+      const s = doc.createElement('script');
+      s.src = url; s.async = true; s.onload = ()=>resolve(); s.onerror = reject;
+      doc.head.appendChild(s);
+    });
+    _loadedScripts.set(url, p);
+    return p;
+  }
+  /* ===================================================================== */
+
   function attachSwipe(rail, dots){
-    const container = rail.parentElement;            // .image (внутренний квадрат)
+    const container = rail.parentElement;
     const count = rail.children.length;
     if (count <= 1) return;
 
@@ -150,10 +148,7 @@
       curX = t.clientX;
       const dx = curX - startX;
       const dy = t.clientY - startY;
-
-      // горизонтальный жест — блокируем скролл страницы
       if (Math.abs(dx) > Math.abs(dy)) e.preventDefault();
-
       rail.style.transform = `translateX(${baseX + dx}px)`;
     };
 
@@ -161,41 +156,34 @@
       if (!dragging) return;
       dragging = false;
       container.classList.remove('grabbing');
-
       const dx = curX - startX;
-      const th = Math.max(40, width() * 0.12);   // порог
+      const th = Math.max(40, width() * 0.12);
       if (dx <= -th) setIdx(idx + 1);
       else if (dx >= th) setIdx(idx - 1);
       else setIdx(idx);
     };
 
-    // слушаем ЖЕСТ на КОНТЕЙНЕРЕ, а не на ленте
     container.addEventListener('touchstart', onStart, { passive: true  });
     container.addEventListener('touchmove',  onMove,  { passive: false });
     container.addEventListener('touchend',   onEnd);
-
     container.addEventListener('mousedown',  onStart);
     window.addEventListener('mousemove', onMove);
     window.addEventListener('mouseup',   onEnd);
 
-    // пересчёт при изменении размеров карточки
     const ro = new ResizeObserver(() => setIdx(idx, false));
     ro.observe(container);
-
     setIdx(0, false);
   }
 
-  // загрузка данных
   const res = await fetch('./cards.json', { cache: 'no-store' });
   if (!res.ok) throw new Error('Не удалось загрузить cards.json: ' + res.status);
   const items = await res.json();
 
-  // helpers для типов источников
   const isGradientOrColor = s => /^(?:linear|radial|conic)-gradient\(|^#|^rgb[a]?\(/i.test(s);
   const isVideo = s => /\.(mp4|webm|ogg)$/i.test(s);
   const resolveSrc = (src) => {
     const isAbs = /^(https?:|data:|\/|\.\/|\.\.\/)/i.test(src);
-    return encodeURI(isAbs ? src : './' + src);   // добавим ./ если относительный
+    return encodeURI(isAbs ? src : './' + src);
   };
 
   items.forEach(item => {
@@ -206,31 +194,24 @@
       ? item.images.slice()
       : (item.image ? [item.image] : []);
 
-    const imgHost = el('div', 'image-host'); // наружная обёртка (для бейджа/точек)
-    const imgWrap = el('div', 'image');      // квадратный viewport, клипует ленту
+    const imgHost = el('div', 'image-host');
+    const imgWrap = el('div', 'image');
     const rail    = el('div', 'image-rail');
 
     imgWrap.appendChild(rail);
     imgHost.appendChild(imgWrap);
 
-    // слайды (добавлена поддержка видео)
     pics.forEach(src => {
       const slide = el('div','image-slide');
 
       if (isGradientOrColor(src)) {
-        slide.style.background = src;          // градиент/цвет
-
+        slide.style.background = src;
       } else if (isVideo(src)) {
         const v = document.createElement('video');
         v.src = resolveSrc(src);
-        v.muted = true;          // для автоплея на мобильных
-        v.loop = true;
-        v.autoplay = true;
-        v.playsInline = true;    // iOS
-        v.preload = 'metadata';
-        v.controls = false;      // включи по желанию
+        v.muted = true; v.loop = true; v.autoplay = true; v.playsInline = true;
+        v.preload = 'metadata'; v.controls = false;
         slide.appendChild(v);
-
       } else {
         const img = new Image();
         img.loading = 'lazy';
@@ -251,7 +232,6 @@
       rail.appendChild(slide);
     });
 
-    // индикаторы (один раз)
     let dots = null;
     if (pics.length > 1) {
       dots = el('div','image-dots');
@@ -259,13 +239,11 @@
       imgHost.appendChild(dots);
     }
 
-    // бейдж
+    // простой бейдж (если используешь расширенную систему бейджей — можешь заменить)
     if (item.badge) imgHost.appendChild(makeRibbon(item.badge, item.badgeColor));
 
-    // добавить галерею в карточку
     card.appendChild(imgHost);
 
-    // свайп включаем только если >1 фото
     if (pics.length > 1) attachSwipe(rail, dots);
     else imgWrap.classList.add('image--static');
 
@@ -286,16 +264,30 @@
     heartIcon.width = 18; heartIcon.height = 18;
     heart.appendChild(heartIcon);
 
-    heart.addEventListener('click', () => {
+    heart.addEventListener('click', async () => {
       const saved = heart.classList.toggle('saved');
       heart.setAttribute('aria-pressed', saved ? 'true' : 'false');
       heart.setAttribute('aria-label', saved ? 'Убрать из избранного' : 'Добавить в избранное');
       heartIcon.src = saved ? HEART_ON : HEART_OFF;
-      if (typeof burstFrom === 'function') {
-        heart.classList.add('animating'); burstFrom(heart);
-        setTimeout(() => heart.classList.remove('animating'), 320);
+
+      // ЕДИНЫЕ конфетти on/off
+      try {
+        await loadScriptOnce('./particles-burst.js', document);
+        if (window.ParticlesBurst?.burst) {
+          heart.classList.add('animating');
+          window.ParticlesBurst.burst(
+            heart,
+            saved ? window.ParticlesBurst.presets.heartOn
+                  : window.ParticlesBurst.presets.heartOff
+          );
+          setTimeout(() => heart.classList.remove('animating'), 320);
+        }
+      } catch (e) {
+        console.debug('Particles module not loaded:', e);
       }
     });
+
+
 
     titleRow.appendChild(heart);
     content.appendChild(titleRow);
@@ -320,48 +312,8 @@
 })();
 </script>
 
-
-
-
-
 <script>
-function burstFrom(btn){
-  // палитра шариков
-  const colors = ['#FF6B6B','#FFD93D','#6BCB77','#4D96FF','#B892FF','#FF8FAB'];
-
-  const layer = document.createElement('span');
-  layer.className = 'particles';
-  btn.appendChild(layer);
-
-  const COUNT = 14;                    // сколько частиц
-  for(let i=0;i<COUNT;i++){
-    const p = document.createElement('i');
-    p.className = 'particle';
-
-    // случайный угол и дальность
-    const angle = Math.random() * Math.PI * 2;
-    const dist  = 22 + Math.random() * 26;       // px
-    const dx = Math.cos(angle) * dist;
-    const dy = Math.sin(angle) * dist;
-
-    p.style.setProperty('--dx', dx.toFixed(1) + 'px');
-    p.style.setProperty('--dy', dy.toFixed(1) + 'px');
-    p.style.setProperty('--c', colors[i % colors.length]);
-    p.style.animationDelay = (Math.random()*60|0) + 'ms';
-
-    layer.appendChild(p);
-    p.addEventListener('animationend', () => p.remove());
-  }
-
-  // убрать слой после анимации
-  setTimeout(() => layer.remove(), 700);
-}
-</script>
-
-
-
-<script> 
-// один раз над forEach
+/* бейдж из исходного кода */
 function makeRibbon(text, color = '#30c977') {
   const wrap = document.createElement('span');
   wrap.className = 'ribbon';
@@ -372,7 +324,7 @@ function makeRibbon(text, color = '#30c977') {
   left.setAttribute('aria-hidden', 'true');
 
   const body = document.createElement('span');
-  body.className = 'ribbon__body s10';   // ← добавили s10 сюда
+  body.className = 'ribbon__body s10';
   body.textContent = text;
 
   const right = document.createElement('span');
@@ -382,27 +334,22 @@ function makeRibbon(text, color = '#30c977') {
   wrap.append(left, body, right);
   return wrap;
 }
-
 </script>
-
 
 <script>
 document.querySelectorAll('.tabbar__btn').forEach(btn=>{
   btn.addEventListener('click', ()=>{
-    // снять активность со всех
     document.querySelectorAll('.tabbar__btn').forEach(b=>{
       b.classList.remove('is-active');
       b.setAttribute('aria-current','false');
       b.setAttribute('aria-pressed','false');
     });
-    // активировать текущую
     btn.classList.add('is-active');
     btn.setAttribute('aria-current','page');
     btn.setAttribute('aria-pressed','true');
   });
 });
 </script>
-
 
 <script>
 (function(){
@@ -413,29 +360,50 @@ document.querySelectorAll('.tabbar__btn').forEach(btn=>{
   let hidden = false;
   let raf = null;
 
+  // Насколько «близко к низу» считаем, что уже низ (px)
+  const BOTTOM_EPS = 24;
+  // Малый порог для "самого верха", чтобы не дёргать у шапки
+  const TOP_EPS = 8;
+
+  function atBottom() {
+    const doc = document.documentElement;
+    // высота видимой области + скролл ≥ вся высота документа - эпсилон
+    return (window.innerHeight + window.scrollY) >= (doc.scrollHeight - BOTTOM_EPS);
+  }
+
+  function atTop() {
+    return window.scrollY < TOP_EPS;
+  }
+
   const onScroll = () => {
     const y = window.scrollY;
     const goingDown = y > lastY;
     lastY = y;
 
-    // не прячем на самом верху
-    const atTop = y < 8;
+    // ЛОГИКА:
+    // - если крутим вниз и не у самого верха → скрываем
+    // - НО если у самого низа → всегда показываем
+    // - если крутим вверх → показываем
+    let shouldHide = goingDown && !atTop();
 
-    const shouldHide = goingDown && !atTop;
+    if (atBottom()) shouldHide = false; // у низа всегда показаны
+
     if (shouldHide !== hidden) {
       hidden = shouldHide;
       floater.classList.toggle('is-away', hidden);
     }
   };
 
-  // Троттлим через rAF — мягко и экономно
+  // rAF-троттлинг скролла
   window.addEventListener('scroll', () => {
     if (raf) return;
     raf = requestAnimationFrame(() => { raf = null; onScroll(); });
   }, {passive:true});
 
-  // на ресайз/ориентацию тоже корректно реагируем
   window.addEventListener('resize', onScroll);
+
+  // первичная инициализация
+  onScroll();
 })();
 </script>
 
@@ -450,9 +418,8 @@ document.querySelectorAll('.tabbar__btn').forEach(btn=>{
   sticky.className = 'search-sticky';
   sticky.setAttribute('aria-hidden', 'true');
 
-  // делаем строку (бейдж + инпут)
   const stickyRow    = document.createElement('div');
-  stickyRow.className = 'search-row'; // чтобы переиспользовать базовые стили
+  stickyRow.className = 'search-row';
 
   const stickyBadge  = originalRow.querySelector('.search-badge')?.cloneNode(true);
   const stickySearch = originalRow.querySelector('.search')?.cloneNode(true);
@@ -468,10 +435,7 @@ document.querySelectorAll('.tabbar__btn').forEach(btn=>{
   }, { threshold: 0 });
   io.observe(sentinel);
 })();
-
 </script>
-
-
 
 </body>
 </html>

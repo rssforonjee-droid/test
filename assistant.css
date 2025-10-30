@@ -1,0 +1,344 @@
+/* =========================================================
+   ROOT & BASE
+========================================================= */
+:root{
+  --safe-top: env(safe-area-inset-top);
+  --safe-bottom: env(safe-area-inset-bottom);
+  --vh: 1vh;                         /* переопределим через JS на iOS */
+  --composer-h: calc(106px + 20px);  /* высота инпута + внешние отступы */
+}
+
+*{ box-sizing: border-box; }
+html, body{ height:100%; background:#fff; }
+body{
+  color:#0f1729;
+  margin:0;
+  padding:0;
+}
+
+/* =========================================================
+   LAYOUT: APP + TOPBAR
+========================================================= */
+.app{
+  display:flex;
+  flex-direction:column;
+  padding-top: calc(var(--safe-top) + 8px); /* место под статусбар */
+}
+
+/* плавающий навбар */
+.topbar{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 2000;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  /* высота формируется за счёт внутренних паддингов + safe-area */
+  padding: calc(var(--safe-top) + 8px) 12px 8px;
+  height: auto;
+  margin-top: 20px;
+  gap:4px;
+
+
+}
+
+.topbar .btn{
+  inline-size:40px;
+  block-size:40px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:0;
+  padding:0;
+  flex:0 0 auto;
+  border-radius:50%;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  background-color: rgba(255,255,255,.7);
+}
+
+/* только иконки и их размер */
+.close-btn{
+  background-image:url("./res/icon_close.svg");
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:24px 24px;    /* размер пиктограммы */
+}
+
+.new-chat-btn{
+  background-image:url("./res/icon_new_chat.svg");
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:24px 24px;
+  margin-left: auto;
+}
+
+.last-chat-btn{
+  background-image:url("./res/icon_last_chat.svg");
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:24px 24px;
+  margin-left: 2px;
+}
+
+
+/* =========================================================
+   CONTENT (intro/hero текст)
+========================================================= */
+.content{ padding:20px 20px 16px; } /* низ — запас под композер */
+.date{ color:#757575; text-align:center; margin:16px 0; }
+h1{ font:800 28px/1.15 inherit; margin:0 0 12px; }
+p{ margin:4px 0 10px; color:#1c2432; }
+
+/* карточка с радужной окантовкой (если нужна) */
+.box{
+  display:flex; align-items:flex-end; gap:10px;
+  max-width:720px; margin:0 auto;
+  padding:10px 12px;
+  border-radius:18px;
+  background:
+    linear-gradient(#fff,#fff) padding-box,
+    linear-gradient(135deg,#A0C4FF,#BDB2FF,#FFC6FF,#BDE0FE) border-box;
+  border:1.5px solid transparent;
+  box-shadow:0 8px 30px rgba(66,99,235,.18);
+}
+
+/* чтобы контент не уходил под фикс-композер */
+.page{ padding-bottom: calc(var(--composer-h) + var(--safe-bottom)); }
+
+/* =========================================================
+   CHAT LAYOUT
+   (объединено: не дублируется .chat — один источник правды)
+========================================================= */
+.chat{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  /* базовая мобильная плотность */
+  padding:44px 20px 140px; /* низ — запас под composer */
+}
+@media (min-width:480px){
+  /* сохраняем «старую» версию отступов для более широких экранов */
+  .chat{ padding:16px 20px 140px; }
+}
+
+.chat__spacer{ flex:1 0 auto; } /* толкает контент к низу */
+
+.intro{
+  max-width:720px;
+  margin:0 auto 0px; /* небольшой отступ над инпутом/сообщениями */
+}
+.messages{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  max-width:720px;
+  margin:0 auto;
+}
+
+/* Сообщения */
+.msg{
+  max-width:85%;
+  border-radius:16px;
+}
+.msg.user{
+  align-self:flex-end;
+  background:#F2F1F0; color:#000;
+  padding:12px 14px;
+}
+.msg.ai{
+  padding:12px 0px;
+  max-width:100%;
+  
+}
+
+.msg.ai .qr{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: flex-end;   /* ← вправо */
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+/* Кнопки: серый фон, чёрный текст, квадратные, без обводок и теней */
+.msg.ai .qr button{
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1.5px solid #EBEBEB;
+  outline: none;
+  box-shadow: none;
+  height:32px;
+  padding: 1px 11px 2px;
+  background: #fff;  /* светло-серый */
+  color: #000;          /* чёрный текст */
+  border-radius: 12px;     
+  cursor: pointer;
+  transition: none;     /* без анимаций “подсветок” */
+  margin-top:10px;
+}
+
+/* Без hover/active эффектов */
+.msg.ai .qr button:hover,
+.msg.ai .qr button:active,
+.msg.ai .qr button:focus{
+  background: #e8eaed;
+  color: #000;
+  border: 0;
+  box-shadow: none;
+  outline: none;
+  transform: none;
+}
+
+/* Disabled — просто приглушим */
+.msg.ai .qr button:disabled{
+  opacity: .45;
+  cursor: default;
+  pointer-events: none;
+}
+/* =========================================================
+   TYPING INDICATOR (включая вариант с видео) 
+   (объединено: один набор стилей)
+========================================================= */
+.typing{
+  display:inline-flex;
+  align-items:center;
+  color:#111;
+  border-radius:14px;
+  max-width:70%;
+  margin:8px 0;
+}
+.typing video{
+  display:block;
+  width:219px;            /* подгони под свой ролик */
+  object-fit:contain;
+  border-radius:6px;
+}
+
+/* альтернативные «точки» */
+.dots{ display:inline-flex; gap:4px; vertical-align:middle; }
+.dots i{
+  width:6px; height:6px; border-radius:50%;
+  animation:b 1.2s infinite ease-in-out;
+}
+.dots i:nth-child(2){ animation-delay:.15s; }
+.dots i:nth-child(3){ animation-delay:.3s; }
+@keyframes b{
+  0%,80%,100%{ transform:translateY(0); opacity:.35; }
+  40%{ transform:translateY(-4px); opacity:.9; }
+}
+
+/* =========================================================
+   COMPOSER (фиксирован у низа)
+========================================================= */
+.composer{
+  position:fixed; left:0; right:0; bottom:0;
+  /* учитываем «домик» iOS */
+  padding:20px 20px calc(10px + var(--safe-bottom));
+  background-color: #fff;
+  z-index:1200;
+
+  /* чтобы клики проходили только по строке ввода */
+  pointer-events:none;
+}
+
+/* внутренняя строка — кликабельная, центрируем и ограничиваем ширину */
+.composer .msg-input{
+  pointer-events:auto;
+  max-width:680px;
+  margin:0 auto;
+  position:relative;
+  display:flex;
+  align-items:center;
+}
+
+/* контейнер поля и кнопки */
+.msg-input__box{
+  position:relative;
+  flex:1 1 auto;
+  max-width:680px;
+  margin:0 auto;
+}
+
+/* поле ввода */
+.msg-input__field{
+  --r:28px;
+  --bw:2px;
+  --c1:#3BECA5; --c2:#05B2F9; --c3:#AC78FC;
+
+  flex:1 1 auto;
+  display:block;
+  width:100%;
+
+  height:106px; min-height:106px; max-height:106px; /* фикс как в макете */
+  padding:10px 40px 16px 16px;
+
+  /* переносы и скролл */
+  overflow-y:auto; overflow-x:hidden;
+  white-space:pre-wrap;
+  word-break:break-word;
+  resize:none;
+  -webkit-overflow-scrolling:touch;
+
+  background:
+    linear-gradient(#fff,#fff) padding-box,
+    linear-gradient(20deg,var(--c1) 0%,var(--c2) 45%,var(--c3) 100%) border-box;
+  border:var(--bw) solid transparent;
+  border-radius:var(--r);
+  outline:none;
+  box-shadow:0 10px 22px rgba(5,178,249,0.18), inset 0 0 0 rgba(0,0,0,0);
+}
+.msg-input__field::placeholder{ color:#9aa0a6; }
+.msg-input__field:focus{ outline:none; }
+
+/* мягкое свечение под полем */
+.msg-input::after{
+  content:"";
+  position:absolute;
+  left:50%; bottom:-6px; transform:translateX(-50%);
+  width:60%; height:28px; pointer-events:none;
+  background:radial-gradient(60% 100% at 50% 0,
+              rgba(5,178,249,0.35) 0%,
+              rgba(5,178,249,0.00) 70%);
+  filter:blur(10px);
+  z-index:0;
+}
+
+/* кнопка отправки (debug-бордер оставлен) */
+.msg-input__send{
+  position:absolute;
+  right:14px; bottom:14px; z-index:1;
+  width:24px; height:24px;
+  border-radius:50%;
+  background-color:#000;
+  background-image:url("./res/icon_send_arrow_btn.svg");
+  background-position: 50% calc(50% - 1px); /* иконка на 2px выше центра */
+  background-repeat:no-repeat;
+  background-size:20px 20px; 
+  cursor:pointer;
+
+    /* СНИМАЕМ СИСТЕМНЫЕ СТИЛИ КНОПКИ */
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  outline: none;
+  box-shadow: none;
+  background-clip: padding-box; /* на всякий, чтобы не просвечивали края */
+  
+}
+.msg-input__send:focus,
+.msg-input__send:focus-visible{ outline:none; box-shadow:none; }
+
+.msg-input__send:disabled{
+  cursor: default;
+  pointer-events: none;
+  background-image:url("./res/icon_hold_btn.svg");
+  background-size:20px 20px; 
+}
+
+
+
+

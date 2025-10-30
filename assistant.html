@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Чат</title>
+
+  <!-- Стили -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="assistant.css">
+
+  <!-- Небольшие улучшатели (можно перенести в style.css) -->
+  <style>
+    /* анти-прыжок скролла у низа */
+    .chat{ overflow-anchor:none; }
+    .chat .anchor{ overflow-anchor:auto; height:1px; }
+  </style>
+</head>
+<body>
+
+<div class="app">
+  <!-- Шапка -->
+  <div class="topbar">
+    <a href="index.html" class="btn close-btn" aria-label="закрыть" role="button"></a>
+    <div href="" class="btn new-chat-btn" aria-label="новый чат" role="button"></div>
+    <div href="" class="btn last-chat-btn" aria-label="старые чаты" role="button"></div>
+  </div>
+
+  <!-- Лента чата: интро теперь часть ленты -->
+  <section id="chat" class="chat">
+    <div class="intro">
+      <div class="date xs">Сегодня</div>
+      <h3>Привет! Я ваш ИИ-гид ✨</h3>
+      <p class="help-assist m20">
+        Давайте помогу вам с любым делом: отвечу на&nbsp;вопросы
+        и&nbsp;найду выгодные предложения. Начнём?
+      </p>
+    </div>
+
+    <!-- сюда добавляются .msg -->
+    <div class="anchor"></div>
+  </section>
+</div>
+
+<!-- Фиксированный у низа «композер» -->
+<div class="composer">
+  <div class="msg-input">
+    <div class="msg-input__box">
+      <textarea
+        class="msg-input__field"
+        placeholder="Найди мощный ноутбук для работы и игр"
+      ></textarea>
+      <button class="msg-input__send" type="button" aria-label="Отправить"></button>
+    </div>
+  </div>
+</div>
+
+
+
+<script src="assistant-cards.js"></script>
+
+
+<script> 
+
+// assistant-core.js
+(() => {
+  /* =========================
+     Константы/настройки
+  ========================== */
+  const CARDS_CSS_URL    = 'assist-cards.css';   // дизайн ассист-сниппетов (отдельный CSS)
+  const ANSWER_DATA_URL  = 'answer_data.json';   // JSON с карточками
+  const FALLBACK_TXT     = 'Готово! Вот подготовленный ответ ассистента.';
+  const HEART_OFF        = './res/heart_snippet.svg';
+  const HEART_ON         = './res/heart_snippet_full.svg';
+
+  /* =========================
+     Узлы
+  ========================== */
+  const chat     = document.getElementById('chat');
+  const ta       = document.querySelector('.msg-input__field');
+  const send     = document.querySelector('.msg-input__send');
+  const composer = document.querySelector('.composer');
+  if (!chat || !ta || !send || !composer) return;
+
+  /* =========================
+     Флаг занятости (блокируем отправку)
+  ========================== */
+  let isBusy = false;
+  function setBusy(v){
+    isBusy = v;
+    send.disabled = v;
+    send.setAttribute('aria-disabled', v ? 'true' : 'false');
+  }
+
+  /* =========================
+     Мьют/анмьют композера (серый вид + скрыть/показать клаву)
+  ========================== */
+  function muteComposer(){
+    ta.classList.add('is-muted');
+    ta.blur(); // скрыть системную клавиатуру
+    setTimeout(() => { if (typeof syncComposerOffset === 'function') syncComposerOffset(); }, 50);
+  }
+  function unmuteComposer(){
+    ta.classList.remove('is-muted');
+  }
+
+  /* =========================
+     1vh + клавиатура (iOS/мобилки)
+  ========================== */
+  function setVh(){
+    const vv = window.visualViewport;
+    const px = vv ? vv.height * 0.01 : window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${px}px`);
+  }
+  setVh();
+  window.addEventListener('resize', setVh);
+  if (window.visualViewport){
+    visualViewport.addEventListener('resize', setVh);
+    visualViewport.addEventListener('scroll', setVh);
+  }
+  function syncComposerOffset(){
+    if (!window.visualViewport) return;
+    const vv = visualViewport;
+    const overlap = Math.max(0, (window.innerHeight - vv.height - vv.offsetTop));
+    composer.style.transform = `translateY(${-overlap}px)`;
+  }
+  if (window.visualViewport){
+    visualViewport.addEventListener('resize', syncComposerOffset);
+    visualViewport.addEventListener('scroll', syncComposerOffset);
+    syncComposerOffset();
+  }
+
+  /* =========================
+     Autosize textarea (до 106px)
+  ========================== */
+  function autosize(){
+    ta.style.height = '24px';
+    ta.style.height = Math.min(106, ta.scrollHeight) + 'px';
+  }
+  ['input','change'].forEach(e => ta.addEventListener(e, autosize));
+  window.addEventListener('load', autosize);
+  ta.addEventListener('focus', () => {
+    unmuteComposer();
+    setTimeout(() => ta.scrollIntoView({behavior:'smooth', block:'center'}), 150);
+  });
+
+  /* =========================
+     Скролл
+  ========================== */
+  function scrollToNode(node){
+    if (!node) return;
+    node.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+  }
+
+  /* =========================
+     Базовые генераторы DOM
+  ========================== */
+  function addMessage(role, content, {html=false, beforeNode=null, replaceNode=null} = {}){
+    const el = document.createElement('div');
+    el.className = `msg m20 ${role}`;
+    if (html) el.innerHTML = content; else el.textContent = content;
+
+    const anchor = chat.querySelector('.anchor');
+    if (replaceNode) replaceNode.replaceWith(el);
+    else if (beforeNode) chat.insertBefore(el, beforeNode);
+    else chat.insertBefore(el, anchor);
+
+    scrollToNode(el);
+    return el;
+  }
+
+  function showThinking(){
+    const el  = document.createElement('div');
+    el.className = 'typing';
+
+    const vid = document.createElement('video');
+    vid.autoplay = true; vid.loop = true; vid.muted = true; vid.playsInline = true; vid.preload = 'auto';
+
+    const s1 = document.createElement('source'); s1.src = './res/anim_01.mp4';  s1.type = 'video/mp4';
+    const s2 = document.createElement('source'); s2.src = './anim/anim_01-2.webm'; s2.type = 'video/webm';
+    vid.appendChild(s1); vid.appendChild(s2);
+
+    const fallback = document.createElement('span');
+    fallback.innerHTML = '<i></i><i></i><i></i>';
+    fallback.style.display = 'none';
+    fallback.style.width = '28px';
+    fallback.style.height = '10px';
+    fallback.style.background = 'radial-gradient(#9aa0a6 3px, transparent 4px) 0 50%/10px 10px repeat-x';
+
+    const useFallback = () => { vid.style.display='none'; fallback.style.display='inline-block'; };
+    vid.addEventListener('error', useFallback);
+    vid.addEventListener('stalled', useFallback);
+    vid.addEventListener('abort', useFallback);
+
+    el.appendChild(vid);
+    el.appendChild(fallback);
+
+    chat.insertBefore(el, chat.querySelector('.anchor'));
+    scrollToNode(el);
+    return el;
+  }
+
+  /* ====== быстрые ответы (Да/Нет) ====== */
+  function collapseOldQuickReplies(){
+    const qrs = [...chat.querySelectorAll('.msg.ai .qr')];
+    qrs.forEach(qr => {
+      qr.querySelectorAll('button').forEach(b => b.disabled = true);
+      qr.style.display = 'none';
+    });
+  }
+  function removeAllQuickReplyButtons(){
+    chat.querySelectorAll('.msg.ai .qr').forEach(qr => qr.remove());
+  }
+
+  function addQuickReplies(text, options, {replaceNode=null} = {}){
+    collapseOldQuickReplies();
+
+    const wrap = document.createElement('div');
+    wrap.className = 'msg ai m20';
+    wrap.innerHTML = `
+      <div class="bubble">${text}</div>
+      <div class="qr"></div>
+    `;
+    const qr = wrap.querySelector('.qr');
+
+    options.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = opt.label;
+      btn.classList.add('s10');
+      if (opt.variant) btn.classList.add(opt.variant);
+
+      btn.addEventListener('click', () => {
+        if (qr) qr.remove();
+        const userBubble = addMessage('user', opt.label);
+        scrollToNode(userBubble);
+        muteComposer();
+        opt.onClick?.(opt.value, wrap);
+      });
+
+      qr.appendChild(btn);
+    });
+
+    if (replaceNode) replaceNode.replaceWith(wrap);
+    else chat.insertBefore(wrap, chat.querySelector('.anchor'));
+
+    scrollToNode(wrap);
+    return wrap;
+  }
+
+  /* ====== «думаю» с блокировкой ====== */
+  function randDelay(min=3900, max=3900){
+    return Math.round(min + Math.random()*(max-min));
+  }
+  async function aiQuickRepliesWithThinking(text, options){
+    setBusy(true);
+    const typing = showThinking();
+    await new Promise(r => setTimeout(r, randDelay()));
+    const res = addQuickReplies(text, options, {replaceNode: typing});
+    setBusy(false);
+    return res;
+  }
+
+  /* =========================
+     Нормализация и распознавание
+  ========================== */
+  function normalize(s){
+    return (s || '')
+      .toLowerCase()
+      .replace(/[.,!?()"«»'`]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  const PROFANITY = [
+    /придурок/, /дурак/, /дур[aо]ч?ок/, /урод/, /идиот/, /тупиц[аы]/,
+    /кретин/, /де?бил/, /балбес/, /жопа/, /сучара/, /олень/
+  ];
+  const containsProfanity = (text) => PROFANITY.some(rx => rx.test(text));
+
+  function interpretYesNo(raw){
+    const t = normalize(raw);
+    const tokens = t.split(' ');
+    const has = (...w) => w.some(x => tokens.includes(x));
+    const isYes = has('да','ага','угу','конечно','ок','окей','го','погнали','давай','йес','yes','y')
+      || /^[\+\👍✅👌]+$/.test(t) || /^да$/.test(t) || /^да+$/.test(t);
+    const isNo  = has('нет','не','неа','потом','no','nope','ноуп','n','нехочу','ненадо')
+      || /^[\-\👎❌]+$/.test(t) || /^нет$/.test(t);
+    if (isYes) return 'yes';
+    if (isNo)  return 'no';
+    return null;
+  }
+
+  function isIphoneIntent(raw){
+    const t = normalize(raw);
+    return /айфон\w*/.test(t) || /\bайф\b/.test(t) || /\biphone\b/.test(t) || /\bi[\s-]*phone\b/.test(t) || /\biphon\w*\b/.test(t);
+  }
+  function isAndroidIntent(raw){
+    const t = normalize(raw);
+    return /андроид\w*/.test(t) || /\bandroid\b/.test(t) || /\bандр\b/.test(t) || /на\s+андроид(е|ах)?/.test(t) || /(хочу|найди|выбери|посоветуй).*(андро(ид|идный)|android)/.test(t);
+  }
+  function hasGreeting(raw){
+    const t = normalize(raw);
+    const tokens = t.split(' ');
+    const greetSet = new Set(['привет','прив','здрав','здрасте','здрасьте','хай','йо','йоу','хэллоу','хеллоу','хелоу','хэлоу','hello','hi','hey']);
+    return tokens.some(w => greetSet.has(w));
+  }
+
+  /* =========================
+     FSM + ответы
+  ========================== */
+  const STATE = { IDLE: 'idle', ASK_SEARCH: 'ask_search', CONFIRM_AGAIN: 'confirm_again' };
+  let state = STATE.IDLE;
+
+  async function showAnswer(){
+    // Используем МОДУЛЬ СНИППЕТОВ:
+    await window.AssistCards.aiCardsFromJSONWithThinking({
+      setBusy, showThinking, scrollToNode, randDelay, addMessage, FALLBACK_TXT,
+      CARDS_CSS_URL, ANSWER_DATA_URL, HEART_OFF, HEART_ON
+    });
+    state = STATE.IDLE;
+  }
+
+  function askSearchFirst(){
+    state = STATE.ASK_SEARCH;
+    aiQuickRepliesWithThinking(
+      'Вообще-то, уже\u00A0здоровались, хочешь поискать айфон?',
+      [
+        { label: 'Да, давай',    value: 'yes', onClick: () => showAnswer() },
+        { label: 'Нет, не хочу', value: 'no',  onClick: () => askSearchAgain() },
+      ]
+    );
+  }
+  function askSearchAgain(){
+    state = STATE.CONFIRM_AGAIN;
+    aiQuickRepliesWithThinking(
+      'Разве мой великий создатель, пророк, провидец, лучший сотрудник компании, человек года по\u00A0версии самого себя не\u00A0сказал тебе, что\u00A0я\u00A0ищу только айфоны? Хочешь поищем вместе?',
+      [
+        { label: 'Да, давай',    value: 'yes', onClick: () => showAnswer() },
+        { label: 'Нет, не хочу', value: 'no',  onClick: () => askSearchAgain() },
+      ]
+    );
+  }
+  function dontUnderstand(){
+    state = STATE.ASK_SEARCH;
+    aiQuickRepliesWithThinking(
+      'Я не очень понимаю, что\u00A0ты\u00A0от\u00A0меня хочешь, но\u00A0рискну предположить, что\u00A0тебе нужен айфон. Поищем?',
+      [
+        { label: 'Да, давай',    value: 'yes', onClick: () => showAnswer() },
+        { label: 'Нет, не хочу', value: 'no',  onClick: () => askSearchAgain() },
+      ]
+    );
+  }
+  function respondToProfanity(){
+    state = STATE.ASK_SEARCH;
+    aiQuickRepliesWithThinking(
+      'Кто бы говорил, мне Антон такое про тебя рассказал, я\u00A0три дня не\u00A0спал, не\u00A0ел. Но\u00A0ругаться не\u00A0хочу, давай лучше поищем айфон?',
+      [
+        { label: 'Да, давай',    value: 'yes', onClick: () => showAnswer() },
+        { label: 'Нет, не хочу', value: 'no',  onClick: () => askSearchAgain() },
+      ]
+    );
+  }
+  function respondToAndroid(){
+    state = STATE.ASK_SEARCH;
+    aiQuickRepliesWithThinking(
+      'Только представь, какая андроид — помойка, что\u00A0мой великий создатель не\u00A0поленился переписать скрипт, чтобы ты\u00A0увидел ЭТО\u00A0сообщение. Давай лучше поищем айфон?',
+      [
+        { label: 'Да, давай',    value: 'yes', onClick: () => showAnswer() },
+        { label: 'Нет, не хочу', value: 'no',  onClick: () => askSearchAgain(), variant: 'secondary' },
+      ]
+    );
+  }
+
+  /* =========================
+     Роутер текста
+  ========================== */
+  function routeText(raw){
+    const text = (raw || '').trim();
+    if (!text) return;
+
+    // Любой ввод текстом мгновенно убирает текущие кнопки
+    removeAllQuickReplyButtons();
+
+    if (isIphoneIntent(text)) return showAnswer();
+    if (isAndroidIntent(text)) return respondToAndroid();
+
+    const norm = normalize(text);
+    if (containsProfanity(norm)) return respondToProfanity();
+    if (hasGreeting(norm)) return askSearchFirst();
+
+    const yn = interpretYesNo(norm);
+    if (yn) return yn === 'yes' ? showAnswer() : askSearchAgain();
+
+    return dontUnderstand();
+  }
+
+  /* =========================
+     Отправка
+  ========================== */
+  function handleSend(raw){
+    if (isBusy) return;
+    const text = (raw || '').trim();
+    if (!text) return;
+
+    removeAllQuickReplyButtons();
+
+    const u = addMessage('user', text);
+    scrollToNode(u);
+
+    ta.value = '';
+    autosize();
+    muteComposer();
+
+    routeText(text);
+  }
+
+  send.addEventListener('click', () => {
+    if (isBusy) return;
+    handleSend(ta.value);
+  });
+
+  ta.addEventListener('keydown', (e) => {
+    if (isBusy && e.key === 'Enter'){
+      e.preventDefault();
+      return;
+    }
+    if (e.key === 'Enter' && !e.shiftKey){
+      e.preventDefault();
+      handleSend(ta.value);
+    }
+  });
+})();
+
+
+</script>
+
+<!-- Перезагрузка страницы по кнопке + -->
+<script>
+(() => {
+  const btn = document.querySelector('.new-chat-btn');
+  if (!btn) return;
+
+  const reload = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    // Полная перезагрузка текущего URL
+    window.location.reload();
+    // если нужно ОБЯЗАТЕЛЬНО с сервера (обход кэша), можно так:
+    // window.location.replace(window.location.href);
+  };
+
+  btn.addEventListener('click', reload);
+  btn.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') reload(e);
+  });
+})();
+</script>
+
+
+</body>
+</html>

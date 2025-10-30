@@ -35,69 +35,33 @@ input, button, select, textarea {
 }
 
 body {
-      background: #ffffff;
-      color: #0f1729;
-      padding: 32px 0 48px;
-      padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom));
-
+  background: #ffffff;
+  color: #0f1729;
+  padding: 32px 0 48px;
+  padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom));
 }
 
 * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Стили шрифтов */
-.m20 {
-    font-weight: 500;              /* Medium */
-    font-style: normal;
-    font-display: swap;
-    font-size: 15px;
-    line-height: 20px;
-
-}
-
-.h3 {
-    font-weight: 800;              /* Medium */
-    font-style: normal;
-    font-display: swap;
-    font-size: 21px;
-    line-height: 26px;
-}
-    
-.h4 {
-    font-weight: 800;              /* Medium */
-    font-style: normal;
-    font-display: swap;
-    font-size: 18px;
-    line-height: 22px;
-
-}
-
-.s10 {
-    font-weight: 500;              /* Medium */
-    font-style: normal;
-    font-display: swap;
-    font-size: 13px;
-    line-height: 18px;
-}
-
-.s20 {
-    font-weight: 500;              /* Medium */
-    font-style: normal;
-    font-display: swap;
-    font-size: 13px;
-    line-height: 16px;
-}
+.m20 { font-weight: 500; font-style: normal; font-display: swap; font-size: 15px; line-height: 20px; }
+h3, .h3 { font-weight: 800; font-style: normal; font-display: swap; font-size: 21px; line-height: 26px; }
+h4, .h4 { font-weight: 800; font-style: normal; font-display: swap; font-size: 18px; line-height: 22px; }
+.s10 { font-weight: 500; font-style: normal; font-display: swap; font-size: 13px; line-height: 18px; }
+.s20 { font-weight: 500; font-style: normal; font-display: swap; font-size: 13px; line-height: 16px; }
+.xs  { font-weight: 500; font-style: normal; font-display: swap; font-size: 11px; line-height: 14px; }
     
 /* Сниппеты */
-
 .cards{ 
-    display:grid; 
-    grid-template-columns:repeat(2,minmax(0,1fr)); 
-    gap:10px; 
-    padding:0 10px; 
+  display:grid; 
+  grid-template-columns:repeat(2,minmax(0,1fr)); 
+  gap:10px; 
+  padding:0 10px 60px; 
 }
 
 .card{
@@ -107,8 +71,8 @@ body {
 }
 
 .card-content{ 
-   position: relative;
-  z-index: 1;             /* ← ниже */
+  position: relative;
+  z-index: 1;
   padding: 10px 6px;
   display:flex;
   flex-direction:column;
@@ -118,15 +82,15 @@ body {
 
 /* строка заголовка */
 .title-row{
-  position: relative;      /* чтобы сердце позиционировалось внутри */
-  display: block;          /* нам не нужно выравнивание по высоте */
-  padding-right:30px;     /* резерв под сердце, чтобы текст не налезал */
+  position: relative;      /* якорь для расположения сердца */
+  display: block;
+  padding-right:30px;      /* резерв под сердце, чтобы текст не налезал */
 }
 
 /* кнопка избранного: фиксируем в правом верхнем углу строки */
 .title-row .heart{
   position: absolute;
-  top: -3px;                  /* всегда прижато к верху строки */
+  top: -3px;
   right: -3px;
   width: 28px;
   height: 28px;
@@ -136,7 +100,7 @@ body {
   border: 0;
   padding: 0;
   cursor: pointer;
-  overflow: visible;       /* для анимации конфетти */
+  overflow: visible;
 }
 
 /* сама иконка внутри кнопки */
@@ -146,21 +110,17 @@ body {
   display: block;
 }
 
-.price {
-    text-decoration:none;
-} 
+.price { text-decoration:none; } 
 
 .price-row{
   display: flex;
   flex-direction: column;  /* цена сверху, ниже — пара */
-  min-width: 0;            /* чтобы не распирало контейнер */
+  min-width: 0;
 }
 
-.price, .price-old{ 
-    text-decoration: none; 
-}
+.price, .price-old{ text-decoration: none; }
 
-/* Твой красивый свип остаётся */
+/* зачёркнутая старая цена */
 .price-old{
   position: relative;
   display: inline-block;
@@ -188,8 +148,8 @@ body {
 }
 
 .discount{
-    color:#F71B47;
-    white-space: nowrap; /* чтобы -20% точно не переносилось само по себе */
+  color:#F71B47;
+  white-space: nowrap;
 }
 
 /* ====== ГАЛЕРЕЯ ====== */
@@ -205,7 +165,7 @@ body {
   position: relative;
   width: 100%;
   aspect-ratio: 1/1;
-  overflow: hidden;           /* ← клип тут */
+  overflow: hidden;
   border-radius: 16px;
   touch-action: pan-y;
   overscroll-behavior: contain;
@@ -217,14 +177,14 @@ body {
   display: flex;
   width: 100%;
   height: 100%;
-  overflow: visible;          /* ← убрать/заменить на visible */
+  overflow: visible;
   will-change: transform;
   transition: transform 320ms ease;
 }
 
 /* каждый слайд = ширина контейнера */
 .image-slide{
-  flex: 0 0 100%;             /* ← вместо min-width:100% */
+  flex: 0 0 100%;
   height: 100%;
   position: relative;
   background-position: center;
@@ -273,12 +233,12 @@ body {
 .image-host .ribbon{
   position: absolute;
   left: -3px;
-  bottom: -6px;                  /* свисает вниз */
-  z-index: 4;                    /* выше точек при желании можно поставить 5 */
-  pointer-events: none;          /* не мешает свайпу */
+  bottom: -6px;
+  z-index: 4;
+  pointer-events: none;
 }
 
-/* конструкция бейджа (как была) */
+/* конструкция бейджа */
 .ribbon{ --ribbon:#30c977; --h:28px; --cap:24px;
   display: inline-flex; 
   align-items: center; 
@@ -290,7 +250,7 @@ body {
   background: var(--ribbon);
   height: 100%;
   display: inline-flex; align-items: center;
-  padding: 0 1px;                /* чуть шире для читабельности */
+  padding: 0 1px;
 }
 .ribbon__cap{
   width: var(--cap); height: 100%;
@@ -316,55 +276,27 @@ body {
   100% { transform: scale(1); }
 }
 
-/* слой частиц размещаем относительно сердечка */
+/* базовые стили кнопки сердца (без позиционирования — его задаём в .title-row .heart) */
 .heart{
-  position: relative;
   overflow: visible;
-  width: 32px; height: 32px;
-  background-color: red;
-  display: grid; place-items: center;
+  width: 32px; 
+  height: 32px;
+  display: grid; 
+  place-items: center;
   cursor: pointer;
-  background:none;
-  border:none;
-  padding: 0;                 /* важно для button */
+  background: none;
+  border: none;
+  padding: 0;
 }
+
 /* сам svg-икон */
 .heart img{ 
-    width: 22px; 
-    height: 22px; 
-    display:block; 
+  width: 22px; 
+  height: 22px; 
+  display:block; 
 }  
 
-/* контейнер с частицами */
-.particles {
-  position: absolute;
-  inset: 0;       /* совпадает с кнопкой, но частицы выходят наружу */
-  pointer-events: none;
-}
-
-/* отдельная частица */
-.particle {
-  position: absolute;
-  left: 50%; top: 50%;
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--c, #ff6b6b);
-  transform: translate(-50%, -50%);
-  animation: burst 620ms cubic-bezier(.21,.75,.3,1) forwards;
-  will-change: transform, opacity;
-}
-
-/* траектория разлёта (смещения задаём из JS переменными --dx/--dy) */
-@keyframes burst {
-  0%   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-  100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(.65); }
-}
-
-/* уважение к reduce-motion */
-@media (prefers-reduced-motion: reduce) {
-  .heart.animating { animation: none; }
-  .particle { animation: none; opacity: 0; }
-}
+/* --- УДАЛЕНО: .particles, .particle, @keyframes burst (не нужны с общим модулем конфетти) --- */
 
 
 /*ТАББАР*/
@@ -388,39 +320,35 @@ body {
   width:30px; height:30px; flex:0 0 30px;
   border:0; border-radius:6px; cursor:pointer;
   background: no-repeat center / contain;
-  background-image: var(--icon);           /* неактивные рисуются как картинка */
+  background-image: var(--icon);
 }
 
 /* активная: красим через mask */
 .tabbar__btn.is-active{
-  background-image: none;                  /* убираем фон-картинку */
-  background-color: var(--active-color);   /* зальём нужным цветом */
+  background-image: none;
+  background-color: var(--active-color);
   -webkit-mask: var(--icon) no-repeat center / contain;
           mask: var(--icon) no-repeat center / contain;
   filter: none;
 }
 
-
-/* назначаем svg каждой кнопке (одна строка на кнопку) */
+/* назначаем svg каждой кнопке */
 .tabbar__btn.home      { --icon: url("./res/tabbar_home.svg"); }
 .tabbar__btn.favorites { --icon: url("./res/tabbar_favourites.svg"); }
 .tabbar__btn.wallet    { --icon: url("./res/tabbar_wallet.svg"); }
 .tabbar__btn.messenger { --icon: url("./res/tabbar_message.svg"); }
 .tabbar__btn.assistent { --icon: url("./res/tabbar_assistent.svg"); }
-/* brand уже выше */
-
 
 /* убираем рамку у кнопок в таббаре */
 .tabbar__btn{
-  -webkit-tap-highlight-color: transparent; /* iOS/Android: убирает синий “флэш” */
-  outline: none;                             /* базово – без outline */
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
 }
 
 /* на всякий */
 .tabbar__btn:focus{ outline: none; box-shadow: none; }
-.tabbar__btn:focus-visible{ outline: none; box-shadow: none; } /* убери наш кастомный */
-.tabbar__btn::-moz-focus-inner{ border: 0; } /* Firefox */
-
+.tabbar__btn:focus-visible{ outline: none; box-shadow: none; }
+.tabbar__btn::-moz-focus-inner{ border: 0; }
 
 /*ПЛАВАЮЩИЕ КНОПКИ*/
 
@@ -433,12 +361,9 @@ body {
   display: flex;
   justify-content: center;
   gap: 6px;
-
-  /* под таббаром 1000 — так кнопки уедут ПОД него */
   z-index: 950;
-
   transition: transform .32s ease, opacity .2s ease;
-  pointer-events: none;          /* клики только по самим кнопкам */
+  pointer-events: none;
 }
 
 /* Состояние: «уплыли под таббар» */
@@ -453,16 +378,13 @@ body {
   border: 0;
   border-radius: 999px;
   cursor: pointer;
-  /* убрать синий хайлайт на iOS/Android */
   -webkit-tap-highlight-color: transparent;
-
-  /* не выделять текст при тапе */
   user-select: none;
 }
 
 .cta--primary{
-  color: #fff;
-  background: #000;
+  color: #000;
+  background: #fff;
   height: 44px;
   width: 44px;
   display:inline-flex;
@@ -475,20 +397,27 @@ body {
   -webkit-tap-highlight-color:transparent;
   user-select:none;
   box-sizing:border-box;
-}
-
-.cta--ghost{
-  color: #1f2535;
-  background: #fff;
-  padding: 0 20px;
   box-shadow: 0 4px 30px 0px rgba(0, 0, 0, 0.12);
 }
 
-.cta__icon_add {
-    width:18px; 
-    height:18px;
-    flex:0 0 18px;
-    background: url("./res/icon_floating_add.svg") center / contain no-repeat;
+.cta__icon_add{
+  --icon: url("./res/icon_floating_add.svg");
+  width:20px; height:20px; flex:0 0 20px;
+
+  /* заливаем нужным цветом */
+  background-color: #000;          /* меняешь тут */
+
+  /* используем SVG как маску */
+  -webkit-mask: var(--icon) center / contain no-repeat;
+          mask: var(--icon) center / contain no-repeat;
+
+}
+
+.cta--ghost{
+  color: #000;
+  background: #fff;
+  padding: 0 20px;
+  box-shadow: 0 4px 30px 0px rgba(0, 0, 0, 0.12);
 }
 
 /* полностью отключаем любые визуальные состояния */
@@ -497,26 +426,25 @@ body {
 .cta:focus,
 .cta:focus-visible{
   outline: none;
-  box-shadow: inherit;   /* не менять тень */
-  transform: none;       /* не сдвигать кнопку */
+  box-shadow: inherit;
+  transform: none;
 }
-
 
 /*ПОИСК*/
 
 .search-layer{
   /* настраиваемые переменные */
-  --bw: 0.5px;                                /* толщина рамки */
-  --angle: 108deg;                           /* наклон раздела рамки */
-  --border-light: rgba(244, 234, 255, 1);      /* низ+лево */
-  --border-dark:  rgba(215, 187, 225, 1);            /* верх+право */
+  --bw: 0.5px;
+  --angle: 108deg;
+  --border-light: rgba(244, 234, 255, 1);
+  --border-dark:  rgba(215, 187, 225, 1);
   --feather: 100deg;
 
   position: relative;
   height: 132px;
   margin: 16px 10px;
   border-radius: 22px;
-  border: var(--bw) solid transparent;       /* создаём область бордера */
+  border: var(--bw) solid transparent;
 
   /* 2 слоя: 1) фон карточки, 2) собственно рамка */
   background:
@@ -525,14 +453,12 @@ body {
                    var(--border-light) 0 180deg,
                    var(--border-dark)  0 360deg) border-box;
 
-  /* тень */
   box-shadow: 0 0 40px 10px rgba(150,94,235,0.4);
 
-  /* размещение контента */
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  padding: 6px;        /* отступ сверху под инпут */
+  padding: 6px;
   gap: 12px;
 }
 
@@ -540,7 +466,7 @@ body {
 .search-layer::before,
 .search-layer::after{ content:none !important; }
 
-/* строка поиска как была, тянется на всю ширину */
+/* строка поиска */
 .search-layer .search{ width: 100%; }
 
 .search{
@@ -551,23 +477,23 @@ body {
   border-radius:16px; 
   padding:0 16px;
   color:#1f2535; 
-  margin:0; /* без внешних отступов */
+  margin:0;
 }
 
 .search-row{
   display:flex;
   align-items:center;
-  gap:6px;                 /* отступ между кругом и поиском */
+  gap:6px;
 }
 
 /* круг 50×50 слева */
 .search-badge{
-  position: relative;          /* для центрирования псевдо-элемента */
+  position: relative;
   width:52px;
   height:52px;
   flex:0 0 52px;
   border-radius:16px;
-  background:#fff;         /* белая заливка */
+  background:#fff;
 }
 
 /* внутренняя иконка 46×46 по центру */
@@ -578,14 +504,14 @@ body {
   width: 50px; height: 50px;
   transform: translate(-50%, -50%);
   background: url("./res/ava_search.png") center / contain no-repeat;
-  pointer-events: none;        /* декоративная, не перехватывает клики */
-    border-radius:16px;
+  pointer-events: none;
+  border-radius:16px;
 }
 
-/* чтобы поиск занимал оставшееся место в ряду */
+/* поиск занимает остаток ряда */
 .search-row .search{ 
   flex:1 1 auto; 
-  width: auto;             /* переопределяем, если раньше был width:100% */
+  width: auto;
 }
 
 .search-icon{
@@ -612,21 +538,21 @@ body {
   flex-direction: column;
   gap: 0px;
   color: #000;
-  pointer-events: none;       /* ок — не мешает кликам по инпуту */
+  pointer-events: none;
   margin: 0 14px;
 }
 
-/* сам заголовок + стрелка */
+/* заголовок + стрелка */
 .search-caption .h3{
-  display: inline-flex;       /* чтобы текст и стрелка были в одной строке */
+  display: inline-flex;
   align-items: center;
-  gap: 3px;                   /* расстояние между текстом и стрелкой */
-  pointer-events: auto;       /* если заголовок должен кликаться — снимай запрет */
+  gap: 3px;
+  pointer-events: auto;
 }
 
 .search-caption .h3::after{
   content: "";
-  display: inline-block;      /* ВАЖНО: чтобы заработали width/height */
+  display: inline-block;
   width: 13px;
   height: 26px;
   background: url("./res/arrow_hero_banner.svg") center / contain no-repeat;
@@ -638,30 +564,27 @@ body {
   transform: translate(2px, 0px);
 }
 
-
 /* «картинка» в правом нижнем углу */
 .search-hero{
   position:absolute; right:0px; bottom:0.5px;
-  width:110px; height:68px;           /* подгоняй размеры */
+  width:110px; height:68px;
   background: url("./main_banner_res/main_banner.png") center / contain no-repeat;
   pointer-events:none;
   border: 1px solod red;
   border-radius: 0px 0px 22px 0px;
 }
 
-
 .filter-icon {
-      width: 24px;
-      height: 24px;
-      background: url("./res/icon_filter.svg") center / contain no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
+  width: 24px;
+  height: 24px;
+  background: url("./res/icon_filter.svg") center / contain no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
-
-/* === ЛИПКИЙ ПОИСК: слайд вниз/вверх без фейда === */
+/* === ЛИПКИЙ ПОИСК === */
 .search-sticky{
   position: fixed;
   left: 0;
@@ -673,24 +596,21 @@ body {
   padding:10px;
   border-radius: 0;
 
-  /* спрятан за верхним краем (полностью) */
   transform: translateY(-120%);
-  /* без фейда */
   opacity: 1;
-  /* клики не проходят, пока скрыт */
   pointer-events: none;
 
   transition: transform .28s cubic-bezier(.22,.7,.23,1);
   will-change: transform;
 }
 
-/* Показать (приехал вниз) */
+/* Показать */
 .search-sticky.is-on{
   transform: translateY(0);
-  pointer-events: auto;   /* снова кликабелен */
+  pointer-events: auto;
 }
 
-/* внутрянка как раньше */
+/* внутрянка */
 .search-sticky .search{
   background:#F2F1F0;
   border-radius:16px;
@@ -709,97 +629,94 @@ body {
   .search-sticky{ transition:none; }
 }
 
-
-
 /*РУБРИКАТОР*/
-
 .tabs {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin: 24px 10px 24px;
-    }
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 24px 10px 24px;
+}
 
 .tab-row {
-    display: grid;
-    gap: 6px;
+  display: grid;
+  gap: 6px;
 }
 
 .tab-row.first {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .tab-row.second {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .tab {
-    background-color: #f3f4f6;
-    border-radius: 16px;
-    text-align: left;
-    height: 78px;
-    display: flex;
-    cursor: pointer;
-    padding: 10px 0px 0px 12px;
+  background-color: #f3f4f6;
+  border-radius: 16px;
+  text-align: left;
+  height: 78px;
+  display: flex;
+  cursor: pointer;
+  padding: 10px 0px 0px 12px;
 }
 
 .goods {
-    background-image: url("./rubrukator_res/goods.png");
-    background-repeat: no-repeat;
-    background-position: right bottom;
-    background-size: contain;
+  background-image: url("./rubrukator_res/goods.png");
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  background-size: contain;
 }
 
 .realty {
-    background-image: url("./rubrukator_res/realty.png");
-    background-repeat: no-repeat;
-    background-position: right bottom;
-    background-size: contain;
+  background-image: url("./rubrukator_res/realty.png");
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  background-size: contain;
 }
   
 .travel {
-    background-image: url("./rubrukator_res/travel.png");
-    background-repeat: no-repeat;
-    background-position: right bottom;
-    background-size: contain;
+  background-image: url("./rubrukator_res/travel.png");
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  background-size: contain;
 }
 
 .auto {
-    background-image: url("./rubrukator_res/auto.png");
-    background-repeat: no-repeat;
-    background-position: right bottom;
-    background-size: contain;
+  background-image: url("./rubrukator_res/auto.png");
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  background-size: contain;
 }
 
 .service {
-    background-image: url("./rubrukator_res/service.png");
-    background-repeat: no-repeat;
-    background-position: right bottom;
-    background-size: contain;
+  background-image: url("./rubrukator_res/service.png");
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  background-size: contain;
 }
 
 .job {
-    background-image: url("./rubrukator_res/job.png");
-    background-repeat: no-repeat;
-    background-position: right bottom;
-    background-size: contain;
+  background-image: url("./rubrukator_res/job.png");
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  background-size: contain;
 }
 
 .all {
-    background-image: url("./rubrukator_res/all.png");
-    background-repeat: no-repeat;
-    background-position: right bottom;
-    background-size: contain;
+  background-image: url("./rubrukator_res/all.png");
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  background-size: contain;
 }
 
-
+/* ПРОМО */
 .promo {
- height:128px;
+  height:128px;
   background: linear-gradient(to right, #56A1D9 0%, #4598D6 100%);
   border-radius:16px;
   padding:16px;
   margin:0 10px 24px;
-  position:relative;   /* якорь для абсолютных элементов */
+  position:relative;
   overflow:hidden;
 }
 
@@ -807,48 +724,45 @@ body {
   position:absolute;
   right:0;
   bottom:0;
-  width:171px;            /* можно % от ширины .promo */
+  width:171px;
   height: 128px;
   background: url("./promo_res/img_right.png") no-repeat right bottom / contain;
-  pointer-events:none;  /* чтобы не мешал кликам по тегу */
+  pointer-events:none;
 }
 
 .img-left {
   position:absolute;
   left:0;
   bottom:0;
-  width:354px;            /* можно % от ширины .promo */
+  width:354px;
   height: 128px;
   background: url("./promo_res/img_left.png") no-repeat left bottom / contain;
-  pointer-events:none;  /* чтобы не мешал кликам по тегу */
+  pointer-events:none;
 }
 
-
-
 .promo .tag {
-   position: absolute;
+  position: absolute;
   top: 10px;
   right: 10px;
-
-  /* размер по контенту */
-  display: inline-flex;                     /* или inline-block */
+  display: inline-flex;
   align-items: center;
   height: 17px;
   padding: 0 6px;
-  width: auto;                              /* <= вместо weight / 100% */
-  max-width: calc(100% - 20px);             /* чтобы не уезжал за края */
-  white-space: nowrap;                      /* в одну строку */
-
+  width: auto;
+  max-width: calc(100% - 20px);
+  white-space: nowrap;
   color: #fff;
   font-size: 9px;
   font-weight: 300;
   line-height: 17px;
   border-radius: 100px;
-
-  background: rgba(255,255,255,0.10);       /* полупрозрачный фон для blur */
+  background: rgba(255,255,255,0.10);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   z-index: 1;
 }
 
-
+.promo .tag .tag__label{
+  display: block;
+  transform: translateY(-1px);  /* поднимаем текст на 1px */
+}

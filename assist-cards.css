@@ -1,0 +1,376 @@
+/* ===============================
+   СНИППЕТЫ (ASSISTANT CARDS)
+   Независимый набор стилей
+================================ */
+
+/* Шрифтовые утилиты */
+.m20 { font-weight: 500; font-style: normal; font-display: swap; font-size: 15px; line-height: 20px; }
+h3, .h3 { font-weight: 800; font-style: normal; font-display: swap; font-size: 21px; line-height: 26px; }
+h4, .h4 { font-weight: 800; font-style: normal; font-display: swap; font-size: 18px; line-height: 22px; }
+.s10 { font-weight: 500; font-style: normal; font-display: swap; font-size: 13px; line-height: 18px; }
+.s20 { font-weight: 500; font-style: normal; font-display: swap; font-size: 13px; line-height: 16px; }
+.xs  { font-weight: 500; font-style: normal; font-display: swap; font-size: 11px; line-height: 14px; }
+
+/* Хост теневого DOM */
+:host{
+  display:block;
+  width:100%;
+  --assist-col-min: 180px;
+  --assist-gap: 10px;
+}
+
+/* Заголовок и сетка */
+.assist-cards-hdr{ 
+  margin:0 0 20px; 
+  min-width: 0;
+}
+.assist-cards-grid{
+  grid-template-columns: repeat(auto-fit, minmax(var(--assist-col-min), 1fr));
+  gap: var(--assist-gap);
+}
+@media (max-width: 480px){
+  .assist-cards-grid{ grid-template-columns: 1fr; }
+}
+
+/* Карточка с «рамкой под контентом» */
+.assist-card{
+  --card-br: 16px;
+  --card-bw: 1.5px;
+  position: relative;
+  border-radius: var(--card-br);
+  overflow: visible;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  z-index: 0;
+}
+.assist-card::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 var(--card-bw) #EBEBEB;
+  z-index: 0;
+  pointer-events: none;
+}
+
+
+/* ===== Summary (блок под сниппетами) ===== */
+.assist-summary {
+  margin-top: 12px;
+  padding: 12px 4px 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #1f2535;
+}
+
+.assist-summary-text {
+
+}
+
+/* Ссылка с иконкой */
+.assist-summary-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  cursor: pointer;
+  color:#000;
+}
+
+/* любая иконка из res, например стрелка */
+.assist-summary-link::after {
+  content: "";
+  width: 10px;
+  height: 20px;
+  background: url("./res/icon_arrow_assistant.svg") center / contain no-repeat;
+  display: inline-block;
+  flex: 0 0 10px;
+}
+
+
+
+/* ===== Галерея ===== */
+.assist-image-host{
+  position:relative;
+  overflow:visible;
+}
+.assist-image{
+  position:relative;
+  width:100%;
+  min-width: 0;
+  height:176px;
+  overflow:hidden;
+  border-radius:16px 16px 0 0;
+  background: none;
+  user-select:none;
+  touch-action:auto;
+  overscroll-behavior:contain;
+  z-index: 1;           /* поверх псевдо-рамки карточки */
+  background-color: #fff;
+}
+.assist-image-rail{
+  display:flex;
+  align-items:center;
+  height:100%;
+  gap:2px;
+}
+.assist-image.assist-image--scroll{
+  overflow-x:auto;
+  overflow-y:hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.assist-image.assist-image--scroll::-webkit-scrollbar{
+  width: 0; height: 0; background: transparent;
+}
+.assist-image.assist-image--scroll .assist-image-rail{
+  width: max-content;
+}
+.assist-image.assist-image--scroll .assist-image-slide{
+  flex: 0 0 auto;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  scroll-snap-align: start;
+}
+.assist-image.assist-image--scroll .assist-image-slide > img,
+.assist-image.assist-image--scroll .assist-image-slide > video{
+  height:100%;
+  width:auto;
+  object-fit:cover;
+  object-position:center;
+  display:block;
+  border:0;
+  position: relative;
+  z-index: 1;
+}
+.assist-image.assist-image--single{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.assist-image.assist-image--single .assist-image-rail{
+  width:100%;
+  justify-content:center;
+}
+.assist-image.assist-image--single .assist-image-slide{
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.assist-image.assist-image--single .assist-image-slide > img,
+.assist-image.assist-image--single .assist-image-slide > video{
+  max-height:100%;
+  max-width:100%;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  object-position:center;
+  display:block;
+  border:0;
+}
+.assist-image-slide{
+  position:relative;
+  background-position:center;
+  background-size:cover;
+}
+
+/* ===== Группа бейджей (несколько рядом) ===== */
+.ribbon-assist-group{
+  position:absolute;
+  left: 6px;
+  bottom: -6px;
+  z-index:4;
+  display:flex;
+  gap: -20px;          /* расстояние между бейджами */
+  flex-wrap: nowrap;
+  pointer-events:none;
+}
+
+/* Отдельный бейдж */
+.ribbon-assist{
+  /* переменные экземпляра задаются из JS */
+  --ribbon:#30c977;
+  --h:28px;
+  --cap:24px;
+  /* пути к хвостикам задаются per-badge */
+  --cap-left-url: url("./res/left_bage_flag.svg");
+  --cap-right-url: url("./res/right_bage_flag.svg");
+
+  display:inline-flex;
+  align-items:center;
+  height:var(--h);
+  color:#fff;
+  position: relative;
+  z-index: 1;             /* базовый слой */
+}
+
+/* Накладываем следующие бейджи поверх предыдущих */
+.ribbon-assist + .ribbon-assist{
+  margin-left: -14px;     /* степень «захода» (подбери: -6…-14px) */
+  z-index: 2;             /* чтобы второй был сверху */
+}
+
+.ribbon-assist__body{
+  background: var(--ribbon);
+  height: 100%;
+  display: inline-flex; align-items: center;
+  padding: 0 1px;
+}
+.ribbon-assist__cap{
+  width:var(--cap); height:100%;
+  background-color:var(--ribbon);
+  flex:0 0 var(--cap);
+}
+/* Хвостики берутся из переменных, можно менять для каждого бейджа */
+.ribbon-assist__cap--left{
+  -webkit-mask: var(--cap-left-url) no-repeat center/100% 100%;
+          mask: var(--cap-left-url) no-repeat center/100% 100%;
+  margin-right:-6px;
+}
+.ribbon-assist__cap--right{
+  -webkit-mask: var(--cap-right-url) no-repeat center/100% 100%;
+          mask: var(--cap-right-url) no-repeat center/100% 100%;
+  margin-left:-6px;
+}
+
+/* ===== Контент карточки ===== */
+.assist-card-content{
+ position: relative;     
+  z-index: 1;
+  padding: 15px 16px 16px;
+  display: flex;
+  flex-direction: column;
+}
+.assist-title-row{
+  position:static;
+  display:block;
+  padding-right:0px;
+  margin-top: 2px;
+}
+.assist-price-row{
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+.assist-old-line{
+  display:flex;
+  align-items:baseline;
+  gap:6px;
+  flex-wrap:nowrap;
+  white-space:nowrap;
+}
+.assist-price-old{
+  position: relative;
+  display: inline-block;
+  line-height: 1;
+  text-decoration:none; 
+}
+.assist-price,
+.assist-price-old,
+.assist-discount{
+  white-space: nowrap;
+}
+.assist-price-old::after{
+  content:"";
+  position:absolute;
+  left:0; right:0;
+  top:50%;
+  transform: translateY(-50%);
+  height:0.55em;
+  pointer-events:none;
+  background:url("./res/price_old.svg") no-repeat left 50% / 100% 100%;
+}
+.assist-discount{ 
+  color:#F71B47; 
+  white-space:nowrap; 
+}
+.assist-card-meta{ display:flex; gap:8px; }
+
+/* ===== Рейтинг (иконка + число) ===== */
+.assist-card-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;                     /* расстояние между иконкой и цифрой */
+}
+
+.assist-rating-icon {
+  width: 16px;
+  height: 20px;
+  flex: 0 0 16px;
+  background: url("./res/icon_snippet_rating.svg") center / contain no-repeat;
+  display: inline-block;
+}
+
+/* Строки GEO и META — иконка + текст в одну линию */
+.assist-card-geo,
+.assist-card-meta{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;            
+}
+
+/* Иконки через background (простой способ) */
+.assist-geo-icon,
+.assist-meta-icon{
+  width: 16px;
+  height: 20px;
+  flex: 0 0 16px;
+  display: inline-block;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+/* Подключаем конкретные SVG */
+.assist-geo-icon  { background-image: url("./res/icon_snippet_shipping.svg");  }
+.assist-meta-icon { background-image: url("./res/icon_snippet_shipping.svg"); }
+
+
+
+.assist-card-subtitle,
+.assist-card-rating,
+.assist-card-meta,
+.assist-card-geo {
+  margin-top: 1px;
+}
+
+/* ===== Избранное (сердце) ===== */
+/* 3) Сердце — прибито к правому верхнему углу контентной части */
+.assist-heart{
+  position: absolute;
+  top: 10px;               /* 10 px от верхнего края контентной части */
+  right: 10px;             /* 10 px от правого края контентной части */
+  width: 28px; 
+  height: 28px;
+  display: grid; 
+  place-items: center;
+  background: none; 
+  border: 0; 
+  padding: 0;
+  cursor: pointer;
+  overflow: visible;
+  z-index: 5;              /* поверх текста внутри контента */
+}
+
+.assist-heart img{ width:22px; height:22px; display:block; }
+.assist-heart.animating{ animation:assist-heart-pop 300ms ease; }
+@keyframes assist-heart-pop{
+  0%{ transform:scale(1); }
+  40%{ transform:scale(1.28); }
+  100%{ transform:scale(1); }
+}
+@media (prefers-reduced-motion: reduce){
+  .assist-heart.animating{ animation:none; }
+}
+

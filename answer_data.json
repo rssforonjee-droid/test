@@ -1,0 +1,56 @@
+[
+  {
+    "title": "iPhone 17 Pro Max, 256 ГБ, SIM + eSIM",
+    "price": "125 000 ₽",
+    "oldPrice": "150 000 ₽",
+    "discount": "–20%",
+    "subtitle": "Мощный, стильный и\u00A0быстрый, идеально подойдёт для\u00A0работы и\u00A0развлечений. Состояние — идеальное, без\u00A0следов использования.",
+    "rating": "4.8 · 987 отзывов",
+    "meta": "3—7 дней",
+    "images": [
+      "img_assistant/1_video.mp4",
+      "img_assistant/1.png",
+      "img_assistant/1_2.png",
+      "img_assistant/1_3.jpg"
+    ]
+  },
+  {
+    "title": "iPhone 17 Pro Max, 256 ГБ, eSIM",
+    "price": "118 900 ₽",
+    "subtitle": "Современный, элегантный и\u00A0надёжный. Работает безупречно, выглядит как\u00A0новый\u00A0— без\u00A0царапин и\u00A0потёртостей.",
+    "rating": "4.6 · 1 120 отзывов",
+    "meta": "от 2 дней",
+    "badges": [
+      {
+        "text": "Хорошая цена",
+        "color": "#02D15C",
+        "capLeft": "./res/left_bage_flag.svg",
+        "capRight": "./res/right_bage_flag.svg"
+      },
+      {
+        "text": "Скидка на доставку",
+        "color": "#965EEB",
+        "capLeft": "./res/left_bage_curv.svg",
+        "capRight": "./res/right_bage_flag.svg"
+      }
+    ],
+    "images": [
+      "img_assistant/2.jpeg",
+      "img_assistant/2_2.jpeg",
+      "img_assistant/2_3.png",
+      "img_assistant/2_4.png",
+      "img_assistant/2_5.png"
+    ]
+  },
+  {
+    "title": "iPhone 17 Pro Max, 512 ГБ",
+    "price": "155 800 ₽",
+    "oldPrice": "179 800 ₽",
+    "discount": "–15%",
+    "rating": "4.7 · 5 480 отзывов",
+    "meta": "1—7 дней",
+    "badge": "Распродажа",
+    "badgeColor": "#FF2D4B",
+    "images": ["img_assistant/3.jpg"]
+  }
+]
