@@ -325,7 +325,7 @@ p{ margin:4px 0 10px; color:#1c2432; }
   right:14px; bottom:14px; z-index:1;
   width:24px; height:24px;
   border-radius:50%;
-  background-color:#000;
+  background-color:red;
   background-image:url("./res/icon_send_arrow_btn.svg");
   background-position: 50% calc(50% - 1px); /* иконка на 2px выше центра */
   background-repeat:no-repeat;
