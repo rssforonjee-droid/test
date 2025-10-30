@@ -8,13 +8,8 @@
   <!-- Стили -->
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="assistant.css">
-
-  <!-- Небольшие улучшатели -->
-  <style>
-    /* анти-прыжок скролла у низа */
-    .chat{ overflow-anchor:none; }
-    .chat .anchor{ overflow-anchor:auto; height:1px; }
-  </style>
+  <!-- Новые правки вынесены сюда -->
+  <link rel="stylesheet" href="chat-fixes.css">
 </head>
 <body>
 
@@ -62,27 +57,18 @@
    assistant-core.js (с правками)
 ========================= */
 (() => {
-  /* =========================
-     Константы/настройки
-  ========================== */
   const CARDS_CSS_URL    = 'assist-cards.css';
   const ANSWER_DATA_URL  = 'answer_data.json';
   const FALLBACK_TXT     = 'Готово! Вот подготовленный ответ ассистента.';
   const HEART_OFF        = './res/heart_snippet.svg';
   const HEART_ON         = './res/heart_snippet_full.svg';
 
-  /* =========================
-     Узлы
-  ========================== */
   const chat     = document.getElementById('chat');
   const ta       = document.querySelector('.msg-input__field');
   const send     = document.querySelector('.msg-input__send');
   const composer = document.querySelector('.composer');
   if (!chat || !ta || !send || !composer) return;
 
-  /* =========================
-     Флаг занятости
-  ========================== */
   let isBusy = false;
   function setBusy(v){
     isBusy = v;
@@ -90,9 +76,7 @@
     send.setAttribute('aria-disabled', v ? 'true' : 'false');
   }
 
-  /* =========================
-     Batch-скролл (гасим «прыжок» интро)
-  ========================== */
+  /* ===== Batch-скролл (убираем «прыжок» интро) ===== */
   let scrollBatchDepth = 0;
   function beginScrollBatch(el){
     if (scrollBatchDepth++ === 0) {
@@ -110,7 +94,6 @@
     return el.scrollHeight - el.scrollTop - el.clientHeight < threshold;
   }
   function scrollToBottomSafe(){
-    // ждём перерисовку и перерасчёт offset'a композера
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         chat.scrollTop = chat.scrollHeight;
@@ -119,15 +102,12 @@
   }
   function scrollToNode(node){
     if (!node) return;
-    // скроллим только если пользователь «у низа»
     if (isNearBottom(chat)) {
       node.scrollIntoView({ behavior: 'auto', block: 'nearest', inline: 'nearest' });
     }
   }
 
-  /* =========================
-     Мьют/анмьют композера
-  ========================== */
+  /* ===== Мьют/анмьют композера ===== */
   function muteComposer(){
     ta.classList.add('is-muted');
     ta.blur();
@@ -137,9 +117,7 @@
     ta.classList.remove('is-muted');
   }
 
-  /* =========================
-     1vh + клавиатура (iOS/мобилки)
-  ========================== */
+  /* ===== 1vh + клавиатура ===== */
   function setVh(){
     const vv = window.visualViewport;
     const px = vv ? vv.height * 0.01 : window.innerHeight * 0.01;
@@ -152,23 +130,23 @@
     visualViewport.addEventListener('scroll', setVh);
   }
 
-  /* =========================
-     Подъём только композера
-     (фикс последнего сообщения и белой щели)
-  ========================== */
+  /* ===== Поднимаем ТОЛЬКО композер и держим последнее сообщение видимым ===== */
   function syncComposerOffset(){
     if (!window.visualViewport) return;
     const vv = visualViewport;
     const overlap = Math.max(0, (window.innerHeight - vv.height - vv.offsetTop));
 
-    // Поднимаем ТОЛЬКО композер
+    // поднимаем композер
     composer.style.transform = `translateY(${-overlap}px)`;
 
-    // Реальная высота композера (с паддингами)
+    // реальная высота композера
     const compH = composer.getBoundingClientRect().height;
 
-    // Важно: паддинг ленты = compH - overlap (а не base + overlap)
-    const newPadBottom = Math.max(12, compH - overlap);
+    // небольшой запас под «хвост» сообщения
+    const bottomGap = 16;
+
+    // ключ: место над фактической кромкой композера
+    const newPadBottom = Math.max(12, compH - overlap + bottomGap);
     chat.style.paddingBottom = newPadBottom + 'px';
   }
   if (window.visualViewport){
@@ -177,48 +155,31 @@
     syncComposerOffset();
   }
 
-  /* ======================================================
-     iOS FIX: ЛОК СКРОЛЛА, чтобы навбар/интро не уезжали
-  ====================================================== */
-  const scrollLock = {
-    enabled: false,
-    chatY: 0,
-    winX: 0,
-    winY: 0,
-  };
-
+  /* ===== iOS scroll-lock (топбар/интро не уезжают) ===== */
+  const scrollLock = { enabled:false, chatY:0, winX:0, winY:0 };
   function keepPositions(){
     window.scrollTo(scrollLock.winX, scrollLock.winY);
     chat.scrollTop = scrollLock.chatY;
   }
-
   function enableScrollLock(){
     if (scrollLock.enabled) return;
     scrollLock.enabled = true;
     scrollLock.chatY = chat.scrollTop;
     scrollLock.winX  = window.pageXOffset || 0;
     scrollLock.winY  = window.pageYOffset || 0;
-
-    // мгновенная фиксация позиций
-    keepPositions();
-    setTimeout(keepPositions, 0);
-    setTimeout(keepPositions, 60);
+    keepPositions(); setTimeout(keepPositions, 0); setTimeout(keepPositions, 60);
   }
-
   function disableScrollLock(){
     if (!scrollLock.enabled) return;
     scrollLock.enabled = false;
   }
-
   if (window.visualViewport){
     const vvStick = () => { if (scrollLock.enabled) keepPositions(); };
     visualViewport.addEventListener('resize', vvStick, { passive: true });
     visualViewport.addEventListener('scroll',  vvStick, { passive: true });
   }
 
-  /* =========================
-     Autosize textarea (до 106px)
-  ========================== */
+  /* ===== Autosize textarea ===== */
   function autosize(){
     ta.style.height = '24px';
     ta.style.height = Math.min(106, ta.scrollHeight) + 'px';
@@ -229,17 +190,14 @@
   ta.addEventListener('focus', () => {
     enableScrollLock();
     unmuteComposer();
-    syncComposerOffset();     // пересчитать сдвиг
-    scrollToBottomSafe();     // оставить последнее сообщение видимым
+    syncComposerOffset();
+    scrollToBottomSafe();
   });
-
   ta.addEventListener('blur', () => {
     disableScrollLock();
   });
 
-  /* =========================
-     Базовые генераторы DOM
-  ========================== */
+  /* ===== Сообщения ===== */
   function addMessage(role, content, {html=false, beforeNode=null, replaceNode=null} = {}){
     beginScrollBatch(chat);
     const el = document.createElement('div');
@@ -251,7 +209,6 @@
     else if (beforeNode) chat.insertBefore(el, beforeNode);
     else chat.insertBefore(el, anchor);
 
-    // безопасно к низу
     scrollToBottomSafe();
     endScrollBatch(chat);
     return el;
@@ -290,7 +247,7 @@
     return el;
   }
 
-  /* ====== быстрые ответы (Да/Нет) ====== */
+  /* ===== Быстрые ответы ===== */
   function collapseOldQuickReplies(){
     const qrs = [...chat.querySelectorAll('.msg.ai .qr')];
     qrs.forEach(qr => {
@@ -338,7 +295,7 @@
     return wrap;
   }
 
-  /* ====== «думаю» с блокировкой ====== */
+  /* ===== «думаю» с блокировкой ===== */
   function randDelay(min=3900, max=3900){
     return Math.round(min + Math.random()*(max-min));
   }
@@ -351,23 +308,12 @@
     return res;
   }
 
-  /* =========================
-     Нормализация и распознавание
-  ========================== */
+  /* ===== Распознавание ===== */
   function normalize(s){
-    return (s || '')
-      .toLowerCase()
-      .replace(/[.,!?()"«»'`]/g, ' ')
-      .replace(/\s+/g, ' ')
-      .trim();
+    return (s || '').toLowerCase().replace(/[.,!?()"«»'`]/g, ' ').replace(/\s+/g, ' ').trim();
   }
-
-  const PROFANITY = [
-    /придурок/, /дурак/, /дур[aо]ч?ок/, /урод/, /идиот/, /тупиц[аы]/,
-    /кретин/, /де?бил/, /балбес/, /жопа/, /сучара/, /олень/
-  ];
+  const PROFANITY = [/придурок/,/дурак/,/дур[aо]ч?ок/,/урод/,/идиот/,/тупиц[аы]/,/кретин/,/де?бил/,/балбес/,/жопа/,/сучара/,/олень/];
   const containsProfanity = (text) => PROFANITY.some(rx => rx.test(text));
-
   function interpretYesNo(raw){
     const t = normalize(raw);
     const tokens = t.split(' ');
@@ -380,7 +326,6 @@
     if (isNo)  return 'no';
     return null;
   }
-
   function isIphoneIntent(raw){
     const t = normalize(raw);
     return /айфон\w*/.test(t) || /\bайф\b/.test(t) || /\biphone\b/.test(t) || /\bi[\s-]*phone\b/.test(t) || /\biphon\w*\b/.test(t);
@@ -396,10 +341,8 @@
     return tokens.some(w => greetSet.has(w));
   }
 
-  /* =========================
-     FSM + ответы
-  ========================== */
-  const STATE = { IDLE: 'idle', ASK_SEARCH: 'ask_search', CONFIRM_AGAIN: 'confirm_again' };
+  /* ===== FSM + ответы ===== */
+  const STATE = { IDLE:'idle', ASK_SEARCH:'ask_search', CONFIRM_AGAIN:'confirm_again' };
   let state = STATE.IDLE;
 
   async function showAnswer(){
@@ -412,58 +355,41 @@
 
   function askSearchFirst(){
     state = STATE.ASK_SEARCH;
-    aiQuickRepliesWithThinking(
-      'Вообще-то, уже\u00A0здоровались, хочешь поискать айфон?',
-      [
-        { label: 'Да, давай',    value: 'yes', onClick: () => showAnswer() },
-        { label: 'Нет, не хочу', value: 'no',  onClick: () => askSearchAgain() },
-      ]
-    );
+    aiQuickRepliesWithThinking('Вообще-то, уже\u00A0здоровались, хочешь поискать айфон?',[
+      { label:'Да, давай', value:'yes', onClick: () => showAnswer() },
+      { label:'Нет, не хочу', value:'no', onClick: () => askSearchAgain() },
+    ]);
   }
   function askSearchAgain(){
     state = STATE.CONFIRM_AGAIN;
-    aiQuickRepliesWithThinking(
-      'Разве мой великий создатель, пророк, провидец, лучший сотрудник компании, человек года по\u00A0версии самого себя не\u00A0сказал тебе, что\u00A0я\u00A0ищу только айфоны? Хочешь поищем вместе?',
-      [
-        { label: 'Да, давай',    value: 'yes', onClick: () => showAnswer() },
-        { label: 'Нет, не хочу', value: 'no',  onClick: () => askSearchAgain() },
-      ]
-    );
+    aiQuickRepliesWithThinking('Разве мой великий создатель, пророк, провидец, лучший сотрудник компании, человек года по\u00A0версии самого себя не\u00A0сказал тебе, что\u00A0я\u00A0ищу только айфоны? Хочешь поищем вместе?',[
+      { label:'Да, давай', value:'yes', onClick: () => showAnswer() },
+      { label:'Нет, не хочу', value:'no', onClick: () => askSearchAgain() },
+    ]);
   }
   function dontUnderstand(){
     state = STATE.ASK_SEARCH;
-    aiQuickRepliesWithThinking(
-      'Я не очень понимаю, что\u00A0ты\u00A0от\u00A0меня хочешь, но\u00A0рискну предположить, что\u00A0тебе нужен айфон. Поищем?',
-      [
-        { label: 'Да, давай',    value: 'yes', onClick: () => showAnswer() },
-        { label: 'Нет, не хочу', value: 'no',  onClick: () => askSearchAgain() },
-      ]
-    );
+    aiQuickRepliesWithThinking('Я не очень понимаю, что\u00A0ты\u00A0от\u00A0меня хочешь, но\u00A0рискну предположить, что\u00A0тебе нужен айфон. Поищем?',[
+      { label:'Да, давай', value:'yes', onClick: () => showAnswer() },
+      { label:'Нет, не хочу', value:'no', onClick: () => askSearchAgain() },
+    ]);
   }
   function respondToProfanity(){
     state = STATE.ASK_SEARCH;
-    aiQuickRepliesWithThinking(
-      'Кто бы говорил, мне Антон такое про тебя рассказал, я\u00A0три дня не\u00A0спал, не\u00A0ел. Но\u00A0ругаться не\u00A0хочу, давай лучше поищем айфон?',
-      [
-        { label: 'Да, давай',    value: 'yes', onClick: () => showAnswer() },
-        { label: 'Нет, не хочу', value: 'no',  onClick: () => askSearchAgain() },
-      ]
-    );
+    aiQuickRepliesWithThinking('Кто бы говорил, мне Антон такое про тебя рассказал, я\u00A0три дня не\u00A0спал, не\u00A0ел. Но\u00A0ругаться не\u00A0хочу, давай лучше поищем айфон?',[
+      { label:'Да, давай', value:'yes', onClick: () => showAnswer() },
+      { label:'Нет, не хочу', value:'no', onClick: () => askSearchAgain() },
+    ]);
   }
   function respondToAndroid(){
     state = STATE.ASK_SEARCH;
-    aiQuickRepliesWithThinking(
-      'Только представь, какая андроид — помойка, что\u00A0мой великий создатель не\u00A0поленился переписать скрипт, чтобы ты\u00A0увидел ЭТО\u00A0сообщение. Давай лучше поищем айфон?',
-      [
-        { label: 'Да, давай',    value: 'yes', onClick: () => showAnswer() },
-        { label: 'Нет, не хочу', value: 'no',  onClick: () => askSearchAgain(), variant: 'secondary' },
-      ]
-    );
+    aiQuickRepliesWithThinking('Только представь, какая андроид — помойка, что\u00A0мой великий создатель не\u00A0поленился переписать скрипт, чтобы ты\u00A0увидел ЭТО\u00A0сообщение. Давай лучше поищем айфон?',[
+      { label:'Да, давай', value:'yes', onClick: () => showAnswer() },
+      { label:'Нет, не хочу', value:'no', onClick: () => askSearchAgain(), variant:'secondary' },
+    ]);
   }
 
-  /* =========================
-     Роутер текста
-  ========================== */
+  /* ===== Роутер текста ===== */
   function routeText(raw){
     const text = (raw || '').trim();
     if (!text) return;
@@ -483,9 +409,7 @@
     return dontUnderstand();
   }
 
-  /* =========================
-     Отправка
-  ========================== */
+  /* ===== Отправка ===== */
   function handleSend(raw){
     if (isBusy) return;
     const text = (raw || '').trim();
@@ -501,7 +425,6 @@
     autosize();
     muteComposer();
 
-    // гарантируем, что последнее сообщение не уйдёт под клавиатуру
     syncComposerOffset();
     scrollToBottomSafe();
 
