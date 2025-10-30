@@ -59,7 +59,7 @@
 
 <script>
 /* =========================
-   assistant-core.js (полный)
+   assistant-core.js (с правками)
 ========================= */
 (() => {
   /* =========================
@@ -91,6 +91,41 @@
   }
 
   /* =========================
+     Batch-скролл (гасим «прыжок» интро)
+  ========================== */
+  let scrollBatchDepth = 0;
+  function beginScrollBatch(el){
+    if (scrollBatchDepth++ === 0) {
+      el.dataset.prevScrollBehavior = getComputedStyle(el).scrollBehavior || '';
+      el.style.scrollBehavior = 'auto';
+    }
+  }
+  function endScrollBatch(el){
+    if (--scrollBatchDepth === 0) {
+      el.style.scrollBehavior = el.dataset.prevScrollBehavior || '';
+      delete el.dataset.prevScrollBehavior;
+    }
+  }
+  function isNearBottom(el, threshold = 48){
+    return el.scrollHeight - el.scrollTop - el.clientHeight < threshold;
+  }
+  function scrollToBottomSafe(){
+    // ждём перерисовку и перерасчёт offset'a композера
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        chat.scrollTop = chat.scrollHeight;
+      });
+    });
+  }
+  function scrollToNode(node){
+    if (!node) return;
+    // скроллим только если пользователь «у низа»
+    if (isNearBottom(chat)) {
+      node.scrollIntoView({ behavior: 'auto', block: 'nearest', inline: 'nearest' });
+    }
+  }
+
+  /* =========================
      Мьют/анмьют композера
   ========================== */
   function muteComposer(){
@@ -119,29 +154,31 @@
 
   /* =========================
      Подъём только композера
+     (фикс последнего сообщения и белой щели)
   ========================== */
   function syncComposerOffset(){
     if (!window.visualViewport) return;
     const vv = visualViewport;
     const overlap = Math.max(0, (window.innerHeight - vv.height - vv.offsetTop));
+
+    // Поднимаем ТОЛЬКО композер
     composer.style.transform = `translateY(${-overlap}px)`;
 
-    const base = parseFloat(getComputedStyle(document.documentElement)
-                  .getPropertyValue('--composer-h')) || 126;
-    const extra = overlap;
-    chat.style.paddingBottom = (base + extra) + 'px';
+    // Реальная высота композера (с паддингами)
+    const compH = composer.getBoundingClientRect().height;
+
+    // Важно: паддинг ленты = compH - overlap (а не base + overlap)
+    const newPadBottom = Math.max(12, compH - overlap);
+    chat.style.paddingBottom = newPadBottom + 'px';
   }
   if (window.visualViewport){
     visualViewport.addEventListener('resize', syncComposerOffset);
-    visualViewport.addEventListener('scroll', syncComposerOffset);
+    visualViewport.addEventListener('scroll',  syncComposerOffset);
     syncComposerOffset();
   }
 
   /* ======================================================
-     iOS FIX: ЛОК СКРОЛЛА, чтобы не уезжали топбар и интро
-     Идея: на фокус сохраняем позицию скролла чата и страницы,
-           а также принудительно возвращаем их на событиях
-           visualViewport (когда поднимается клавиатура).
+     iOS FIX: ЛОК СКРОЛЛА, чтобы навбар/интро не уезжали
   ====================================================== */
   const scrollLock = {
     enabled: false,
@@ -151,9 +188,7 @@
   };
 
   function keepPositions(){
-    // фикс основного окна
     window.scrollTo(scrollLock.winX, scrollLock.winY);
-    // фикс скролл-контейнера чата
     chat.scrollTop = scrollLock.chatY;
   }
 
@@ -161,36 +196,24 @@
     if (scrollLock.enabled) return;
     scrollLock.enabled = true;
     scrollLock.chatY = chat.scrollTop;
-    scrollLock.winX = window.pageXOffset || 0;
-    scrollLock.winY = window.pageYOffset || 0;
+    scrollLock.winX  = window.pageXOffset || 0;
+    scrollLock.winY  = window.pageYOffset || 0;
 
-    // во время фокуса выключаем «плавность», чтобы фиксация была мгновенной
-    const prevBehavior = getComputedStyle(chat).scrollBehavior;
-    chat.dataset.prevScrollBehavior = prevBehavior || '';
-    chat.style.scrollBehavior = 'auto';
-
-    // несколько тиков подряд фиксируем позиции — iOS любит «догонять»
+    // мгновенная фиксация позиций
     keepPositions();
     setTimeout(keepPositions, 0);
-    setTimeout(keepPositions, 50);
-    setTimeout(keepPositions, 120);
+    setTimeout(keepPositions, 60);
   }
 
   function disableScrollLock(){
     if (!scrollLock.enabled) return;
     scrollLock.enabled = false;
-    // возвращаем плавность, если была
-    if (chat.dataset.prevScrollBehavior !== undefined) {
-      chat.style.scrollBehavior = chat.dataset.prevScrollBehavior || '';
-      delete chat.dataset.prevScrollBehavior;
-    }
   }
 
-  // На любые «движения» вьюпорта при поднятии клавиатуры — удерживаем позиции
   if (window.visualViewport){
     const vvStick = () => { if (scrollLock.enabled) keepPositions(); };
     visualViewport.addEventListener('resize', vvStick, { passive: true });
-    visualViewport.addEventListener('scroll', vvStick, { passive: true });
+    visualViewport.addEventListener('scroll',  vvStick, { passive: true });
   }
 
   /* =========================
@@ -204,10 +227,10 @@
   window.addEventListener('load', autosize);
 
   ta.addEventListener('focus', () => {
-    // Важно: не даём странице прыгнуть
     enableScrollLock();
     unmuteComposer();
-    // Не скроллим ничего вручную — полагаемся на translate композера
+    syncComposerOffset();     // пересчитать сдвиг
+    scrollToBottomSafe();     // оставить последнее сообщение видимым
   });
 
   ta.addEventListener('blur', () => {
@@ -215,17 +238,10 @@
   });
 
   /* =========================
-     Скролл
-  ========================== */
-  function scrollToNode(node){
-    if (!node) return;
-    node.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
-  }
-
-  /* =========================
      Базовые генераторы DOM
   ========================== */
   function addMessage(role, content, {html=false, beforeNode=null, replaceNode=null} = {}){
+    beginScrollBatch(chat);
     const el = document.createElement('div');
     el.className = `msg m20 ${role}`;
     if (html) el.innerHTML = content; else el.textContent = content;
@@ -235,11 +251,14 @@
     else if (beforeNode) chat.insertBefore(el, beforeNode);
     else chat.insertBefore(el, anchor);
 
-    scrollToNode(el);
+    // безопасно к низу
+    scrollToBottomSafe();
+    endScrollBatch(chat);
     return el;
   }
 
   function showThinking(){
+    beginScrollBatch(chat);
     const el  = document.createElement('div');
     el.className = 'typing';
 
@@ -266,7 +285,8 @@
     el.appendChild(fallback);
 
     chat.insertBefore(el, chat.querySelector('.anchor'));
-    scrollToNode(el);
+    scrollToBottomSafe();
+    endScrollBatch(chat);
     return el;
   }
 
@@ -314,7 +334,7 @@
     if (replaceNode) replaceNode.replaceWith(wrap);
     else chat.insertBefore(wrap, chat.querySelector('.anchor'));
 
-    scrollToNode(wrap);
+    scrollToBottomSafe();
     return wrap;
   }
 
@@ -473,12 +493,17 @@
 
     removeAllQuickReplyButtons();
 
+    beginScrollBatch(chat);
     const u = addMessage('user', text);
-    scrollToNode(u);
+    endScrollBatch(chat);
 
     ta.value = '';
     autosize();
     muteComposer();
+
+    // гарантируем, что последнее сообщение не уйдёт под клавиатуру
+    syncComposerOffset();
+    scrollToBottomSafe();
 
     routeText(text);
   }
