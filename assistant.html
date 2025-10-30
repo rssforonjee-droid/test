@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-
   <title>Чат</title>
 
   <!-- Стили -->
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="assistant.css">
 
-  <!-- Небольшие улучшатели (можно перенести в style.css) -->
+  <!-- Небольшие улучшатели -->
   <style>
     /* анти-прыжок скролла у низа */
     .chat{ overflow-anchor:none; }
@@ -27,7 +26,7 @@
     <div href="" class="btn last-chat-btn" aria-label="старые чаты" role="button"></div>
   </div>
 
-  <!-- Лента чата: интро теперь часть ленты -->
+  <!-- Лента чата: интро часть ленты -->
   <section id="chat" class="chat">
     <div class="intro">
       <div class="date xs">Сегодня</div>
@@ -56,20 +55,18 @@
   </div>
 </div>
 
-
-
 <script src="assistant-cards.js"></script>
 
-
-<script> 
-
-// assistant-core.js
+<script>
+/* =========================
+   assistant-core.js (полный)
+========================= */
 (() => {
   /* =========================
      Константы/настройки
   ========================== */
-  const CARDS_CSS_URL    = 'assist-cards.css';   // дизайн ассист-сниппетов (отдельный CSS)
-  const ANSWER_DATA_URL  = 'answer_data.json';   // JSON с карточками
+  const CARDS_CSS_URL    = 'assist-cards.css';
+  const ANSWER_DATA_URL  = 'answer_data.json';
   const FALLBACK_TXT     = 'Готово! Вот подготовленный ответ ассистента.';
   const HEART_OFF        = './res/heart_snippet.svg';
   const HEART_ON         = './res/heart_snippet_full.svg';
@@ -84,7 +81,7 @@
   if (!chat || !ta || !send || !composer) return;
 
   /* =========================
-     Флаг занятости (блокируем отправку)
+     Флаг занятости
   ========================== */
   let isBusy = false;
   function setBusy(v){
@@ -94,11 +91,11 @@
   }
 
   /* =========================
-     Мьют/анмьют композера (серый вид + скрыть/показать клаву)
+     Мьют/анмьют композера
   ========================== */
   function muteComposer(){
     ta.classList.add('is-muted');
-    ta.blur(); // скрыть системную клавиатуру
+    ta.blur();
     setTimeout(() => { if (typeof syncComposerOffset === 'function') syncComposerOffset(); }, 50);
   }
   function unmuteComposer(){
@@ -119,25 +116,81 @@
     visualViewport.addEventListener('resize', setVh);
     visualViewport.addEventListener('scroll', setVh);
   }
+
+  /* =========================
+     Подъём только композера
+  ========================== */
   function syncComposerOffset(){
-  if (!window.visualViewport) return;
-  const vv = visualViewport;
-  // сколько клавиатура наехала на окно
-  const overlap = Math.max(0, (window.innerHeight - vv.height - vv.offsetTop));
+    if (!window.visualViewport) return;
+    const vv = visualViewport;
+    const overlap = Math.max(0, (window.innerHeight - vv.height - vv.offsetTop));
+    composer.style.transform = `translateY(${-overlap}px)`;
 
-  // поднимаем ТОЛЬКО композер
-  composer.style.transform = `translateY(${-overlap}px)`;
-
-  // увеличиваем нижний паддинг чата, чтобы контент не прятался за композером
-  const base = parseFloat(getComputedStyle(document.documentElement)
-                .getPropertyValue('--composer-h')) || 126; // твоя базовая высота
-  const extra = overlap; // можно + env(safe-area-inset-bottom), если нужно
-  document.querySelector('.chat').style.paddingBottom = (base + extra) + 'px';
-}
+    const base = parseFloat(getComputedStyle(document.documentElement)
+                  .getPropertyValue('--composer-h')) || 126;
+    const extra = overlap;
+    chat.style.paddingBottom = (base + extra) + 'px';
+  }
   if (window.visualViewport){
     visualViewport.addEventListener('resize', syncComposerOffset);
     visualViewport.addEventListener('scroll', syncComposerOffset);
     syncComposerOffset();
+  }
+
+  /* ======================================================
+     iOS FIX: ЛОК СКРОЛЛА, чтобы не уезжали топбар и интро
+     Идея: на фокус сохраняем позицию скролла чата и страницы,
+           а также принудительно возвращаем их на событиях
+           visualViewport (когда поднимается клавиатура).
+  ====================================================== */
+  const scrollLock = {
+    enabled: false,
+    chatY: 0,
+    winX: 0,
+    winY: 0,
+  };
+
+  function keepPositions(){
+    // фикс основного окна
+    window.scrollTo(scrollLock.winX, scrollLock.winY);
+    // фикс скролл-контейнера чата
+    chat.scrollTop = scrollLock.chatY;
+  }
+
+  function enableScrollLock(){
+    if (scrollLock.enabled) return;
+    scrollLock.enabled = true;
+    scrollLock.chatY = chat.scrollTop;
+    scrollLock.winX = window.pageXOffset || 0;
+    scrollLock.winY = window.pageYOffset || 0;
+
+    // во время фокуса выключаем «плавность», чтобы фиксация была мгновенной
+    const prevBehavior = getComputedStyle(chat).scrollBehavior;
+    chat.dataset.prevScrollBehavior = prevBehavior || '';
+    chat.style.scrollBehavior = 'auto';
+
+    // несколько тиков подряд фиксируем позиции — iOS любит «догонять»
+    keepPositions();
+    setTimeout(keepPositions, 0);
+    setTimeout(keepPositions, 50);
+    setTimeout(keepPositions, 120);
+  }
+
+  function disableScrollLock(){
+    if (!scrollLock.enabled) return;
+    scrollLock.enabled = false;
+    // возвращаем плавность, если была
+    if (chat.dataset.prevScrollBehavior !== undefined) {
+      chat.style.scrollBehavior = chat.dataset.prevScrollBehavior || '';
+      delete chat.dataset.prevScrollBehavior;
+    }
+  }
+
+  // На любые «движения» вьюпорта при поднятии клавиатуры — удерживаем позиции
+  if (window.visualViewport){
+    const vvStick = () => { if (scrollLock.enabled) keepPositions(); };
+    visualViewport.addEventListener('resize', vvStick, { passive: true });
+    visualViewport.addEventListener('scroll', vvStick, { passive: true });
   }
 
   /* =========================
@@ -149,9 +202,16 @@
   }
   ['input','change'].forEach(e => ta.addEventListener(e, autosize));
   window.addEventListener('load', autosize);
+
   ta.addEventListener('focus', () => {
+    // Важно: не даём странице прыгнуть
+    enableScrollLock();
     unmuteComposer();
-    // НИЧЕГО не скроллим: полагаемся на visualViewport + translate композера
+    // Не скроллим ничего вручную — полагаемся на translate композера
+  });
+
+  ta.addEventListener('blur', () => {
+    disableScrollLock();
   });
 
   /* =========================
@@ -323,7 +383,6 @@
   let state = STATE.IDLE;
 
   async function showAnswer(){
-    // Используем МОДУЛЬ СНИППЕТОВ:
     await window.AssistCards.aiCardsFromJSONWithThinking({
       setBusy, showThinking, scrollToNode, randDelay, addMessage, FALLBACK_TXT,
       CARDS_CSS_URL, ANSWER_DATA_URL, HEART_OFF, HEART_ON
@@ -389,7 +448,6 @@
     const text = (raw || '').trim();
     if (!text) return;
 
-    // Любой ввод текстом мгновенно убирает текущие кнопки
     removeAllQuickReplyButtons();
 
     if (isIphoneIntent(text)) return showAnswer();
@@ -441,8 +499,6 @@
     }
   });
 })();
-
-
 </script>
 
 <!-- Перезагрузка страницы по кнопке + -->
@@ -454,10 +510,7 @@
   const reload = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    // Полная перезагрузка текущего URL
     window.location.reload();
-    // если нужно ОБЯЗАТЕЛЬНО с сервера (обход кэша), можно так:
-    // window.location.replace(window.location.href);
   };
 
   btn.addEventListener('click', reload);
@@ -466,7 +519,6 @@
   });
 })();
 </script>
-
 
 </body>
 </html>

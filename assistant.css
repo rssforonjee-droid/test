@@ -9,10 +9,13 @@
 }
 
 *{ box-sizing: border-box; }
+
 html, body{ 
-  height:100%; 
+  height:100%;
   background:#fff;
-  overflow: hidden;  }
+  overflow: hidden;   /* скроллит только .chat */
+}
+
 body{
   color:#0f1729;
   margin:0;
@@ -23,14 +26,16 @@ body{
    LAYOUT: APP + TOPBAR
 ========================================================= */
 .app{
-  height: 100svh;                   /* новые браузеры */
-  height: calc(var(--vh, 1vh) * 100); /* fallback через JS */
+  /* важен динамический вьюпорт + наш --vh */
+  height: 100dvh;                         /* современные браузеры */
+  height: 100svh;                         /* фолбэк */
+  height: calc(var(--vh, 1vh) * 100);     /* iOS через JS */
   display:flex;
   flex-direction:column;
-  padding-top: calc(var(--safe-top) + 8px); /* место под статусбар */
+  padding-top: calc(var(--safe-top) + 8px);
 }
 
-/* плавающий навбар */
+/* плавающий навбар — фикс к вьюпорту (не к .app) */
 .topbar{
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -40,13 +45,10 @@ body{
   align-items: center;
   justify-content: flex-start;
 
-  /* высота формируется за счёт внутренних паддингов + safe-area */
   padding: calc(var(--safe-top) + 8px) 12px 8px;
   height: auto;
   margin-top: 20px;
   gap:4px;
-
-
 }
 
 .topbar .btn{
@@ -64,12 +66,11 @@ body{
   background-color: rgba(255,255,255,.7);
 }
 
-/* только иконки и их размер */
 .close-btn{
   background-image:url("./res/icon_close.svg");
   background-repeat:no-repeat;
   background-position:center;
-  background-size:24px 24px;    /* размер пиктограммы */
+  background-size:24px 24px;
 }
 
 .new-chat-btn{
@@ -88,16 +89,14 @@ body{
   margin-left: 2px;
 }
 
-
 /* =========================================================
    CONTENT (intro/hero текст)
 ========================================================= */
-.content{ padding:20px 20px 16px; } /* низ — запас под композер */
+.content{ padding:20px 20px 16px; }
 .date{ color:#757575; text-align:center; margin:16px 0; }
 h1{ font:800 28px/1.15 inherit; margin:0 0 12px; }
 p{ margin:4px 0 10px; color:#1c2432; }
 
-/* карточка с радужной окантовкой (если нужна) */
 .box{
   display:flex; align-items:flex-end; gap:10px;
   max-width:720px; margin:0 auto;
@@ -110,35 +109,37 @@ p{ margin:4px 0 10px; color:#1c2432; }
   box-shadow:0 8px 30px rgba(66,99,235,.18);
 }
 
-/* чтобы контент не уходил под фикс-композер */
 .page{ padding-bottom: calc(var(--composer-h) + var(--safe-bottom)); }
 
 /* =========================================================
    CHAT LAYOUT
-   (объединено: не дублируется .chat — один источник правды)
 ========================================================= */
 .chat{
   display:flex;
   flex-direction:column;
   gap:6px;
-  /* базовая мобильная плотность */
-  padding:44px 20px 140px; /* низ — запас под composer */
+
+  padding:44px 20px 140px; /* нижний запас обновляется из JS */
   flex: 1 1 auto;
+
   overflow: auto;
-  overscroll-behavior: contain;     /* не пробрасывать скролл на окно */
-  padding-bottom: var(--composer-h, 126px); /* запас под композер */
+  overscroll-behavior: contain;   /* не пробрасывать скролл на окно */
+  padding-bottom: var(--composer-h, 126px);
   overflow-anchor: none;
+
+  /* чтобы «фикс» позиций был мгновенным при необходимости */
+  scroll-behavior: smooth;
 }
+
 @media (min-width:480px){
-  /* сохраняем «старую» версию отступов для более широких экранов */
   .chat{ padding:16px 20px 140px; }
 }
 
-.chat__spacer{ flex:1 0 auto; } /* толкает контент к низу */
+.chat__spacer{ flex:1 0 auto; }
 
 .intro{
   max-width:720px;
-  margin:0 auto 0px; /* небольшой отступ над инпутом/сообщениями */
+  margin:0 auto 0px;
 }
 .messages{
   display:flex;
@@ -161,20 +162,18 @@ p{ margin:4px 0 10px; color:#1c2432; }
 .msg.ai{
   padding:12px 0px;
   max-width:100%;
-  
 }
 
 .msg.ai .qr{
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  justify-content: flex-end;   /* ← вправо */
+  justify-content: flex-end;
   background: transparent;
   padding: 0;
   margin: 0;
 }
 
-/* Кнопки: серый фон, чёрный текст, квадратные, без обводок и теней */
 .msg.ai .qr button{
   appearance: none;
   -webkit-appearance: none;
@@ -183,15 +182,14 @@ p{ margin:4px 0 10px; color:#1c2432; }
   box-shadow: none;
   height:32px;
   padding: 1px 11px 2px;
-  background: #fff;  /* светло-серый */
-  color: #000;          /* чёрный текст */
-  border-radius: 12px;     
+  background: #fff;
+  color: #000;
+  border-radius: 12px;
   cursor: pointer;
-  transition: none;     /* без анимаций “подсветок” */
+  transition: none;
   margin-top:10px;
 }
 
-/* Без hover/active эффектов */
 .msg.ai .qr button:hover,
 .msg.ai .qr button:active,
 .msg.ai .qr button:focus{
@@ -203,15 +201,14 @@ p{ margin:4px 0 10px; color:#1c2432; }
   transform: none;
 }
 
-/* Disabled — просто приглушим */
 .msg.ai .qr button:disabled{
   opacity: .45;
   cursor: default;
   pointer-events: none;
 }
+
 /* =========================================================
-   TYPING INDICATOR (включая вариант с видео) 
-   (объединено: один набор стилей)
+   TYPING INDICATOR
 ========================================================= */
 .typing{
   display:inline-flex;
@@ -223,12 +220,11 @@ p{ margin:4px 0 10px; color:#1c2432; }
 }
 .typing video{
   display:block;
-  width:219px;            /* подгони под свой ролик */
+  width:219px;
   object-fit:contain;
   border-radius:6px;
 }
 
-/* альтернативные «точки» */
 .dots{ display:inline-flex; gap:4px; vertical-align:middle; }
 .dots i{
   width:6px; height:6px; border-radius:50%;
@@ -246,18 +242,14 @@ p{ margin:4px 0 10px; color:#1c2432; }
 ========================================================= */
 .composer{
   position:fixed; left:0; right:0; bottom:0;
-  /* учитываем «домик» iOS */
   padding:20px 20px calc(10px + var(--safe-bottom));
   background-color: #fff;
   z-index:1200;
 
-  transform: translateY(var(--kb-shift, 0)); /* сдвиг при клавиатуре */
-
-  /* чтобы клики проходили только по строке ввода */
-  pointer-events:none;
+  transform: translateY(var(--kb-shift, 0)); /* поднимаем только его */
+  pointer-events:none;                       /* кликается только поле */
 }
 
-/* внутренняя строка — кликабельная, центрируем и ограничиваем ширину */
 .composer .msg-input{
   pointer-events:auto;
   max-width:680px;
@@ -267,7 +259,6 @@ p{ margin:4px 0 10px; color:#1c2432; }
   align-items:center;
 }
 
-/* контейнер поля и кнопки */
 .msg-input__box{
   position:relative;
   flex:1 1 auto;
@@ -275,7 +266,6 @@ p{ margin:4px 0 10px; color:#1c2432; }
   margin:0 auto;
 }
 
-/* поле ввода */
 .msg-input__field{
   --r:28px;
   --bw:2px;
@@ -285,10 +275,9 @@ p{ margin:4px 0 10px; color:#1c2432; }
   display:block;
   width:100%;
 
-  height:106px; min-height:106px; max-height:106px; /* фикс как в макете */
+  height:106px; min-height:106px; max-height:106px;
   padding:10px 40px 16px 16px;
 
-  /* переносы и скролл */
   overflow-y:auto; overflow-x:hidden;
   white-space:pre-wrap;
   word-break:break-word;
@@ -306,7 +295,6 @@ p{ margin:4px 0 10px; color:#1c2432; }
 .msg-input__field::placeholder{ color:#9aa0a6; }
 .msg-input__field:focus{ outline:none; }
 
-/* мягкое свечение под полем */
 .msg-input::after{
   content:"";
   position:absolute;
@@ -319,27 +307,24 @@ p{ margin:4px 0 10px; color:#1c2432; }
   z-index:0;
 }
 
-/* кнопка отправки (debug-бордер оставлен) */
 .msg-input__send{
   position:absolute;
   right:14px; bottom:14px; z-index:1;
   width:24px; height:24px;
   border-radius:50%;
-  background-color:red;
+  background-color:green;
   background-image:url("./res/icon_send_arrow_btn.svg");
-  background-position: 50% calc(50% - 1px); /* иконка на 2px выше центра */
+  background-position: 50% calc(50% - 1px);
   background-repeat:no-repeat;
   background-size:20px 20px; 
   cursor:pointer;
 
-    /* СНИМАЕМ СИСТЕМНЫЕ СТИЛИ КНОПКИ */
   appearance: none;
   -webkit-appearance: none;
   border: 0;
   outline: none;
   box-shadow: none;
-  background-clip: padding-box; /* на всякий, чтобы не просвечивали края */
-  
+  background-clip: padding-box;
 }
 .msg-input__send:focus,
 .msg-input__send:focus-visible{ outline:none; box-shadow:none; }
@@ -350,7 +335,3 @@ p{ margin:4px 0 10px; color:#1c2432; }
   background-image:url("./res/icon_hold_btn.svg");
   background-size:20px 20px; 
 }
-
-
-
-
