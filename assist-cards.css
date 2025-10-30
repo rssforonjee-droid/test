@@ -150,6 +150,11 @@ h4, .h4 { font-weight: 800; font-style: normal; font-display: swap; font-size: 1
   position: relative;
   z-index: 1;
 }
+
+.assist-image.assist-image--scroll .assist-image-slide > video{
+  width: 180px!important;
+  height: 176px;}
+
 .assist-image.assist-image--single{
   display:flex;
   align-items:center;
