@@ -9,7 +9,10 @@
 }
 
 *{ box-sizing: border-box; }
-html, body{ height:100%; background:#fff; }
+html, body{ 
+  height:100%; 
+  background:#fff;
+  overflow: hidden;  }
 body{
   color:#0f1729;
   margin:0;
@@ -20,6 +23,8 @@ body{
    LAYOUT: APP + TOPBAR
 ========================================================= */
 .app{
+  height: 100svh;                   /* новые браузеры */
+  height: calc(var(--vh, 1vh) * 100); /* fallback через JS */
   display:flex;
   flex-direction:column;
   padding-top: calc(var(--safe-top) + 8px); /* место под статусбар */
@@ -118,6 +123,11 @@ p{ margin:4px 0 10px; color:#1c2432; }
   gap:6px;
   /* базовая мобильная плотность */
   padding:44px 20px 140px; /* низ — запас под composer */
+  flex: 1 1 auto;
+  overflow: auto;
+  overscroll-behavior: contain;     /* не пробрасывать скролл на окно */
+  padding-bottom: var(--composer-h, 126px); /* запас под композер */
+  overflow-anchor: none;
 }
 @media (min-width:480px){
   /* сохраняем «старую» версию отступов для более широких экранов */
@@ -240,6 +250,8 @@ p{ margin:4px 0 10px; color:#1c2432; }
   padding:20px 20px calc(10px + var(--safe-bottom));
   background-color: #fff;
   z-index:1200;
+
+  transform: translateY(var(--kb-shift, 0)); /* сдвиг при клавиатуре */
 
   /* чтобы клики проходили только по строке ввода */
   pointer-events:none;

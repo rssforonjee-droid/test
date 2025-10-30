@@ -2,7 +2,8 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
   <title>Чат</title>
 
   <!-- Стили -->
@@ -119,11 +120,20 @@
     visualViewport.addEventListener('scroll', setVh);
   }
   function syncComposerOffset(){
-    if (!window.visualViewport) return;
-    const vv = visualViewport;
-    const overlap = Math.max(0, (window.innerHeight - vv.height - vv.offsetTop));
-    composer.style.transform = `translateY(${-overlap}px)`;
-  }
+  if (!window.visualViewport) return;
+  const vv = visualViewport;
+  // сколько клавиатура наехала на окно
+  const overlap = Math.max(0, (window.innerHeight - vv.height - vv.offsetTop));
+
+  // поднимаем ТОЛЬКО композер
+  composer.style.transform = `translateY(${-overlap}px)`;
+
+  // увеличиваем нижний паддинг чата, чтобы контент не прятался за композером
+  const base = parseFloat(getComputedStyle(document.documentElement)
+                .getPropertyValue('--composer-h')) || 126; // твоя базовая высота
+  const extra = overlap; // можно + env(safe-area-inset-bottom), если нужно
+  document.querySelector('.chat').style.paddingBottom = (base + extra) + 'px';
+}
   if (window.visualViewport){
     visualViewport.addEventListener('resize', syncComposerOffset);
     visualViewport.addEventListener('scroll', syncComposerOffset);
@@ -141,7 +151,7 @@
   window.addEventListener('load', autosize);
   ta.addEventListener('focus', () => {
     unmuteComposer();
-    setTimeout(() => ta.scrollIntoView({behavior:'smooth', block:'center'}), 150);
+    // НИЧЕГО не скроллим: полагаемся на visualViewport + translate композера
   });
 
   /* =========================
