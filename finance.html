@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Финансы</title>
+  <link rel="stylesheet" href="finance.css" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page">
+
+    <!-- Навбар -->
+    <header class="navbar">
+      <button class="nav-btn nav-btn--left" aria-label="Закрыть">
+        <svg viewBox="0 0 24 24" class="icon">
+          <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <h1 class="navbar__title">Финансы</h1>
+
+      <div class="navbar__actions">
+        <button class="nav-btn" aria-label="QR">
+          <img src="Res/icon_QR.svg" alt="" class="icon" />
+        </button>
+        <button class="nav-btn" aria-label="Настройки">
+          <img src="Res/icon_settings.svg" alt="" class="icon" />
+        </button>
+      </div>
+    </header>
+
+    <main class="content">
+      <!-- Стек: Бонусы → Кошелёк → Карта -->
+      <section class="cards-stack" id="cardsStack">
+        <a class="stack-card" href="#" aria-label="Бонусы">
+          <div class="stack-card__row">
+            <span class="stack-card__title">30 Б</span>
+            <span class="stack-card__link">Бонусы <span class="arrow">›</span></span>
+          </div>
+        </a>
+
+        <a class="stack-card" href="#" aria-label="Кошелёк">
+          <div class="stack-card__row">
+            <span class="stack-card__title">29 450 ₽</span>
+            <span class="stack-card__link">Кошелёк <span class="arrow">›</span></span>
+          </div>
+        </a>
+
+        <!-- Карта — по DOM внизу -->
+        <a class="card-big" href="#" aria-label="Авито Карта" id="cardBig">
+          <div class="card-big__top">
+            <div class="card-big__label">
+              <span>Авито Карта</span>
+              <span class="dots">• 4444</span>
+            </div>
+            <div class="card-big__go">
+              <svg viewBox="0 0 24 24" class="icon">
+                <path d="M7 17l7-7H8V7h9v9h-3v-6l-7 7z" fill="currentColor"/>
+              </svg>
+            </div>
+          </div>
+          <div class="card-big__amount">278 820 ₽</div>
+          <div class="card-big__bg" aria-hidden="true"></div>
+        </a>
+      </section>
+
+      <!-- Портал призов -->
+      <section class="section">
+        <div class="section__header">
+          <h2 class="section__title">Портал призов</h2>
+          <a class="section__link" href="#" aria-label="Открыть портал призов">›</a>
+        </div>
+        <p class="section__subtitle">Новые задания и призы уже в кабинете</p>
+
+        <article class="task-card">
+          <div class="task-card__icon">
+            <svg viewBox="0 0 24 24" class="icon">
+              <path d="M4 12l4 4 12-12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+
+          <div class="task-card__body">
+            <div class="task-card__title">Оплатите 4 заказа</div>
+            <div class="task-card__subtitle">Авито Картой</div>
+
+            <div class="progress"><div class="progress__bar" style="--val:35%"></div></div>
+          </div>
+
+          <div class="task-card__reward">
+            <span class="plus">+100</span>
+            <span class="badge">★</span>
+          </div>
+        </article>
+      </section>
+
+      <!-- Может заинтересовать -->
+      <section class="section">
+        <div class="section__header">
+          <h2 class="section__title">Может интересовать</h2>
+        </div>
+
+        <div class="promo-grid">
+          <a class="promo" href="#"><div class="promo__title">Товары<br>в рассрочку</div><div class="promo__illus" aria-hidden="true">₽</div></a>
+          <a class="promo" href="#"><div class="promo__title">Деньги<br>на короткий срок</div><div class="promo__illus" aria-hidden="true">⏰</div></a>
+          <a class="promo" href="#"><div class="promo__title">Кредит<br>наличными</div><div class="promo__illus" aria-hidden="true">💳</div></a>
+          <a class="promo" href="#"><div class="promo__title">Кредитная<br>карта</div><div class="promo__illus" aria-hidden="true">🪪</div></a>
+          <a class="promo" href="#"><div class="promo__title">Страхование<br>покупок</div><div class="promo__illus" aria-hidden="true">🛡️</div></a>
+          <a class="promo" href="#"><div class="promo__title">Подписка<br>и кэшбэк</div><div class="promo__illus" aria-hidden="true">🎁</div></a>
+          <a class="promo" href="#"><div class="promo__title">Инвестиции<br>просто</div><div class="promo__illus" aria-hidden="true">📈</div></a>
+          <a class="promo" href="#"><div class="promo__title">Сервисы<br>для бизнеса</div><div class="promo__illus" aria-hidden="true">🏢</div></a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+
+  <footer class="tabbar" role="navigation" aria-label="Основная навигация">
+   <a href="index.html" class="tabbar__btn home" aria-label="Главная" role="button"></a>
+  <button class="tabbar__btn favorites" aria-label="Избранное"></button>
+  <a href="finance.html" class="tabbar__btn wallet is-active" aria-label="Кошелёк" role="button"></a>
+  <button class="tabbar__btn messenger" aria-label="Чат"></button>
+  <a href="assistant.html" class="tabbar__btn assistent" aria-label="Ассистент" role="button"></a>
+</footer>
+
+  <!-- Анимация -->
+
+<script>
+(function () {
+  const stack = document.getElementById('cardsStack');
+  if (!stack || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  function once(el, type, filterProp, cb) {
+    function h(e){
+      if (!filterProp || e.propertyName === filterProp) {
+        el.removeEventListener(type, h);
+        cb(e);
+      }
+    }
+    el.addEventListener(type, h);
+  }
+
+  function runCardsStackAnimation() {
+    // Ставим стартовое состояние
+    stack.classList.add('is-animating', 'start');
+
+    // Гарантируем, что старт применился
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        // Подпишемся на конец перехода у нижней карты (3-я — самая длинная)
+        const last = stack.children[2];
+        if (last) {
+          once(last, 'transitionend', 'transform', () => {
+            // Снимаем только .is-animating — когда всё точно закончилось
+            stack.classList.remove('is-animating');
+          });
+        }
+
+        // Запускаем движение к финалу
+        stack.classList.remove('start');
+      });
+    });
+  }
+
+  // Экспорт для повторного запуска по клику, жесту и т.п.
+  window.animateCardsStack = runCardsStackAnimation;
+
+  // Авто-запуск
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runCardsStackAnimation, { once: true });
+  } else {
+    runCardsStackAnimation();
+  }
+})();
+</script>
+
+
+
+</body>
+</html>

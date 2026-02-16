@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Skull Boy — 1:1 Lottie Player</title>
+<style>
+  :root{ --w: 410px; /* регулируй размер тут */ }
+  *{ box-sizing:border-box }
+  html,body{ height:100%; margin:0; }
+  body{
+    display:grid; place-items:center;
+    background:#0e0f13; color:#cfd3ff; font:500 14px/1.3 system-ui, -apple-system, Segoe UI, Inter, Roboto, Arial;
+  }
+  .wrap{
+    display:grid; gap:12px; width:min(92vw, var(--w));
+  }
+  .stage{
+    position:relative;
+    width:100%;
+    aspect-ratio:820/907;           /* из JSON: w/h */
+    border-radius:16px;
+    background:#111520;
+    box-shadow:0 10px 28px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.05);
+    overflow:hidden;
+  }
+  #player{ position:absolute; inset:0; }
+  .fallback{ display:none; text-align:center; opacity:.85 }
+  .fallback input{ display:block; margin:10px auto 0; }
+  .hint{ opacity:.6; font-size:12px; text-align:center }
+  .row{ display:flex; gap:10px; justify-content:center; align-items:center; }
+  .btn{
+    padding:8px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.12);
+    background:#171a2a; color:#fff; cursor:pointer;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="stage"><div id="player" aria-label="Skull Boy animation"></div></div>
+    <div class="row">
+      <button id="play" class="btn">⏯︎ Play / Pause</button>
+      <label class="btn" style="display:flex;gap:8px;align-items:center;">
+        Speed <input id="spd" type="range" min="0.25" max="2" value="1" step="0.05" />
+      </label>
+    </div>
+    <div id="fallback" class="fallback">
+      <div>Не удалось автоматически загрузить JSON.</div>
+      <input id="file" type="file" accept=".json,application/json" />
+      <div class="hint">Выбери <b>Skull Boy.json</b> вручную</div>
+    </div>
+    <div class="hint">Совет: если положишь <b>index.html</b> и <b>Skull Boy.json</b> рядом и откроешь через Live Server — загрузится автоматически.</div>
+  </div>
+
+  <!-- Lottie -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
+  <script>
+  (function(){
+    const container = document.getElementById('player');
+    const fallback  = document.getElementById('fallback');
+    const fileInput = document.getElementById('file');
+    const playBtn   = document.getElementById('play');
+    const spdInput  = document.getElementById('spd');
+    let anim = null;
+
+    function mount(data){
+      if(anim){ anim.destroy(); anim = null; }
+      anim = lottie.loadAnimation({
+        container,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        animationData: data
+      });
+      anim.setSpeed(parseFloat(spdInput.value));
+    }
+
+    async function autoLoad(){
+      try{
+        const res = await fetch('Skull Boy.json', {cache:'no-store'});
+        if(!res.ok) throw new Error('HTTP '+res.status);
+        const data = await res.json();
+        mount(data);
+      }catch(err){
+        // если fetch не доступен (file://), показываем офлайн-подгрузку
+        fallback.style.display = 'block';
+        console.warn('Автозагрузка не удалась:', err);
+      }
+    }
+
+    fileInput.addEventListener('change', (e)=>{
+      const file = e.target.files?.[0]; if(!file) return;
+      const r = new FileReader();
+      r.onload = () => {
+        try{ mount(JSON.parse(r.result)); }catch(err){ alert('Не удалось прочитать JSON'); }
+      };
+      r.readAsText(file);
+    });
+
+    playBtn.addEventListener('click', ()=>{
+      if(!anim) return;
+      if(anim.isPaused) anim.play(); else anim.pause();
+    });
+
+    spdInput.addEventListener('input', ()=>{
+      if(anim) anim.setSpeed(parseFloat(spdInput.value));
+    });
+
+    autoLoad();
+  })();
+  </script>
+</body>
+</html>

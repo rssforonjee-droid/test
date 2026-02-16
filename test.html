@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Spin Card — Minimal, Reliable</title>
+<style>
+  :root{ --panel-w:min(520px,92vw); --card-w:220px; }
+  html,body{height:100%}
+  body{
+    margin:0; display:grid; place-items:center; background:#0b0f14; color:#e5e7eb;
+    font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  }
+
+  .panel{ width:var(--panel-w); background:#0f1420; border:1px solid #222a39;
+          border-radius:20px; box-shadow:0 10px 50px rgba(0,0,0,.4); padding:28px; }
+
+  h1{ margin:0 0 6px; font-size:clamp(22px,3.6vw,34px); font-weight:800; }
+  .sub{ margin:0 0 18px; color:#9fb0c7; font-size:14px; }
+
+  .hero{ display:grid; grid-template-columns:1fr auto; gap:22px; align-items:center; }
+  @media (max-width:560px){ .hero{ grid-template-columns:1fr; justify-items:center; text-align:center; } }
+
+  .cards-scene{
+    position:relative; width:calc(var(--card-w)*1.25); height:calc(var(--card-w)*1.25));
+    width:calc(var(--card-w)*1.25); height:calc(var(--card-w)*1.25);
+    filter: drop-shadow(0 6px 28px rgba(150,120,255,.25)) drop-shadow(0 0 36px rgba(60,120,255,.18));
+  }
+
+  .card{
+    position:absolute; left:50%; top:50%;
+    width:var(--card-w); height:calc(var(--card-w)*1.35);
+    transform-origin:50% 50%;
+    border-radius:16px; overflow:hidden; will-change:transform;
+    background:linear-gradient(160deg,#a78bfa,#6366f1 60%,#22d3ee);
+    border:1px solid #ffffff33;
+    box-shadow:0 14px 30px rgba(0,0,0,.35), 0 0 0 1px #ffffff1f inset;
+  }
+  .card.back{
+    background:linear-gradient(160deg,#0b1020,#0f1a2a 60%,#0b1020);
+    border:1px solid #ffffff10; color:#7c8fa9;
+  }
+
+  .face,.prize-face{
+    position:absolute; inset:0; display:grid; place-items:center;
+    backface-visibility:hidden; -webkit-backface-visibility:hidden;
+    transition: opacity .36s ease, transform .36s cubic-bezier(.2,.7,.15,1);
+  }
+  .face .chips{ position:absolute; left:10px; top:10px; display:flex; gap:8px; }
+  .chip{ padding:4px 8px; font:900 10px/1 monospace; border-radius:999px; background:#0b1220; color:#93c5fd; border:1px solid #1e293b; }
+  .big{ font-size:48px; font-weight:900; color:#fff; text-shadow:0 1px 1px rgba(0,0,0,.35); }
+  .prize-face{ opacity:0; transform:scale(.96); font-weight:900; font-size:34px; color:#0b1220; }
+
+  .cta{
+    display:inline-grid; place-items:center; padding:14px 26px; gap:10px; grid-auto-flow:column;
+    border-radius:999px; font-weight:800; letter-spacing:.4px;
+    background:linear-gradient(180deg,#fcd34d,#f59e0b); color:#111827; border:1px solid #ffe48f;
+    box-shadow:0 10px 20px #ffc80040; cursor:pointer; user-select:none;
+  }
+  .cta[disabled]{ opacity:.6; cursor:not-allowed; }
+  .result{ margin-top:12px; font-size:14px; color:#c7d2fe; min-height:1.2em; }
+  .result strong{ color:#fff }
+
+  /* Диагностический тост */
+  .toast{
+    position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
+    background:#111827; color:#fca5a5; border:1px solid #7f1d1d; padding:8px 12px; border-radius:10px;
+    font-size:12px; max-width:92vw; z-index:9999; display:none;
+  }
+  .toast.show{ display:block; }
+</style>
+</head>
+<body>
+
+<a href="test2.html"> Анимация карт для кошелька </a>
+
+
+  <div class="toast" id="toast"></div>
+
+  <section class="panel">
+    <div class="hero">
+      <div>
+        <h1>2× или ничего</h1>
+        <p class="sub">Нажми <strong>Play</strong> — карта крутится плавно и показывает приз.</p>
+        <button class="cta" id="playBtn" type="button" aria-label="Play and spin the card">PLAY</button>
+        <div class="result" id="result" aria-live="polite"></div>
+      </div>
+
+      <div class="cards-wrap">
+        <div class="cards-scene" id="scene" aria-hidden="true">
+          <div class="card back" style="transform:translate(-50%,-50%);">
+            <div class="face"><div style="opacity:.7;font-weight:800;font-size:32px">00:30</div></div>
+          </div>
+
+          <div class="card front" id="front" style="transform:translate(-50%,-50%) rotateY(0deg)">
+            <div class="face default-face" id="defaultFace">
+              <div class="chips"><span class="chip">2×</span><span class="chip">LIVE</span></div>
+              <div class="big">2×</div>
+            </div>
+            <div class="prize-face" id="prizeFace"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // ===== Диагностика ошибок — показываем на странице =====
+  const toast = document.getElementById('toast');
+  function showError(msg){
+    if (!toast) return;
+    toast.textContent = 'Ошибка: ' + msg;
+    toast.classList.add('show');
+    setTimeout(()=> toast.classList.remove('show'), 6000);
+  }
+  window.addEventListener('error', (e)=> showError(e.message));
+  window.addEventListener('unhandledrejection', (e)=> showError(e.reason?.message || 'Unhandled rejection'));
+
+  // ===== Захватываем элементы =====
+  const playBtn    = document.getElementById('playBtn');
+  const front      = document.getElementById('front');
+  const defaultFace= document.getElementById('defaultFace');
+  const prizeFace  = document.getElementById('prizeFace');
+  const scene      = document.getElementById('scene');
+  const result     = document.getElementById('result');
+
+  if (!playBtn || !front || !defaultFace || !prizeFace){
+    showError('Не найден один из элементов интерфейса.');
+    return;
+  }
+
+  // ===== Призы =====
+  const PRIZES = [
+    {label:'×2',       color:'#34d399', weight:35},
+    {label:'+10 USDC', color:'#fbbf24', weight:22},
+    {label:'+25 USDC', color:'#f59e0b', weight:12},
+    {label:'+50 USDC', color:'#f43f5e', weight: 6},
+    {label:'Пусто',    color:'#94a3b8', weight:25},
+  ];
+  function pickWeighted(items){
+    const sum = items.reduce((s,i)=>s+i.weight,0);
+    let r = Math.random()*sum;
+    for(const it of items){ if((r-=it.weight)<=0) return it; }
+    return items.at(-1);
+  }
+
+  // ===== Спин через rAF =====
+  const baseTransform = 'translate(-50%,-50%)';
+  let currentAngle = 0, isSpinning = false, raf = 0;
+
+  function setAngle(deg){
+    front.style.transform = `${baseTransform} rotateY(${deg}deg)`;
+  }
+  setAngle(currentAngle);
+
+  function easeOutCubic(x){ return 1 - Math.pow(1 - x, 3); }
+
+  function spinOnce(){
+    if (isSpinning) return;
+    isSpinning = true;
+    playBtn.disabled = true;
+    result.textContent = 'Крутим…';
+
+    // Выбираем приз
+    const prize = pickWeighted(PRIZES);
+    prizeFace.textContent = prize.label;
+    prizeFace.style.background =
+      `radial-gradient(circle at 50% 40%, #fff6, transparent 60%),
+       linear-gradient(160deg, ${prize.color}, #6366f1 60%, #22d3ee)`;
+
+    // Параметры
+    const spins = 3 + Math.floor(Math.random()*3); // 3..5
+    const duration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 2200 + (spins-3)*400;
+    const startTime = performance.now();
+    const startAngle = currentAngle;
+    const endAngle = startAngle + spins*360;
+
+    // Сброс кроссфейда
+    defaultFace.style.opacity = '1';
+    prizeFace.style.opacity = '0';
+    prizeFace.style.transform = 'scale(.96)';
+
+    function step(now){
+      const t = Math.min(1, (now - startTime) / Math.max(1, duration));
+      const p = easeOutCubic(t);
+      const ang = startAngle + (endAngle - startAngle) * p;
+      setAngle(ang);
+
+      if (t >= 0.75){
+        const k = (t - 0.75) / 0.25;
+        defaultFace.style.opacity = String(1 - k);
+        prizeFace.style.opacity = String(k);
+        prizeFace.style.transform = `scale(${0.96 + 0.04*k})`;
+      }
+
+      if (t < 1){
+        raf = requestAnimationFrame(step);
+      } else {
+        currentAngle = endAngle % 360;
+        setAngle(currentAngle);
+        result.innerHTML = `Результат: <strong>${prize.label}</strong>`;
+        isSpinning = false;
+        playBtn.disabled = false;
+      }
+    }
+
+    if (duration === 0){
+      currentAngle = endAngle % 360;
+      setAngle(currentAngle);
+      defaultFace.style.opacity = '0';
+      prizeFace.style.opacity = '1';
+      prizeFace.style.transform = 'scale(1)';
+      result.innerHTML = `Результат: <strong>${prize.label}</strong>`;
+      isSpinning = false; playBtn.disabled = false;
+    } else {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(step);
+    }
+  }
+
+  // ===== События запуска (клик / клавиатура / тач) =====
+  playBtn.addEventListener('click', (e)=>{ e.preventDefault(); spinOnce(); });
+  playBtn.addEventListener('pointerup', (e)=>{ if(e.pointerType==='touch') spinOnce(); });
+  playBtn.addEventListener('keydown', (e)=>{ if(e.code==='Space' || e.code==='Enter'){ e.preventDefault(); spinOnce(); } });
+
+  // На всякий случай: двойной клик не ломает спин
+  playBtn.addEventListener('dblclick', (e)=> e.preventDefault());
+
+  // Чистка
+  window.addEventListener('beforeunload', ()=> cancelAnimationFrame(raf));
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Goo Fire Button (anchored)</title>
+<style>
+  :root{
+    --size: 100px;                 /* диаметр кнопки */
+    --txt:  #0a0a0a;
+    --btn-bg: #f1c40f;             /* цвет «ядра» на канвасе (должен быть виден под текстом) */
+    --bg:  #191747;                /* фон страницы */
+    --spill: 80px;                 /* сколько пламени может вылетать вокруг */
+  }
+  *{ box-sizing:border-box }
+  body{
+    margin:0; min-height:100svh; display:grid; place-items:center;
+    background: var(--bg); font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  }
+
+  /* Кнопка-иконка — прозрачная, текст сверху; круг рисуем на canvas (нужно для goo-эффекта) */
+  .badge{
+    position:relative; width:var(--size); height:var(--size);
+    display:grid; place-items:center;
+    border-radius:999px; border:0; background:transparent; color:var(--txt);
+    font-weight:900; font-size:24px; letter-spacing:.02em;
+    cursor:pointer; user-select:none; -webkit-tap-highlight-color:transparent;
+    z-index:2; /* над канвасом: текст кликается, огонь под ним */
+  }
+
+  /* Канвас на весь экран, с goo-фильтром, не перехватывает клики */
+  #fireCanvas{
+    position:fixed; inset:0; width:100vw; height:100vh;
+    pointer-events:none;
+    filter: url(#goo);
+  }
+</style>
+</head>
+<body>
+
+
+    <a href="test8.html"> ещё что то </a>
+
+<button class="badge" id="badge">-50%</button>
+<canvas id="fireCanvas"></canvas>
+
+<!-- SVG фильтр «goo» как в твоём примере -->
+<svg width="0" height="0" style="position:fixed; inset:0; pointer-events:none">
+  <filter id="goo">
+    <feGaussianBlur in="SourceGraphic" stdDeviation="7" result="blur"/>
+    <feColorMatrix in="blur" mode="matrix"
+      values="1 0 0 0 0
+              0 1 0 0 0
+              0 0 1 0 0
+              0 0 0 60 -9"/>
+  </filter>
+</svg>
+
+<script>
+(() => {
+  // ===== базовая сцена (ретина) =====
+  const canvas = document.getElementById('fireCanvas');
+  const ctx = canvas.getContext('2d', { alpha:true });
+  let DPR = Math.max(1, Math.min(window.devicePixelRatio || 1, 2.5));
+  let W=0, H=0;
+
+  function fitCanvas(){
+    const cssW = window.innerWidth;
+    const cssH = window.innerHeight;
+    canvas.style.width  = cssW + 'px';
+    canvas.style.height = cssH + 'px';
+    canvas.width  = Math.floor(cssW * DPR);
+    canvas.height = Math.floor(cssH * DPR);
+    ctx.setTransform(DPR,0,0,DPR,0,0); // работаем в CSS-пикселях
+    W = cssW; H = cssH;
+  }
+  fitCanvas();
+  window.addEventListener('resize', fitCanvas);
+
+  // ===== якорь: центр кнопки =====
+  const badge = document.getElementById('badge');
+
+  function badgeCenter(){ // координаты центра в CSS-пикселях
+    const r = badge.getBoundingClientRect();
+    return { x: r.left + r.width/2, y: r.top + r.height/2, radius: Math.min(r.width, r.height)/2 };
+  }
+
+  let pos   = badgeCenter();       // желаемая позиция
+  let accel = { ...pos };          // сглаженная позиция (как в твоём примере)
+
+  // пересчёт при любом ресайзе/скролле
+  const ro = new ResizeObserver(() => { pos = badgeCenter(); accel = { ...pos }; });
+  ro.observe(badge);
+  window.addEventListener('scroll', () => { pos = badgeCenter(); });
+
+  // ===== частицы «огня» (как у курсора, но от иконки) =====
+  const colors = ["#e67e22", "#e74c3c", "#ff2d55"];   // тёплая палитра
+  const BASE = 50;                                    // базовое число частиц
+  const particles = [];
+  const radiusCore = () => badgeCenter().radius;      // радиус базы (круга)
+
+  function rnd(min, max){ return Math.random()*(max-min)+min; }
+  function pick(arr){ return arr[(Math.random()*arr.length)|0]; }
+
+  function Particle(){
+    const base = badgeCenter();
+    this.x = base.x;
+    this.y = base.y + rnd(6, 14);           // чуть ниже центра
+    this.radius = rnd(3, 6);
+    this.color  = pick(colors);
+    this.vx = rnd(-2, 2);
+    this.vy = rnd(5, 10);                   // вверх
+    this.life = Math.round(rnd(20, 30));    // кадры жизни (как в твоём примере)
+    this.age  = 0;
+  }
+
+  for (let i=0; i<BASE; i++) particles.push(new Particle());
+
+  // импульсная «вспышка» при наведении/клике
+  let burst = 0; // 0..1
+  function ignite(){
+    burst = 1;
+    setTimeout(()=> burst = 0.35, 140);
+    setTimeout(()=> burst = 0.0,   520);
+  }
+  badge.addEventListener('pointerenter', ignite);
+  badge.addEventListener('pointerdown',  ignite);
+
+  // ===== основной цикл =====
+  function render(){
+    ctx.clearRect(0, 0, W, H);
+
+    // центр «едет» к кнопке плавно (как к курсору в твоём коде)
+    const s = 0.15;
+    pos = badgeCenter();
+    accel.x += (pos.x - accel.x) * s;
+    accel.y += (pos.y - accel.y) * s;
+
+    // рисуем ядро (круг кнопки) на канвасе — ОБЯЗАТЕЛЬНО для goo-эффекта
+    ctx.beginPath();
+    ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--btn-bg').trim() || '#f1c40f';
+    ctx.arc(accel.x, accel.y, radiusCore(), 0, Math.PI*2);
+    ctx.fill();
+
+    // XOR как у тебя — пузырьки «выгрызают» форму при наложении
+    ctx.globalCompositeOperation = "xor";
+
+    // частицы
+    for (let i=0; i<particles.length; i++){
+      const p = particles[i];
+
+      ctx.beginPath();
+      ctx.fillStyle = p.color;
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI*2);
+      ctx.fill();
+
+      // физика (как в примере): вверх и затухание
+      p.x += p.vx * (1 + burst*0.2);
+      p.y -= p.vy * (1 + burst*0.25);
+
+      p.radius -= 0.075 * (1 + burst*0.4);
+      p.age++; p.life--;
+
+      // респаун
+      if (p.life < 0 || p.radius <= 0.2){
+        particles[i] = new Particle();
+        continue;
+      }
+    }
+
+    // доброспавн при вспышке (импульс огня)
+    if (burst > 0.5){
+      for (let k=0; k<2; k++) particles[(Math.random()*particles.length)|0] = new Particle();
+    }
+
+    // вернём режим наложения
+    ctx.globalCompositeOperation = "source-over";
+
+    requestAnimationFrame(render);
+  }
+
+  // старт
+  fitCanvas();
+  pos = badgeCenter(); accel = { ...pos };
+  render();
+})();
+</script>
+</body>
+</html>
