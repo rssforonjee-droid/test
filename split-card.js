@@ -85,9 +85,12 @@
     if (!raw) return { title: '', body: '' };
 
     const lines = raw.split('\n').map((s) => s.trim()).filter(Boolean);
+    const firstLine = String(lines[0] || '');
+    const isLoseCopy = prize?.win === false || /пусто/i.test(firstLine);
+    const titleLineCount = !isLoseCopy && lines.length >= 3 ? 2 : 1;
     return {
-      title: lines[0] || '',
-      body: lines.slice(1).join(' ') || ''
+      title: lines.slice(0, titleLineCount).join('\n') || '',
+      body: lines.slice(titleLineCount).join('\n') || ''
     };
   }
 
