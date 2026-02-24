@@ -181,7 +181,7 @@
       const velScale = Math.max(0.25, w / 800);
       const count = Math.max(3, Math.round(randomNumber(3, 7)));
       for (let i = 0; i < count; i += 1) {
-        const size = randomNumber(70 * sizeScale, 120 * sizeScale);
+        const size = randomNumber(115 * sizeScale, 185 * sizeScale);
         const unitVx = randomNumber(-14, 14) * velScale + (parentImpulseUnit?.x || 0);
         const unitVy = (-12 - randomNumber(0, 7)) * velScale + (parentImpulseUnit?.y || 0);
         particles.push({
@@ -193,7 +193,7 @@
           g: 330,
           r: Math.random() * Math.PI * 2,
           vr: randomNumber(-0.15, 0.15) * Math.PI * 5,
-          s: clamp(size / 110, 0.55, 1.15),
+          s: clamp(size / 90, 1.05, 1.95),
           a: 0.62 + Math.random() * 0.35,
           sprite: randomFrom(confettiSprites),
           color: randomFrom(['#ff3b3b', '#ffb800', '#00c853', '#2979ff', '#7c4dff', '#ff6d00', '#00bfa5']),
@@ -400,8 +400,8 @@
         ctx.translate(p.x, p.y);
         ctx.rotate(p.r);
         ctx.globalAlpha = p.a;
-        const pw = (p.kind === 'bonus' ? 44 : 16) * p.s;
-        const ph = (p.kind === 'bonus' ? 44 : 16) * p.s;
+        const pw = (p.kind === 'bonus' ? 44 : 24) * p.s;
+        const ph = (p.kind === 'bonus' ? 44 : 24) * p.s;
         if (p.sprite) {
           ctx.drawImage(p.sprite, -pw * 0.5, -ph * 0.5, pw, ph);
         } else {
