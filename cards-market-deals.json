@@ -1,0 +1,38 @@
+[
+  {
+    "title": "Кроссовки",
+    "price": "6 990\u00A0₽",
+    "oldPrice": "9 990\u00A0₽",
+    "image": "img_snippets/13.jpg"
+  },
+  {
+    "title": "Пуховик",
+    "price": "7 990\u00A0₽",
+    "oldPrice": "12 990\u00A0₽",
+    "image": "img_snippets/14.jpg"
+  },
+  {
+    "title": "Пуховик",
+    "price": "17 000\u00A0₽",
+    "oldPrice": "21 000\u00A0₽",
+    "image": "img_snippets/15.jpg"
+  },
+  {
+    "title": "Рюкзак",
+    "price": "1 990\u00A0₽",
+    "oldPrice": "3 290\u00A0₽",
+    "image": "img_snippets/16.jpg"
+  },
+  {
+    "title": "Куртка",
+    "price": "5 490\u00A0₽",
+    "oldPrice": "8 490\u00A0₽",
+    "image": "img_snippets/6.jpg"
+  },
+  {
+    "title": "Толстовка",
+    "price": "2 390\u00A0₽",
+    "oldPrice": "3 990\u00A0₽",
+    "image": "img_snippets/2_3.png"
+  }
+]

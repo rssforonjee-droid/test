@@ -1,0 +1,27 @@
+{
+  "hitsToDestroy": 15,
+  "burstEvery": 10,
+  "winLockSeconds": 33885,
+  "resultButtonImmunityMs": 2500,
+  "assets": {
+    "preview": "./res/pinjata.png",
+    "target": "./pinata-clicker-main/public/pinata/horse.png",
+    "targetHit": "./pinata-clicker-main/public/pinata/horse_hit.png",
+    "targetDestroyed": "./pinata-clicker-main/public/pinata/horse_destroyed.png",
+    "bonus": "./pinata-clicker-main/public/pinata/bonus.png",
+    "buttonStart": "./pinata-clicker-main/public/button-start.png",
+    "buttonTomorrow": "./pinata-clicker-main/public/button-tomorrow.png",
+    "success": "./pinata-clicker-main/public/success.png"
+  },
+  "confettiImages": [
+    "./pinata-clicker-main/public/pinata/confetti/c-01.png",
+    "./pinata-clicker-main/public/pinata/confetti/c-02.png",
+    "./pinata-clicker-main/public/pinata/confetti/c-03.png",
+    "./pinata-clicker-main/public/pinata/confetti/c-04.png",
+    "./pinata-clicker-main/public/pinata/confetti/c-05.png",
+    "./pinata-clicker-main/public/pinata/confetti/c-06.png",
+    "./pinata-clicker-main/public/pinata/confetti/c-07.png",
+    "./pinata-clicker-main/public/pinata/confetti/c-08.png",
+    "./pinata-clicker-main/public/pinata/confetti/c-09.png"
+  ]
+}

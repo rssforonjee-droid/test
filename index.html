@@ -48,14 +48,119 @@
   <div class="img-left"></div>
 </section>
 
-<section class="cards" id="cards"></section>
+<section class="snippets-block" data-snippets-src="./cards.json">
+  <section class="cards"></section>
+</section>
+
+<section class="insert-slot">
+  <section class="discount-banner" aria-label="Персональная скидка">
+    <div class="discount-banner__text h5">Евгений, для вас скидка на одежду — 60%.</div>
+    <div class="discount-timer h5" id="discount-timer" aria-live="polite">
+      <span class="discount-timer__cell" data-unit="hh">12</span>
+      <span class="discount-timer__sep">:</span>
+      <span class="discount-timer__cell" data-unit="mm">26</span>
+      <span class="discount-timer__sep">:</span>
+      <span class="discount-timer__cell" data-unit="ss">56</span>
+    </div>
+  </section>
+</section>
+
+<section class="snippets-block" data-snippets-src="./cards-second.json">
+  <section class="cards"></section>
+</section>
+
+<section class="market-deals" data-deals-src="./cards-market-deals.json" aria-label="Товары со скидкой">
+  <img class="market-deals__geo" src="./res/beauty_geo.png" alt="" aria-hidden="true">
+  <img class="market-deals__title" src="./res/minus-na-ylice.svg" alt="Минус на улице, минус в цене">
+  <p class="market-deals__subtitle l20">Товары со скидкой ниже рынка. Осталось мало!</p>
+  <section class="market-deals__grid" aria-live="polite"></section>
+  <button class="market-deals__btn m20" type="button">Больше выгоды</button>
+</section>
+
+<section class="snippets-block" data-snippets-src="./cards-third.json">
+  <section class="cards"></section>
+</section>
+
+
+<template id="split-card-template">
+  <article class="card card--text">
+    <div class="text-card-plate">
+      <div class="spin-card__scene" data-sc="scene">
+        <div class="spin-card spin-card--back" data-sc="back-card" style="transform:translate(-50%,-50%);">
+          <div class="spin-face">
+          </div>
+        </div>
+        <div class="spin-card spin-card--front" data-sc="front-card" style="transform:translate(-50%,-50%) rotateY(0deg)">
+          <div class="spin-face spin-default-face" data-sc="default-face">
+          </div>
+          <div class="spin-prize-face" data-sc="prize-face"></div>
+        </div>
+      </div>
+      <div class="spin-card__promo" data-sc="promo">
+        <img class="spin-card__promo-image" data-sc="promo-image" src="" alt="">
+      </div>
+      <div class="spin-card__message h6" data-sc="message">Испытай удачу, крути и получай призы.</div>
+    </div>
+    <button class="spin-card__btn m20" type="button" data-sc="button">Крутить</button>
+  </article>
+</template>
+
+
+<section class="pinata-block" data-pinata-config="./pinata-block.json" aria-label="Пиньята"></section>
+
+
+
+<section class="snippets-block" data-snippets-src="./cards-forth.json">
+  <h2 class="snippets-block__title">С бонусами дешевле</h2>
+  <section class="cards"></section>
+</section>
+
+<section class="promo-mini" aria-label="Промо мини">
+  <div class="promo-mini__viewport" data-promo-mini-viewport>
+    <div class="promo-mini__track" data-promo-mini-track>
+      <div class="promo-mini__group" data-promo-mini-group>
+        <article class="promo-mini__item promo-mini__item--sale">
+          <span class="promo-mini__text h5">Большие скидки</span>
+          <span class="promo-mini__arrow" aria-hidden="true"></span>
+        </article>
+        <article class="promo-mini__item promo-mini__item--image">
+          <img src="./res/promo_mini_bag.png" alt="" aria-hidden="true">
+        </article>
+        <article class="promo-mini__item promo-mini__item--timer">
+          <span class="promo-mini__time h5" data-promo-mini-timer data-start-seconds="51718">14:21:58</span>
+        </article>
+        <article class="promo-mini__item promo-mini__item--category">
+          <span class="promo-mini__text h5">Одежда и аксессуары</span>
+        </article>
+        <article class="promo-mini__item promo-mini__item--premium">
+          <span class="promo-mini__text h5">Премиум бренды</span>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="buy-time" data-buy-time-src="./buy-time-snippets.json" aria-label="Самое время купить">
+  <div class="buy-time__heading">
+    <h3 class="h2">Самое время купить</h2>
+  </div>
+  <div class="buy-time__tabs" role="tablist" aria-label="Категории подборки">
+    <button class="buy-time__tab m20 is-active" type="button" role="tab" aria-selected="true" data-buy-time-tab="new-year-gifts">Подарки на новый год</button>
+    <button class="buy-time__tab m20" type="button" role="tab" aria-selected="false" data-buy-time-tab="sale">Распродажа</button>
+    <button class="buy-time__tab m20" type="button" role="tab" aria-selected="false" data-buy-time-tab="brands">Бренды со скидками</button>
+  </div>
+  <div class="buy-time__rail" data-buy-time-rail aria-live="polite"></div>
+</section>
+
+
+<section class="snippets-block snippets-block--fifth" data-snippets-src="./cards-fifth.json">
+  <section class="cards"></section>
+</section>
+
 
 <!-- Плавающие CTA -->
 <div class="float-cta m20">
   <button class="cta cta--ghost" type="button">Мои объявления</button>
-  <button class="cta cta--primary" type="button">
-    <span class="cta__icon_add" aria-hidden="true"></span>
-  </button>
 </div>
 
 <footer class="tabbar" role="navigation" aria-label="Основная навигация">
@@ -86,10 +191,11 @@
   });
 </script>
 
+<script src="./split-card.js"></script>
+<script src="./pinata-block.js"></script>
+<script src="./promo-mini.js"></script>
 <script>
 (async function () {
-  const mount = document.getElementById('cards');
-
   const HEART_OFF = './res/heart_snippet.svg';
   const HEART_ON  = './res/heart_snippet_full.svg';
 
@@ -122,7 +228,7 @@
     let idx = 0, startX = 0, startY = 0, curX = 0;
     let dragging = false, baseX = 0;
 
-    const width = () => container.clientWidth;
+    const width = () => container.getBoundingClientRect().width;
 
     const setIdx = (i, animate = true) => {
       idx = Math.max(0, Math.min(count - 1, i));
@@ -175,19 +281,177 @@
     setIdx(0, false);
   }
 
-  const res = await fetch('./cards.json', { cache: 'no-store' });
-  if (!res.ok) throw new Error('Не удалось загрузить cards.json: ' + res.status);
-  const items = await res.json();
+  function attachHorizontalDragScroll(container){
+    if (!container || container.__dragScrollBound) return;
+    container.__dragScrollBound = true;
+
+    let isDown = false;
+    let moved = false;
+    let startX = 0;
+    let startY = 0;
+    let startLeft = 0;
+    let lastMoveX = 0;
+    let lastMoveT = 0;
+    let velocityX = 0;
+    let inertiaRaf = 0;
+
+    const getPoint = (e) => (e.touches ? e.touches[0] : e);
+    const maxScrollLeft = () => Math.max(0, container.scrollWidth - container.clientWidth);
+    const clampScroll = (v) => Math.max(0, Math.min(maxScrollLeft(), v));
+
+    const stopInertia = () => {
+      if (!inertiaRaf) return;
+      cancelAnimationFrame(inertiaRaf);
+      inertiaRaf = 0;
+    };
+    container.__stopDragInertia = stopInertia;
+
+    const startInertia = () => {
+      stopInertia();
+      let v = velocityX; // px/ms in pointer space
+      if (Math.abs(v) < 0.03) return;
+
+      let lastTs = performance.now();
+      const step = (ts) => {
+        const dt = Math.min(32, Math.max(1, ts - lastTs));
+        lastTs = ts;
+
+        const prev = container.scrollLeft;
+        const next = clampScroll(prev - v * dt);
+        container.scrollLeft = next;
+
+        // friction (keeps direction, no rebound)
+        v *= 0.94;
+
+        const hitEdge = Math.abs(next - prev) < 0.01;
+        if (hitEdge || Math.abs(v) < 0.01) {
+          inertiaRaf = 0;
+          return;
+        }
+        inertiaRaf = requestAnimationFrame(step);
+      };
+
+      inertiaRaf = requestAnimationFrame(step);
+    };
+
+    const onStart = (e) => {
+      if (e.type === 'mousedown' && e.button !== 0) return;
+      stopInertia();
+      const p = getPoint(e);
+      isDown = true;
+      moved = false;
+      startX = p.clientX;
+      startY = p.clientY;
+      startLeft = container.scrollLeft;
+      lastMoveX = p.clientX;
+      lastMoveT = performance.now();
+      velocityX = 0;
+      container.classList.add('is-dragging');
+    };
+
+    const onMove = (e) => {
+      if (!isDown) return;
+      const p = getPoint(e);
+      const dx = p.clientX - startX;
+      const dy = p.clientY - startY;
+      if (Math.abs(dx) > 4) moved = true;
+      if (Math.abs(dx) > Math.abs(dy)) e.preventDefault();
+      container.scrollLeft = clampScroll(startLeft - dx);
+
+      const now = performance.now();
+      const dt = Math.max(1, now - lastMoveT);
+      const deltaX = p.clientX - lastMoveX;
+      velocityX = deltaX / dt;
+      lastMoveX = p.clientX;
+      lastMoveT = now;
+    };
+
+    const onEnd = () => {
+      if (moved) {
+        container.__suppressClickUntil = Date.now() + 120;
+      }
+      isDown = false;
+      container.classList.remove('is-dragging');
+      if (moved) startInertia();
+    };
+
+    container.addEventListener('click', (e) => {
+      if ((container.__suppressClickUntil || 0) > Date.now()) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, true);
+
+    container.addEventListener('touchstart', onStart, { passive: true });
+    container.addEventListener('touchmove', onMove, { passive: false });
+    container.addEventListener('touchend', onEnd);
+    container.addEventListener('touchcancel', onEnd);
+    container.addEventListener('mousedown', onStart);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onEnd);
+  }
+
+  async function loadCardsData(src){
+    const res = await fetch(src, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`Не удалось загрузить ${src}: ${res.status}`);
+
+    const data = await res.json();
+    return Array.isArray(data) ? data : [data];
+  }
+
+  async function loadJson(src){
+    const res = await fetch(src, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`Не удалось загрузить ${src}: ${res.status}`);
+    return res.json();
+  }
 
   const isGradientOrColor = s => /^(?:linear|radial|conic)-gradient\(|^#|^rgb[a]?\(/i.test(s);
   const isVideo = s => /\.(mp4|webm|ogg)$/i.test(s);
+  const toAspectRatio = (raw) => {
+    const value = String(raw || '').trim();
+    if (!value) return '1 / 1';
+    if (value.includes(':')) return value.replace(':', ' / ');
+    return value;
+  };
+  const isSquareRatio = (raw) => {
+    const ratio = toAspectRatio(raw).replace(/\s+/g, '');
+    return ratio === '1/1' || ratio === '1';
+  };
   const resolveSrc = (src) => {
     const isAbs = /^(https?:|data:|\/|\.\/|\.\.\/)/i.test(src);
     return encodeURI(isAbs ? src : './' + src);
   };
 
-  items.forEach(item => {
-    const card = el('article', 'card');
+  function renderItems(mount, items, src){
+    if (mount.__cardsBalanceCleanup) {
+      mount.__cardsBalanceCleanup();
+      mount.__cardsBalanceCleanup = null;
+    }
+
+    mount.replaceChildren();
+    const leftCol = el('div', 'cards-col');
+    const rightCol = el('div', 'cards-col');
+    const leftMeta = [];
+    const rightMeta = [];
+    const mediaCleanup = [];
+    mount.append(leftCol, rightCol);
+
+    const useBonusesOldPrice = /cards-forth\.json$/i.test(String(src || ''));
+
+    items.forEach((item, idx) => {
+      const targetCol = idx % 2 === 0 ? leftCol : rightCol;
+      const targetMeta = idx % 2 === 0 ? leftMeta : rightMeta;
+
+      if (window.SplitCard?.isSplitCard(item)) {
+        const textCard = window.SplitCard.render(item, { loadScriptOnce });
+        if (textCard) {
+          targetCol.appendChild(textCard);
+          targetMeta.push({ canStretch: false, imgWrap: null, baseAspectRatio: '' });
+        }
+        return;
+      }
+
+      const card = el('article', 'card');
 
     // --- галерея ---
     const pics = Array.isArray(item.images) && item.images.length
@@ -197,6 +461,9 @@
     const imgHost = el('div', 'image-host');
     const imgWrap = el('div', 'image');
     const rail    = el('div', 'image-rail');
+    const ratio = toAspectRatio(item.imageRatio);
+    const canStretchImage = !isSquareRatio(item.imageRatio);
+    imgWrap.style.aspectRatio = ratio;
 
     imgWrap.appendChild(rail);
     imgHost.appendChild(imgWrap);
@@ -211,6 +478,11 @@
         v.src = resolveSrc(src);
         v.muted = true; v.loop = true; v.autoplay = true; v.playsInline = true;
         v.preload = 'metadata'; v.controls = false;
+        const onVideoReady = () => {
+          if (mount.__scheduleCardsBalance) mount.__scheduleCardsBalance();
+        };
+        v.addEventListener('loadedmetadata', onVideoReady, { once: true });
+        mediaCleanup.push(() => v.removeEventListener('loadedmetadata', onVideoReady));
         slide.appendChild(v);
       } else {
         const img = new Image();
@@ -222,6 +494,11 @@
         img.style.height = '100%';
         img.style.objectFit = 'cover';
         img.style.objectPosition = 'center';
+        const onImgLoad = () => {
+          if (mount.__scheduleCardsBalance) mount.__scheduleCardsBalance();
+        };
+        img.addEventListener('load', onImgLoad, { once: true });
+        mediaCleanup.push(() => img.removeEventListener('load', onImgLoad));
         img.onerror = () => {
           console.warn('Не удалось загрузить изображение:', img.src);
           slide.style.background = '#e8edf6';
@@ -239,6 +516,15 @@
       imgHost.appendChild(dots);
     }
 
+    if (item.imageBadge) {
+      const badgeEl = el('span', 'image-badge s20', item.imageBadge);
+      if (item.imageBadgeColor) {
+        const raw = String(item.imageBadgeColor).trim();
+        badgeEl.style.background = raw.startsWith('#') ? raw : `#${raw}`;
+      }
+      imgHost.appendChild(badgeEl);
+    }
+
     // простой бейдж (если используешь расширенную систему бейджей — можешь заменить)
     if (item.badge) imgHost.appendChild(makeRibbon(item.badge, item.badgeColor));
 
@@ -249,8 +535,8 @@
 
     // --- контент ---
     const content = el('div','card-content');
-    const titleRow = el('div','title-row');
-    titleRow.appendChild(el('div','card-title m20', item.title));
+    const topRow = el('div','title-row');
+    topRow.appendChild(el('div','price h4', item.price || ''));
 
     // избранное (SVG)
     const heart = el('button','heart');
@@ -289,26 +575,366 @@
 
 
 
-    titleRow.appendChild(heart);
-    content.appendChild(titleRow);
-
-    // цена
-    const priceRow = el('div','price-row');
-    priceRow.appendChild(el('div','price h4', item.price));
+    topRow.appendChild(heart);
+    content.appendChild(topRow);
 
     const oldLine = el('div','old-line');
-    if (item.oldPrice) oldLine.appendChild(el('div','price-old s10', item.oldPrice));
+    if (item.oldPrice) {
+      const oldPriceClass = useBonusesOldPrice ? 'price-old price-old-bonuses s10' : 'price-old s10';
+      oldLine.appendChild(el('div', oldPriceClass, item.oldPrice));
+    }
     if (item.discount) oldLine.appendChild(el('div','discount s10', item.discount));
-    if (oldLine.childNodes.length) priceRow.appendChild(oldLine);
+    if (oldLine.childNodes.length) content.appendChild(oldLine);
 
-    content.appendChild(priceRow);
+    if (item.title) content.appendChild(el('div','card-title m20', item.title));
 
-    if (item.subtitle) content.appendChild(el('div','s10 card-subtitle', item.subtitle));
-    if (item.meta)     content.appendChild(el('div','s10 card-meta', item.meta));
+    const infoText = item.geo || item.meta || item.subtitle;
+    if (infoText) content.appendChild(el('div','s10 card-meta', infoText));
+
+      card.appendChild(content);
+      targetCol.appendChild(card);
+      targetMeta.push({ canStretch: canStretchImage, imgWrap, baseAspectRatio: ratio });
+    });
+
+    const balanceBottomEdge = () => {
+      [...leftMeta, ...rightMeta].forEach((m) => {
+        if (!m.canStretch || !m.imgWrap) return;
+        m.imgWrap.style.height = '';
+        m.imgWrap.style.aspectRatio = m.baseAspectRatio;
+      });
+
+      const leftLastImage = [...leftMeta].reverse().find((m) => m.imgWrap);
+      const rightLastImage = [...rightMeta].reverse().find((m) => m.imgWrap);
+      if (!leftLastImage?.imgWrap || !rightLastImage?.imgWrap) return;
+
+      const leftBottom = Math.round(leftLastImage.imgWrap.getBoundingClientRect().bottom);
+      const rightBottom = Math.round(rightLastImage.imgWrap.getBoundingClientRect().bottom);
+      const diff = leftBottom - rightBottom;
+      if (Math.abs(diff) <= 1) return;
+
+      // Колонка, где нижняя граница последнего изображения выше.
+      const shorterMeta = diff > 0 ? rightMeta : leftMeta;
+      const need = Math.abs(diff);
+      // Ищем последнюю растягиваемую картинку в колонке (включая последнюю карточку).
+      const stretchTarget = [...shorterMeta].reverse().find((m) => m.canStretch && m.imgWrap);
+      if (!stretchTarget || !stretchTarget.imgWrap) return;
+
+      const currentHeight = stretchTarget.imgWrap.getBoundingClientRect().height;
+      stretchTarget.imgWrap.style.aspectRatio = 'auto';
+      stretchTarget.imgWrap.style.height = `${Math.max(1, Math.round(currentHeight + need))}px`;
+    };
+
+    let balanceRaf1 = 0;
+    let balanceRaf2 = 0;
+    let balanceTimer = 0;
+    const scheduleBalance = () => {
+      cancelAnimationFrame(balanceRaf1);
+      cancelAnimationFrame(balanceRaf2);
+      clearTimeout(balanceTimer);
+      balanceRaf1 = requestAnimationFrame(() => {
+        balanceRaf2 = requestAnimationFrame(balanceBottomEdge);
+      });
+      // Повторный проход после стабилизации лэйаута/медиа.
+      balanceTimer = window.setTimeout(() => {
+        balanceBottomEdge();
+      }, 80);
+    };
+
+    mount.__scheduleCardsBalance = scheduleBalance;
+    window.addEventListener('resize', mount.__scheduleCardsBalance, { passive: true });
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(() => {
+        if (mount.__scheduleCardsBalance) mount.__scheduleCardsBalance();
+      }).catch(() => {});
+    }
+    requestAnimationFrame(scheduleBalance);
+
+    mount.__cardsBalanceCleanup = () => {
+      cancelAnimationFrame(balanceRaf1);
+      cancelAnimationFrame(balanceRaf2);
+      clearTimeout(balanceTimer);
+      window.removeEventListener('resize', scheduleBalance);
+      mediaCleanup.forEach((fn) => fn());
+      mediaCleanup.length = 0;
+      mount.__scheduleCardsBalance = null;
+    };
+  }
+
+  function renderMarketDeals(mount, items){
+    mount.replaceChildren();
+
+    items.slice(0, 6).forEach((item) => {
+      const card = el('article', 'market-deal-card');
+      const imageWrap = el('div', 'market-deal-card__image');
+      const image = new Image();
+      image.loading = 'lazy';
+      image.decoding = 'async';
+      image.src = resolveSrc(item.image || '');
+      image.alt = item.title || '';
+      image.onerror = () => {
+        imageWrap.style.background = '#e8edf6';
+      };
+      imageWrap.appendChild(image);
+      card.appendChild(imageWrap);
+
+      const prices = el('div', 'market-deal-card__prices');
+      if (item.price) prices.appendChild(el('div', 'market-deal-card__price h6', item.price));
+      if (item.oldPrice) prices.appendChild(el('div', 'market-deal-card__old price-old s10', item.oldPrice));
+      card.appendChild(prices);
+
+      mount.appendChild(card);
+    });
+  }
+
+  function createBuyTimeCard(item, loadScriptOnceFn){
+    if (item.type === 'placeholder') {
+      const placeholderCard = el('article', 'card buy-time-card buy-time-card--placeholder');
+      if (String(item.size || '').toLowerCase() === 'large') {
+        placeholderCard.classList.add('buy-time-card--large');
+      }
+      const placeholder = el('div', 'buy-time-placeholder');
+      const placeholderVideo = String(item.backgroundVideo || '').trim();
+      if (placeholderVideo) {
+        const v = document.createElement('video');
+        v.src = resolveSrc(placeholderVideo);
+        v.muted = true;
+        v.loop = true;
+        v.autoplay = true;
+        v.playsInline = true;
+        v.preload = 'metadata';
+        v.setAttribute('aria-hidden', 'true');
+        v.tabIndex = -1;
+        placeholder.appendChild(v);
+      } else {
+        placeholder.style.background = item.background || '#ddd';
+      }
+      placeholderCard.appendChild(placeholder);
+      return placeholderCard;
+    }
+
+    const card = el('article', 'card buy-time-card');
+    const imgHost = el('div', 'image-host');
+    const imgWrap = el('div', 'image');
+    imgWrap.style.aspectRatio = '1 / 1';
+
+    const slide = el('div', 'image-slide');
+    const src = String(item.image || '').trim();
+    if (src) {
+      const image = new Image();
+      image.loading = 'lazy';
+      image.decoding = 'async';
+      image.src = resolveSrc(src);
+      image.alt = item.title || '';
+      image.onerror = () => {
+        slide.style.background = '#e8edf6';
+      };
+      slide.appendChild(image);
+    } else {
+      slide.style.background = '#e8edf6';
+    }
+
+    imgWrap.appendChild(slide);
+    imgHost.appendChild(imgWrap);
+
+    if (item.imageBadge) {
+      const badgeEl = el('span', 'image-badge s20', item.imageBadge);
+      imgHost.appendChild(badgeEl);
+    }
+
+    card.appendChild(imgHost);
+
+    const content = el('div', 'card-content');
+    const topRow = el('div', 'title-row');
+    const price = el('div', 'price');
+    const priceHighlight = el('span', 'price-pill h4', item.price || '');
+    const priceColor = String(item.priceHighlightColor || '').trim();
+    if (priceColor) priceHighlight.style.setProperty('--price-pill-color', priceColor);
+    price.appendChild(priceHighlight);
+    topRow.appendChild(price);
+
+    const heart = el('button', 'heart');
+    heart.type = 'button';
+    heart.setAttribute('aria-pressed', 'false');
+    heart.setAttribute('aria-label', 'Добавить в избранное');
+
+    const heartIcon = new Image();
+    heartIcon.src = HEART_OFF;
+    heartIcon.alt = '';
+    heartIcon.width = 18;
+    heartIcon.height = 18;
+    heart.appendChild(heartIcon);
+
+    heart.addEventListener('click', async () => {
+      const saved = heart.classList.toggle('saved');
+      heart.setAttribute('aria-pressed', saved ? 'true' : 'false');
+      heart.setAttribute('aria-label', saved ? 'Убрать из избранного' : 'Добавить в избранное');
+      heartIcon.src = saved ? HEART_ON : HEART_OFF;
+
+      try {
+        await loadScriptOnceFn('./particles-burst.js', document);
+        if (window.ParticlesBurst?.burst) {
+          heart.classList.add('animating');
+          window.ParticlesBurst.burst(
+            heart,
+            saved ? window.ParticlesBurst.presets.heartOn : window.ParticlesBurst.presets.heartOff
+          );
+          setTimeout(() => heart.classList.remove('animating'), 320);
+        }
+      } catch (e) {
+        console.debug('Particles module not loaded:', e);
+      }
+    });
+
+    topRow.appendChild(heart);
+    content.appendChild(topRow);
+
+    if (item.oldPrice) {
+      const oldLine = el('div', 'old-line');
+      oldLine.appendChild(el('div', 'price-old s10', item.oldPrice));
+      content.appendChild(oldLine);
+    }
+    if (item.title) content.appendChild(el('div', 'card-title m20', item.title));
+    if (item.meta) content.appendChild(el('div', 's10 card-meta', item.meta));
 
     card.appendChild(content);
-    mount.appendChild(card);
-  });
+    return card;
+  }
+
+  async function initBuyTimeSection(){
+    const section = document.querySelector('.buy-time[data-buy-time-src]');
+    if (!section) return;
+
+    const src = section.dataset.buyTimeSrc;
+    const rail = section.querySelector('[data-buy-time-rail]');
+    const tabsRow = section.querySelector('.buy-time__tabs');
+    const tabButtons = Array.from(section.querySelectorAll('[data-buy-time-tab]'));
+    if (!src || !rail || !tabButtons.length) return;
+    attachHorizontalDragScroll(rail);
+    attachHorizontalDragScroll(tabsRow);
+
+    try {
+      const payload = await loadJson(src);
+      const tabs = Array.isArray(payload?.tabs) ? payload.tabs : [];
+      if (!tabs.length) return;
+
+      const byId = new Map(tabs.map((tab) => [String(tab.id), tab]));
+      let resizeRaf = 0;
+
+      const ensureTabVisible = (btn) => {
+        if (!tabsRow || !btn) return;
+        const EDGE_GAP = 10;
+        const rowRect = tabsRow.getBoundingClientRect();
+        const btnRect = btn.getBoundingClientRect();
+        const visibleLeft = rowRect.left + EDGE_GAP;
+        const visibleRight = rowRect.right - EDGE_GAP;
+
+        let nextLeft = tabsRow.scrollLeft;
+        if (btnRect.left < visibleLeft) {
+          nextLeft -= (visibleLeft - btnRect.left);
+        } else if (btnRect.right > visibleRight) {
+          nextLeft += (btnRect.right - visibleRight);
+        }
+
+        const maxLeft = Math.max(0, tabsRow.scrollWidth - tabsRow.clientWidth);
+        nextLeft = Math.max(0, Math.min(maxLeft, nextLeft));
+        if (Math.abs(nextLeft - tabsRow.scrollLeft) > 0.5) {
+          tabsRow.scrollTo({ left: nextLeft, behavior: 'smooth' });
+        }
+      };
+
+      const syncPlaceholderHeight = () => {
+        const cards = Array.from(rail.querySelectorAll('.buy-time-card'));
+        if (!cards.length) return;
+
+        const regularHeights = cards
+          .filter((node) => !node.classList.contains('buy-time-card--placeholder'))
+          .map((node) => node.offsetHeight)
+          .filter((h) => h > 0);
+        if (!regularHeights.length) return;
+
+        const maxHeight = Math.max(...regularHeights);
+        cards
+          .filter((node) => node.classList.contains('buy-time-card--placeholder'))
+          .forEach((placeholderCard) => {
+            placeholderCard.style.height = `${maxHeight}px`;
+          });
+      };
+
+      const renderTab = (tabId) => {
+        const selected = byId.get(tabId) || tabs[0];
+        tabButtons.forEach((btn) => {
+          const active = btn.dataset.buyTimeTab === selected.id;
+          btn.classList.toggle('is-active', active);
+          btn.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+
+        if (typeof rail.__stopDragInertia === 'function') rail.__stopDragInertia();
+        rail.replaceChildren();
+        const items = Array.isArray(selected.items) ? selected.items.slice(0, 6) : [];
+        items.forEach((item) => rail.appendChild(createBuyTimeCard(item, loadScriptOnce)));
+        rail.scrollLeft = 0;
+        requestAnimationFrame(syncPlaceholderHeight);
+        setTimeout(syncPlaceholderHeight, 60);
+      };
+
+      tabButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          ensureTabVisible(btn);
+          renderTab(btn.dataset.buyTimeTab);
+        });
+      });
+
+      const firstTab = tabButtons[0]?.dataset.buyTimeTab || tabs[0].id;
+      renderTab(firstTab);
+
+      window.addEventListener('resize', () => {
+        cancelAnimationFrame(resizeRaf);
+        resizeRaf = requestAnimationFrame(syncPlaceholderHeight);
+      }, { passive: true });
+    } catch (err) {
+      console.error(err);
+      const fail = el('div', 's10');
+      fail.style.color = '#6b7280';
+      fail.textContent = `Ошибка загрузки карточек: ${src}`;
+      rail.appendChild(fail);
+    }
+  }
+
+  const blocks = Array.from(document.querySelectorAll('.snippets-block[data-snippets-src]'));
+
+  for (const block of blocks) {
+    const src = block.dataset.snippetsSrc;
+    const mount = block.querySelector('.cards');
+    if (!src || !mount) continue;
+
+    try {
+      const items = await loadCardsData(src);
+      renderItems(mount, items, src);
+    } catch (err) {
+      console.error(err);
+      const fail = el('div', 's10');
+      fail.style.padding = '0 10px 12px';
+      fail.style.color = '#6b7280';
+      fail.textContent = `Ошибка загрузки карточек: ${src}`;
+      block.appendChild(fail);
+    }
+  }
+
+  const dealsBlock = document.querySelector('.market-deals[data-deals-src]');
+  if (dealsBlock) {
+    const src = dealsBlock.dataset.dealsSrc;
+    const mount = dealsBlock.querySelector('.market-deals__grid');
+    if (src && mount) {
+      try {
+        const items = await loadCardsData(src);
+        renderMarketDeals(mount, items);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
+
+  await initBuyTimeSection();
 })();
 </script>
 
@@ -434,6 +1060,36 @@ document.querySelectorAll('.tabbar__btn').forEach(btn=>{
     sticky.classList.toggle('is-on', !entry.isIntersecting);
   }, { threshold: 0 });
   io.observe(sentinel);
+})();
+</script>
+
+<script>
+(() => {
+  const timer = document.getElementById('discount-timer');
+  if (!timer) return;
+
+  const hh = timer.querySelector('[data-unit="hh"]');
+  const mm = timer.querySelector('[data-unit="mm"]');
+  const ss = timer.querySelector('[data-unit="ss"]');
+  if (!hh || !mm || !ss) return;
+
+  let left = (12 * 3600) + (26 * 60) + 56;
+
+  const pad = (n) => String(n).padStart(2, '0');
+  const draw = () => {
+    const h = Math.floor(left / 3600);
+    const m = Math.floor((left % 3600) / 60);
+    const s = left % 60;
+    hh.textContent = pad(h);
+    mm.textContent = pad(m);
+    ss.textContent = pad(s);
+  };
+
+  draw();
+  setInterval(() => {
+    left = Math.max(0, left - 1);
+    draw();
+  }, 1000);
 })();
 </script>
 

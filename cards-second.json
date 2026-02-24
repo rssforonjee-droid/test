@@ -1,0 +1,36 @@
+[
+  {
+    "title": "Apple AirPods Max USB-C",
+    "price": "43 290 ₽",
+    "oldPrice": "56 100 ₽",
+    "imageBadge": "–22%",
+    "meta": "от 3 дней",
+    "imageRatio": "3:4",
+    "image": "img_snippets/5_2.jpg"
+  },
+  {
+    "title": "Nomos Club 701.1",
+    "price": "83 000 ₽",
+    "oldPrice": "105 200 ₽",
+    "imageBadge": "–20%",
+    "meta": "1—3 дня",
+    "image": "img_snippets/9.jpg"
+  },
+  {
+   "title": "Куртка вельветовая",
+    "price": "10 700 ₽",
+    "oldPrice": "15 000 ₽",
+    "imageBadge": "–28%",
+    "meta": "от 3 дней",
+    "image": "img_snippets/12.jpg"
+  },
+  {
+   "title": "Xtep Ace 2000 км 3.0 р. 40",
+    "price": "3 200 ₽",
+    "oldPrice": "5 600 ₽",
+    "imageBadge": "–42%",
+    "meta": "от 1 дня",
+    "imageRatio": "3:4",
+    "image": "img_snippets/11.jpg"
+  }
+]

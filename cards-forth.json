@@ -1,0 +1,50 @@
+[
+  {
+    "title": "Шапка вязаная",
+    "price": "3 200\u00A0₽",
+    "oldPrice": "5 000\u00A0₽",
+    "imageBadge": "–36%",
+    "imageBadgeColor": "008AED",
+      "badge": "Скидка за бонусы",
+    "badgeColor": "#008AED",
+    "meta": "от 3\u00A0дней",
+    "image": "img_snippets/23.jpg"
+  },
+    {
+    "title": "Sony Alpha ilce-7M4 Body",
+    "price": "130 000\u00A0₽",
+    "oldPrice": "154 000\u00A0₽",
+    "imageBadge": "–15%",
+    "imageBadgeColor": "008AED",
+      "badge": "Скидка за бонусы",
+    "badgeColor": "#008AED",
+    "meta": "2—3\u00A0дня",
+     "imageRatio": "3:4",
+    "image": "img_snippets/24.jpg"
+  },
+  {
+   "title": "Ray Ban Wayfarer Clear",
+    "price": "39 990\u00A0₽",
+    "oldPrice": "45 000\u00A0₽",
+    "imageBadge": "–11%",
+    "imageBadgeColor": "008AED",
+      "badge": "Скидка за бонусы",
+    "badgeColor": "#008AED",
+    "meta": "5—10\u00A0дней",
+        "imageRatio": "3:4",
+    "image": "img_snippets/25.mp4"
+  },
+  {
+   "title": "Свитер шерстяной",
+    "price": "13 100\u00A0₽",
+    "oldPrice": "16 000\u00A0₽",
+    "imageBadge": "–18%",
+    "imageBadgeColor": "008AED",
+      "badge": "Скидка за бонусы",
+    "badgeColor": "#008AED",
+
+    "meta": "от 5\u00A0дней",
+
+    "image": "img_snippets/26.jpg"
+  }
+]

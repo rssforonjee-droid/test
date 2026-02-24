@@ -1,0 +1,165 @@
+{
+  "tabs": [
+    {
+      "id": "new-year-gifts",
+      "label": "Подарки к новому году",
+      "items": [
+        {
+          "type": "placeholder",
+          "size": "large",
+          "backgroundVideo": "img_snippets/42.mp4"
+        },
+        {
+          "title": "Свитер новогодний",
+          "price": "5 600 ₽",
+          "priceHighlightColor": "#E50965",
+          "oldPrice": "8 500 ₽",
+          "imageBadge": "−34%",
+          "image": "img_snippets/27.jpg",
+          "meta": "1–3 дня"
+        },
+        {
+          "title": "Свечи ручной работы",
+          "price": "2 000 ₽",
+          "priceHighlightColor": "#E50965",
+          "oldPrice": "3 600 ₽",
+          "imageBadge": "−44%",
+          "image": "img_snippets/28.jpg",
+          "meta": "2–4 дня"
+        },
+        {
+          "title": "Игрушки на ёлку",
+          "price": "1 490 ₽",
+          "priceHighlightColor": "#E50965",
+          "oldPrice": "2 990 ₽",
+          "imageBadge": "−50%",
+          "image": "img_snippets/29.jpg",
+          "meta": "от 1 дня"
+        },
+        {
+          "title": "Плед",
+          "price": "11 790 ₽",
+          "priceHighlightColor": "#E50965",
+          "oldPrice": "19 000 ₽",
+          "imageBadge": "−37%",
+          "image": "img_snippets/30.jpg",
+          "meta": "3–5 дней"
+        },
+             {
+          "title": "Набор игрушек",
+          "price": "1 890 ₽",
+          "priceHighlightColor": "#E50965",
+          "oldPrice": "2 490 ₽",
+          "imageBadge": "−40%",
+          "image": "img_snippets/31.jpg",
+          "meta": "1–3 дня"
+        }
+   
+      ]
+    },
+    {
+      "id": "sale",
+      "label": "Распродажа",
+      "items": [
+
+        {
+          "title": "Керамическая ваза",
+          "price": "6 990 ₽",
+          "priceHighlightColor": "#E50965",
+          "oldPrice": "9 990 ₽",
+          "imageBadge": "−30%",
+          "image": "img_snippets/32.jpg",
+          "meta": "2–5 дней"
+        },
+        {
+          "title": "Маска для сноуборда",
+          "price": "2 790 ₽",
+          "priceHighlightColor": "#E50965",
+          "oldPrice": "4 490 ₽",
+          "imageBadge": "−38%",
+          "image": "img_snippets/33.jpg",
+          "meta": "2–4 дня"
+        },
+        {
+          "title": "Фотоаппарат Sony SLT-A37",
+          "price": "115 490 ₽",
+          "priceHighlightColor": "#E50965",
+          "oldPrice": "148 490 ₽",
+          "imageBadge": "−22%",
+          "image": "img_snippets/34.jpg",
+          "meta": "3–6 дней"
+        },
+        {
+          "title": "Тарелка керамическая",
+          "price": "1 990 ₽",
+          "priceHighlightColor": "#E50965",
+          "oldPrice": "3 290 ₽",
+          "imageBadge": "−40%",
+          "image": "img_snippets/35.jpg",
+          "meta": "1–3 дня"
+        },
+        {
+          "title": "Термостакан",
+          "price": "2 390 ₽",
+          "priceHighlightColor": "#E50965",
+          "oldPrice": "3 990 ₽",
+          "imageBadge": "−40%",
+          "image": "img_snippets/36.jpg",
+          "meta": "2–4 дня"
+        }
+      ]
+    },
+    {
+      "id": "brands",
+      "label": "Бренды со скидками",
+      "items": [
+
+        {
+          "title": "Футболка Tommy Hilfiger",
+          "price": "13 990 ₽",
+          "priceHighlightColor": "#E50965",
+          "oldPrice": "26 800 ₽",
+          "imageBadge": "−48%",
+          "image": "img_snippets/37.jpg",
+          "meta": "5–10 дней"
+        },
+        {
+          "title": "Комбинезон Dickies",
+          "price": "10 990 ₽",
+          "priceHighlightColor": "#E50965",
+          "oldPrice": "14 500 ₽",
+          "imageBadge": "−24%",
+          "image": "img_snippets/38.jpg",
+          "meta": "3–7 дней"
+        },
+        {
+          "title": "Сумка Guess Noelle",
+          "price": "19 790 ₽",
+          "priceHighlightColor": "#E50965",
+          "oldPrice": "22 000 ₽",
+          "imageBadge": "−10%",
+          "image": "img_snippets/39.jpg",
+          "meta": "4–8 дней"
+        },
+        {
+          "title": "Футболка Marc O'Polo",
+          "price": "11 000 ₽",
+          "priceHighlightColor": "#E50965",
+          "oldPrice": "16 200 ₽",
+          "imageBadge": "−32%",
+          "image": "img_snippets/40.jpg",
+          "meta": "4–9 дней"
+        },
+        {
+          "title": "Armani Jeans Blue Emerald",
+          "price": "8 990 ₽",
+          "priceHighlightColor": "#E50965",
+          "oldPrice": "11 590 ₽",
+          "imageBadge": "−22%",
+          "image": "img_snippets/41.jpg",
+          "meta": "4–8 дней"
+        }
+      ]
+    }
+  ]
+}

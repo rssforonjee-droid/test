@@ -1,0 +1,32 @@
+[
+  {
+    "title": "толстовка женская",
+    "price": "7 500\u00A0₽",
+    "badge": "Безопасная сделка",
+    "badgeColor": "#965EEB",
+    "subtitle": "от 1 дня",
+    "imageRatio": "3:4",
+    "image": "img_snippets/43.jpg"
+  },
+  {
+    "title": "Кожаный чехол на\u00A0iPhone",
+    "price": "13 990 ₽",
+    "oldPrice": "16 800 ₽",
+    "imageBadge": "–20%",
+    "meta": "5—10 дней",
+    "image": "img_snippets/44.jpg"
+  },
+  {
+    "title": "Плед",
+    "price": "12 000₽",
+    "subtitle": "от 1 дня",
+    "image": "img_snippets/45.jpg"
+  },
+  {
+    "title": "Шарф из\u00A0шерсти",
+    "price": "8 000 ₽",
+    "subtitle": "от 1 дня",
+    "imageRatio": "3:4",
+    "image": "img_snippets/46.jpg"
+  }
+]
