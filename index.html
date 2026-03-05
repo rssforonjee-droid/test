@@ -1,1107 +1,1115 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <title>test</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div class="search-layer">
-  <!-- новый ряд с кругом и строкой поиска -->
-  <div class="search-row">
-    <span class="search-badge" aria-hidden="true"></span>
+  <div class="search-layer">
+    <!-- новый ряд с кругом и строкой поиска --> <!-- test -->
+    <div class="search-row">
+      <span class="search-badge" aria-hidden="true"></span>
 
-    <label class="search">
-      <span class="search-icon"></span>
-      <input class="hidden-input m20" type="text" placeholder="Поиск в Москве" value="Поиск в Москве" readonly>
-      <span class="filter-icon"></span>
-    </label>
+      <label class="search">
+        <span class="search-icon"></span>
+        <input class="hidden-input m20" type="text" placeholder="Поиск в Москве" value="Поиск в Москве" readonly>
+        <span class="filter-icon"></span>
+      </label>
+    </div>
+    <div class="search-caption">
+      <div class="h3">Кемпинг в Твери</div>
+      <div class="s20">Снаряжение и маршруты</div>
+      <div id="search-sentinel" aria-hidden="true"></div>
+    </div>
+    <div class="search-hero"></div>
   </div>
-  <div class="search-caption">
-    <div class="h3">Кемпинг в Твери</div>
-    <div class="s20">Снаряжение и маршруты</div>
-    <div id="search-sentinel" aria-hidden="true"></div>
-  </div>
-  <div class="search-hero"></div>
-</div>
 
-<section class="tabs s20">
-  <div class="tab-row first">
-    <div class="tab goods">Товары</div>
-    <div class="tab realty">Недвижи-<br>мость</div>
-    <div class="tab travel">Путеше-<br>ствия</div>
-  </div>
-  <div class="tab-row second">
-    <div class="tab auto">Авто</div>
-    <div class="tab service">Услуги</div>
-    <div class="tab job">Работа</div>
-    <div class="tab all">Всё</div>
-  </div>
-</section>
-
-<section class="promo">
-  <div class="tag"><span class="tag__label">Реклама</span></div>
-  <div class="img-right"></div>
-  <div class="img-left"></div>
-</section>
-
-<section class="snippets-block" data-snippets-src="./cards.json">
-  <section class="cards"></section>
-</section>
-
-<section class="insert-slot">
-  <section class="discount-banner" aria-label="Персональная скидка">
-    <div class="discount-banner__text h5">Евгений, для вас скидка на&nbsp;одежду&nbsp;— 60%.</div>
-    <div class="discount-timer h5" id="discount-timer" aria-live="polite">
-      <span class="discount-timer__cell" data-unit="hh">12</span>
-      <span class="discount-timer__sep">:</span>
-      <span class="discount-timer__cell" data-unit="mm">26</span>
-      <span class="discount-timer__sep">:</span>
-      <span class="discount-timer__cell" data-unit="ss">56</span>
+  <section class="tabs s20">
+    <div class="tab-row first">
+      <div class="tab goods">Товары</div>
+      <div class="tab realty">Недвижи-<br>мость</div>
+      <div class="tab travel">Путеше-<br>ствия</div>
+    </div>
+    <div class="tab-row second">
+      <div class="tab auto">Авто</div>
+      <div class="tab service">Услуги</div>
+      <div class="tab job">Работа</div>
+      <div class="tab all">Всё</div>
     </div>
   </section>
-</section>
 
-<section class="snippets-block" data-snippets-src="./cards-second.json">
-  <section class="cards"></section>
-</section>
+  <section class="promo">
+    <div class="tag"><span class="tag__label">Реклама</span></div>
+    <div class="img-right"></div>
+    <div class="img-left"></div>
+  </section>
 
-<section class="market-deals" data-deals-src="./cards-market-deals.json" aria-label="Товары со скидкой">
-  <img class="market-deals__geo" src="./res/beauty_geo.png" alt="" aria-hidden="true">
-  <img class="market-deals__title" src="./res/minus-na-ylice.svg" alt="Минус на улице, минус в цене">
-  <p class="market-deals__subtitle l20">Товары со скидкой ниже рынка.<br>Осталось мало!</p>
-  <section class="market-deals__grid" aria-live="polite"></section>
-  <button class="market-deals__btn m20" type="button">Больше выгоды</button>
-</section>
+  <section class="snippets-block" data-snippets-src="./cards.json">
+    <section class="cards"></section>
+  </section>
 
-<section class="snippets-block" data-snippets-src="./cards-third.json">
-  <section class="cards"></section>
-</section>
+  <section class="insert-slot">
+    <section class="discount-banner" aria-label="Персональная скидка">
+      <div class="discount-banner__text h5">Евгений, для вас скидка на&nbsp;одежду&nbsp;— 60%.</div>
+      <div class="discount-timer h5" id="discount-timer" aria-live="polite">
+        <span class="discount-timer__cell" data-unit="hh">12</span>
+        <span class="discount-timer__sep">:</span>
+        <span class="discount-timer__cell" data-unit="mm">26</span>
+        <span class="discount-timer__sep">:</span>
+        <span class="discount-timer__cell" data-unit="ss">56</span>
+      </div>
+    </section>
+  </section>
+
+  <section class="snippets-block" data-snippets-src="./cards-second.json">
+    <section class="cards"></section>
+  </section>
+
+  <section class="market-deals" data-deals-src="./cards-market-deals.json" aria-label="Товары со скидкой">
+    <img class="market-deals__geo" src="./res/beauty_geo.png" alt="" aria-hidden="true">
+    <img class="market-deals__title" src="./res/minus-na-ylice.svg" alt="Минус на улице, минус в цене">
+    <p class="market-deals__subtitle l20">Товары со скидкой ниже рынка.<br>Осталось мало!</p>
+    <section class="market-deals__grid" aria-live="polite"></section>
+    <button class="market-deals__btn m20" type="button">Больше выгоды</button>
+  </section>
+
+  <section class="snippets-block" data-snippets-src="./cards-third.json">
+    <section class="cards"></section>
+  </section>
 
 
-<template id="split-card-template">
-  <article class="card card--text">
-    <div class="text-card-plate">
-      <div class="spin-card__scene" data-sc="scene">
-        <div class="spin-card spin-card--back" data-sc="back-card" style="transform:translate(-50%,-50%);">
-          <div class="spin-face">
+  <template id="split-card-template">
+    <article class="card card--text">
+      <div class="text-card-plate">
+        <div class="spin-card__scene" data-sc="scene">
+          <div class="spin-card spin-card--back" data-sc="back-card" style="transform:translate(-50%,-50%);">
+            <div class="spin-face">
+            </div>
+          </div>
+          <div class="spin-card spin-card--front" data-sc="front-card"
+            style="transform:translate(-50%,-50%) rotateY(0deg)">
+            <div class="spin-face spin-default-face" data-sc="default-face">
+            </div>
+            <div class="spin-prize-face" data-sc="prize-face"></div>
           </div>
         </div>
-        <div class="spin-card spin-card--front" data-sc="front-card" style="transform:translate(-50%,-50%) rotateY(0deg)">
-          <div class="spin-face spin-default-face" data-sc="default-face">
-          </div>
-          <div class="spin-prize-face" data-sc="prize-face"></div>
+        <div class="spin-card__promo" data-sc="promo">
+          <img class="spin-card__promo-image" data-sc="promo-image" src="" alt="">
+        </div>
+        <div class="spin-card__message h6" data-sc="message">Испытай удачу, крути и получай призы.</div>
+      </div>
+      <button class="spin-card__btn m20" type="button" data-sc="button">Крутить</button>
+    </article>
+  </template>
+
+
+  <section class="pinata-block" data-pinata-config="./pinata-block.json" aria-label="Пиньята"></section>
+
+
+
+  <section class="snippets-block" data-snippets-src="./cards-forth.json">
+    <h2 class="snippets-block__title">С бонусами дешевле</h2>
+    <section class="cards"></section>
+  </section>
+
+  <section class="promo-mini" aria-label="Промо мини">
+    <div class="promo-mini__viewport" data-promo-mini-viewport>
+      <div class="promo-mini__track" data-promo-mini-track>
+        <div class="promo-mini__group" data-promo-mini-group>
+          <article class="promo-mini__item promo-mini__item--sale">
+            <span class="promo-mini__text h5">Большие скидки</span>
+            <span class="promo-mini__arrow" aria-hidden="true"></span>
+          </article>
+          <article class="promo-mini__item promo-mini__item--image">
+            <img src="./res/promo_mini_bag.png" alt="" aria-hidden="true">
+          </article>
+          <article class="promo-mini__item promo-mini__item--timer">
+            <span class="promo-mini__time h5" data-promo-mini-timer data-start-seconds="51718">14:21:58</span>
+          </article>
+          <article class="promo-mini__item promo-mini__item--category">
+            <span class="promo-mini__text h5">Одежда и аксессуары</span>
+          </article>
+          <article class="promo-mini__item promo-mini__item--premium">
+            <span class="promo-mini__text h5">Премиум бренды</span>
+          </article>
         </div>
       </div>
-      <div class="spin-card__promo" data-sc="promo">
-        <img class="spin-card__promo-image" data-sc="promo-image" src="" alt="">
-      </div>
-      <div class="spin-card__message h6" data-sc="message">Испытай удачу, крути и получай призы.</div>
     </div>
-    <button class="spin-card__btn m20" type="button" data-sc="button">Крутить</button>
-  </article>
-</template>
+  </section>
 
-
-<section class="pinata-block" data-pinata-config="./pinata-block.json" aria-label="Пиньята"></section>
-
-
-
-<section class="snippets-block" data-snippets-src="./cards-forth.json">
-  <h2 class="snippets-block__title">С бонусами дешевле</h2>
-  <section class="cards"></section>
-</section>
-
-<section class="promo-mini" aria-label="Промо мини">
-  <div class="promo-mini__viewport" data-promo-mini-viewport>
-    <div class="promo-mini__track" data-promo-mini-track>
-      <div class="promo-mini__group" data-promo-mini-group>
-        <article class="promo-mini__item promo-mini__item--sale">
-          <span class="promo-mini__text h5">Большие скидки</span>
-          <span class="promo-mini__arrow" aria-hidden="true"></span>
-        </article>
-        <article class="promo-mini__item promo-mini__item--image">
-          <img src="./res/promo_mini_bag.png" alt="" aria-hidden="true">
-        </article>
-        <article class="promo-mini__item promo-mini__item--timer">
-          <span class="promo-mini__time h5" data-promo-mini-timer data-start-seconds="51718">14:21:58</span>
-        </article>
-        <article class="promo-mini__item promo-mini__item--category">
-          <span class="promo-mini__text h5">Одежда и аксессуары</span>
-        </article>
-        <article class="promo-mini__item promo-mini__item--premium">
-          <span class="promo-mini__text h5">Премиум бренды</span>
-        </article>
-      </div>
+  <section class="buy-time" data-buy-time-src="./buy-time-snippets.json" aria-label="Самое время купить">
+    <div class="buy-time__heading">
+      <h3 class="h2">Самое время купить</h2>
     </div>
+    <div class="buy-time__tabs" role="tablist" aria-label="Категории подборки">
+      <button class="buy-time__tab m20 is-active" type="button" role="tab" aria-selected="true"
+        data-buy-time-tab="new-year-gifts">Подарки на новый год</button>
+      <button class="buy-time__tab m20" type="button" role="tab" aria-selected="false"
+        data-buy-time-tab="sale">Распродажа</button>
+      <button class="buy-time__tab m20" type="button" role="tab" aria-selected="false" data-buy-time-tab="brands">Бренды
+        со скидками</button>
+    </div>
+    <div class="buy-time__rail" data-buy-time-rail aria-live="polite"></div>
+  </section>
+
+
+  <section class="snippets-block snippets-block--fifth" data-snippets-src="./cards-fifth.json">
+    <section class="cards"></section>
+  </section>
+
+
+  <!-- Плавающие CTA -->
+  <div class="float-cta m20">
+    <button class="cta cta--ghost" type="button">Мои объявления</button>
   </div>
-</section>
 
-<section class="buy-time" data-buy-time-src="./buy-time-snippets.json" aria-label="Самое время купить">
-  <div class="buy-time__heading">
-    <h3 class="h2">Самое время купить</h2>
-  </div>
-  <div class="buy-time__tabs" role="tablist" aria-label="Категории подборки">
-    <button class="buy-time__tab m20 is-active" type="button" role="tab" aria-selected="true" data-buy-time-tab="new-year-gifts">Подарки на новый год</button>
-    <button class="buy-time__tab m20" type="button" role="tab" aria-selected="false" data-buy-time-tab="sale">Распродажа</button>
-    <button class="buy-time__tab m20" type="button" role="tab" aria-selected="false" data-buy-time-tab="brands">Бренды со скидками</button>
-  </div>
-  <div class="buy-time__rail" data-buy-time-rail aria-live="polite"></div>
-</section>
+  <footer class="tabbar" role="navigation" aria-label="Основная навигация">
+    <button class="tabbar__btn home is-active" aria-label="Главная"></button>
+    <button class="tabbar__btn favorites" aria-label="Избранное"></button>
+    <a href="finance.html" class="tabbar__btn wallet" aria-label="Кошелёк" role="button"></a>
+    <a href="test.html" class="tabbar__btn messenger" aria-label="Чат" role="button"></a>
+    <a href="assistant.html" class="tabbar__btn assistent" aria-label="Ассистент" role="button"></a>
+  </footer>
 
-
-<section class="snippets-block snippets-block--fifth" data-snippets-src="./cards-fifth.json">
-  <section class="cards"></section>
-</section>
-
-
-<!-- Плавающие CTA -->
-<div class="float-cta m20">
-  <button class="cta cta--ghost" type="button">Мои объявления</button>
-</div>
-
-<footer class="tabbar" role="navigation" aria-label="Основная навигация">
-  <button class="tabbar__btn home is-active" aria-label="Главная"></button>
-  <button class="tabbar__btn favorites" aria-label="Избранное"></button>
-  <a href="finance.html" class="tabbar__btn wallet" aria-label="Кошелёк" role="button"></a>
-  <a href="test.html" class="tabbar__btn messenger" aria-label="Чат" role="button"></a>
-  <a href="assistant.html" class="tabbar__btn assistent" aria-label="Ассистент" role="button"></a>
-</footer>
-
-<script>
-  document.querySelectorAll('.tab').forEach(function (tab) {
-    tab.addEventListener('click', function () {
-      document.querySelectorAll('.tab').forEach(function (item) {
-        item.classList.remove('active');
+  <script>
+    document.querySelectorAll('.tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        document.querySelectorAll('.tab').forEach(function (item) {
+          item.classList.remove('active');
+        });
+        this.classList.add('active');
       });
-      this.classList.add('active');
     });
-  });
 
-  // (не ломает ничего, если на странице нет .card .heart)
-  document.querySelectorAll('.card .heart').forEach(function (heart) {
-    heart.addEventListener('click', function (event) {
-      event.stopPropagation();
-      heart.classList.toggle('saved');
-      heart.textContent = heart.classList.contains('saved') ? '❤' : '♡';
+    // (не ломает ничего, если на странице нет .card .heart)
+    document.querySelectorAll('.card .heart').forEach(function (heart) {
+      heart.addEventListener('click', function (event) {
+        event.stopPropagation();
+        heart.classList.toggle('saved');
+        heart.textContent = heart.classList.contains('saved') ? '❤' : '♡';
+      });
     });
-  });
-</script>
+  </script>
 
-<script src="./split-card.js"></script>
-<script src="./pinata-block.js"></script>
-<script src="./promo-mini.js"></script>
-<script>
-(async function () {
-  const HEART_OFF = './res/heart_snippet.svg';
-  const HEART_ON  = './res/heart_snippet_full.svg';
+  <script src="./split-card.js"></script>
+  <script src="./pinata-block.js"></script>
+  <script src="./promo-mini.js"></script>
+  <script>
+    (async function () {
+      const HEART_OFF = './res/heart_snippet.svg';
+      const HEART_ON = './res/heart_snippet_full.svg';
 
-  const el = (t, c, h) => {
-    const n = document.createElement(t);
-    if (c) n.className = c;
-    if (h != null) n.innerHTML = h;
-    return n;
-  };
+      const el = (t, c, h) => {
+        const n = document.createElement(t);
+        if (c) n.className = c;
+        if (h != null) n.innerHTML = h;
+        return n;
+      };
 
-  /* === ЛЕНИВАЯ ПОДГРУЗКА СКРИПТА КОНФЕТТИ (вынесено во внешний файл) === */
-  const _loadedScripts = new Map();
-  function loadScriptOnce(url, doc){
-    if (_loadedScripts.has(url)) return _loadedScripts.get(url);
-    const p = new Promise((resolve, reject)=>{
-      const s = doc.createElement('script');
-      s.src = url; s.async = true; s.onload = ()=>resolve(); s.onerror = reject;
-      doc.head.appendChild(s);
-    });
-    _loadedScripts.set(url, p);
-    return p;
-  }
-  /* ===================================================================== */
+      /* === ЛЕНИВАЯ ПОДГРУЗКА СКРИПТА КОНФЕТТИ (вынесено во внешний файл) === */
+      const _loadedScripts = new Map();
+      function loadScriptOnce(url, doc) {
+        if (_loadedScripts.has(url)) return _loadedScripts.get(url);
+        const p = new Promise((resolve, reject) => {
+          const s = doc.createElement('script');
+          s.src = url; s.async = true; s.onload = () => resolve(); s.onerror = reject;
+          doc.head.appendChild(s);
+        });
+        _loadedScripts.set(url, p);
+        return p;
+      }
+      /* ===================================================================== */
 
-  function attachSwipe(rail, dots){
-    const container = rail.parentElement;
-    const count = rail.children.length;
-    if (count <= 1) return;
+      function attachSwipe(rail, dots) {
+        const container = rail.parentElement;
+        const count = rail.children.length;
+        if (count <= 1) return;
 
-    let idx = 0, startX = 0, startY = 0, curX = 0;
-    let dragging = false, baseX = 0;
+        let idx = 0, startX = 0, startY = 0, curX = 0;
+        let dragging = false, baseX = 0;
 
-    const width = () => container.getBoundingClientRect().width;
+        const width = () => container.getBoundingClientRect().width;
 
-    const setIdx = (i, animate = true) => {
-      idx = Math.max(0, Math.min(count - 1, i));
-      const target = -idx * width();
-      rail.style.transition = animate ? 'transform 320ms ease' : 'none';
-      rail.style.transform  = `translateX(${target}px)`;
-      baseX = target;
-      if (dots) [...dots.children].forEach((d, k) => d.classList.toggle('active', k === idx));
-    };
+        const setIdx = (i, animate = true) => {
+          idx = Math.max(0, Math.min(count - 1, i));
+          const target = -idx * width();
+          rail.style.transition = animate ? 'transform 320ms ease' : 'none';
+          rail.style.transform = `translateX(${target}px)`;
+          baseX = target;
+          if (dots) [...dots.children].forEach((d, k) => d.classList.toggle('active', k === idx));
+        };
 
-    const onStart = e => {
-      if (e.type === 'mousedown' && e.button !== 0) return;
-      dragging = true;
-      rail.style.transition = 'none';
-      const t = e.touches ? e.touches[0] : e;
-      startX = t.clientX; startY = t.clientY; curX = startX;
-      container.classList.add('grabbing');
-    };
+        const onStart = e => {
+          if (e.type === 'mousedown' && e.button !== 0) return;
+          dragging = true;
+          rail.style.transition = 'none';
+          const t = e.touches ? e.touches[0] : e;
+          startX = t.clientX; startY = t.clientY; curX = startX;
+          container.classList.add('grabbing');
+        };
 
-    const onMove = e => {
-      if (!dragging) return;
-      const t = e.touches ? e.touches[0] : e;
-      curX = t.clientX;
-      const dx = curX - startX;
-      const dy = t.clientY - startY;
-      if (Math.abs(dx) > Math.abs(dy)) e.preventDefault();
-      rail.style.transform = `translateX(${baseX + dx}px)`;
-    };
+        const onMove = e => {
+          if (!dragging) return;
+          const t = e.touches ? e.touches[0] : e;
+          curX = t.clientX;
+          const dx = curX - startX;
+          const dy = t.clientY - startY;
+          if (Math.abs(dx) > Math.abs(dy)) e.preventDefault();
+          rail.style.transform = `translateX(${baseX + dx}px)`;
+        };
 
-    const onEnd = () => {
-      if (!dragging) return;
-      dragging = false;
-      container.classList.remove('grabbing');
-      const dx = curX - startX;
-      const th = Math.max(40, width() * 0.12);
-      if (dx <= -th) setIdx(idx + 1);
-      else if (dx >= th) setIdx(idx - 1);
-      else setIdx(idx);
-    };
+        const onEnd = () => {
+          if (!dragging) return;
+          dragging = false;
+          container.classList.remove('grabbing');
+          const dx = curX - startX;
+          const th = Math.max(40, width() * 0.12);
+          if (dx <= -th) setIdx(idx + 1);
+          else if (dx >= th) setIdx(idx - 1);
+          else setIdx(idx);
+        };
 
-    container.addEventListener('touchstart', onStart, { passive: true  });
-    container.addEventListener('touchmove',  onMove,  { passive: false });
-    container.addEventListener('touchend',   onEnd);
-    container.addEventListener('mousedown',  onStart);
-    window.addEventListener('mousemove', onMove);
-    window.addEventListener('mouseup',   onEnd);
+        container.addEventListener('touchstart', onStart, { passive: true });
+        container.addEventListener('touchmove', onMove, { passive: false });
+        container.addEventListener('touchend', onEnd);
+        container.addEventListener('mousedown', onStart);
+        window.addEventListener('mousemove', onMove);
+        window.addEventListener('mouseup', onEnd);
 
-    const ro = new ResizeObserver(() => setIdx(idx, false));
-    ro.observe(container);
-    setIdx(0, false);
-  }
+        const ro = new ResizeObserver(() => setIdx(idx, false));
+        ro.observe(container);
+        setIdx(0, false);
+      }
 
-  function attachHorizontalDragScroll(container){
-    if (!container || container.__dragScrollBound) return;
-    container.__dragScrollBound = true;
+      function attachHorizontalDragScroll(container) {
+        if (!container || container.__dragScrollBound) return;
+        container.__dragScrollBound = true;
 
-    let isDown = false;
-    let moved = false;
-    let startX = 0;
-    let startY = 0;
-    let startLeft = 0;
-    let lastMoveX = 0;
-    let lastMoveT = 0;
-    let velocityX = 0;
-    let inertiaRaf = 0;
+        let isDown = false;
+        let moved = false;
+        let startX = 0;
+        let startY = 0;
+        let startLeft = 0;
+        let lastMoveX = 0;
+        let lastMoveT = 0;
+        let velocityX = 0;
+        let inertiaRaf = 0;
 
-    const getPoint = (e) => (e.touches ? e.touches[0] : e);
-    const maxScrollLeft = () => Math.max(0, container.scrollWidth - container.clientWidth);
-    const clampScroll = (v) => Math.max(0, Math.min(maxScrollLeft(), v));
+        const getPoint = (e) => (e.touches ? e.touches[0] : e);
+        const maxScrollLeft = () => Math.max(0, container.scrollWidth - container.clientWidth);
+        const clampScroll = (v) => Math.max(0, Math.min(maxScrollLeft(), v));
 
-    const stopInertia = () => {
-      if (!inertiaRaf) return;
-      cancelAnimationFrame(inertiaRaf);
-      inertiaRaf = 0;
-    };
-    container.__stopDragInertia = stopInertia;
-
-    const startInertia = () => {
-      stopInertia();
-      let v = velocityX; // px/ms in pointer space
-      if (Math.abs(v) < 0.03) return;
-
-      let lastTs = performance.now();
-      const step = (ts) => {
-        const dt = Math.min(32, Math.max(1, ts - lastTs));
-        lastTs = ts;
-
-        const prev = container.scrollLeft;
-        const next = clampScroll(prev - v * dt);
-        container.scrollLeft = next;
-
-        // friction (keeps direction, no rebound)
-        v *= 0.94;
-
-        const hitEdge = Math.abs(next - prev) < 0.01;
-        if (hitEdge || Math.abs(v) < 0.01) {
+        const stopInertia = () => {
+          if (!inertiaRaf) return;
+          cancelAnimationFrame(inertiaRaf);
           inertiaRaf = 0;
-          return;
-        }
-        inertiaRaf = requestAnimationFrame(step);
-      };
-
-      inertiaRaf = requestAnimationFrame(step);
-    };
-
-    const onStart = (e) => {
-      if (e.type === 'mousedown' && e.button !== 0) return;
-      stopInertia();
-      const p = getPoint(e);
-      isDown = true;
-      moved = false;
-      startX = p.clientX;
-      startY = p.clientY;
-      startLeft = container.scrollLeft;
-      lastMoveX = p.clientX;
-      lastMoveT = performance.now();
-      velocityX = 0;
-      container.classList.add('is-dragging');
-    };
-
-    const onMove = (e) => {
-      if (!isDown) return;
-      const p = getPoint(e);
-      const dx = p.clientX - startX;
-      const dy = p.clientY - startY;
-      if (Math.abs(dx) > 4) moved = true;
-      if (Math.abs(dx) > Math.abs(dy)) e.preventDefault();
-      container.scrollLeft = clampScroll(startLeft - dx);
-
-      const now = performance.now();
-      const dt = Math.max(1, now - lastMoveT);
-      const deltaX = p.clientX - lastMoveX;
-      velocityX = deltaX / dt;
-      lastMoveX = p.clientX;
-      lastMoveT = now;
-    };
-
-    const onEnd = () => {
-      if (moved) {
-        container.__suppressClickUntil = Date.now() + 120;
-      }
-      isDown = false;
-      container.classList.remove('is-dragging');
-      if (moved) startInertia();
-    };
-
-    container.addEventListener('click', (e) => {
-      if ((container.__suppressClickUntil || 0) > Date.now()) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-    }, true);
-
-    container.addEventListener('touchstart', onStart, { passive: true });
-    container.addEventListener('touchmove', onMove, { passive: false });
-    container.addEventListener('touchend', onEnd);
-    container.addEventListener('touchcancel', onEnd);
-    container.addEventListener('mousedown', onStart);
-    window.addEventListener('mousemove', onMove);
-    window.addEventListener('mouseup', onEnd);
-  }
-
-  async function loadCardsData(src){
-    const res = await fetch(src, { cache: 'no-store' });
-    if (!res.ok) throw new Error(`Не удалось загрузить ${src}: ${res.status}`);
-
-    const data = await res.json();
-    return Array.isArray(data) ? data : [data];
-  }
-
-  async function loadJson(src){
-    const res = await fetch(src, { cache: 'no-store' });
-    if (!res.ok) throw new Error(`Не удалось загрузить ${src}: ${res.status}`);
-    return res.json();
-  }
-
-  const isGradientOrColor = s => /^(?:linear|radial|conic)-gradient\(|^#|^rgb[a]?\(/i.test(s);
-  const isVideo = s => /\.(mp4|webm|ogg)$/i.test(s);
-  const toAspectRatio = (raw) => {
-    const value = String(raw || '').trim();
-    if (!value) return '1 / 1';
-    if (value.includes(':')) return value.replace(':', ' / ');
-    return value;
-  };
-  const isSquareRatio = (raw) => {
-    const ratio = toAspectRatio(raw).replace(/\s+/g, '');
-    return ratio === '1/1' || ratio === '1';
-  };
-  const resolveSrc = (src) => {
-    const isAbs = /^(https?:|data:|\/|\.\/|\.\.\/)/i.test(src);
-    return encodeURI(isAbs ? src : './' + src);
-  };
-
-  function renderItems(mount, items, src){
-    if (mount.__cardsBalanceCleanup) {
-      mount.__cardsBalanceCleanup();
-      mount.__cardsBalanceCleanup = null;
-    }
-
-    mount.replaceChildren();
-    const leftCol = el('div', 'cards-col');
-    const rightCol = el('div', 'cards-col');
-    const leftMeta = [];
-    const rightMeta = [];
-    const mediaCleanup = [];
-    mount.append(leftCol, rightCol);
-
-    const useBonusesOldPrice = /cards-forth\.json$/i.test(String(src || ''));
-
-    items.forEach((item, idx) => {
-      const targetCol = idx % 2 === 0 ? leftCol : rightCol;
-      const targetMeta = idx % 2 === 0 ? leftMeta : rightMeta;
-
-      if (window.SplitCard?.isSplitCard(item)) {
-        const textCard = window.SplitCard.render(item, { loadScriptOnce });
-        if (textCard) {
-          targetCol.appendChild(textCard);
-          targetMeta.push({ canStretch: false, imgWrap: null, baseAspectRatio: '' });
-        }
-        return;
-      }
-
-      const card = el('article', 'card');
-
-    // --- галерея ---
-    const pics = Array.isArray(item.images) && item.images.length
-      ? item.images.slice()
-      : (item.image ? [item.image] : []);
-
-    const imgHost = el('div', 'image-host');
-    const imgWrap = el('div', 'image');
-    const rail    = el('div', 'image-rail');
-    const ratio = toAspectRatio(item.imageRatio);
-    const canStretchImage = !isSquareRatio(item.imageRatio);
-    imgWrap.style.aspectRatio = ratio;
-
-    imgWrap.appendChild(rail);
-    imgHost.appendChild(imgWrap);
-
-    pics.forEach(src => {
-      const slide = el('div','image-slide');
-
-      if (isGradientOrColor(src)) {
-        slide.style.background = src;
-      } else if (isVideo(src)) {
-        const v = document.createElement('video');
-        v.src = resolveSrc(src);
-        v.muted = true; v.loop = true; v.autoplay = true; v.playsInline = true;
-        v.preload = 'metadata'; v.controls = false;
-        const onVideoReady = () => {
-          if (mount.__scheduleCardsBalance) mount.__scheduleCardsBalance();
         };
-        v.addEventListener('loadedmetadata', onVideoReady, { once: true });
-        mediaCleanup.push(() => v.removeEventListener('loadedmetadata', onVideoReady));
-        slide.appendChild(v);
-      } else {
-        const img = new Image();
-        img.loading = 'lazy';
-        img.decoding = 'async';
-        img.src = resolveSrc(src);
-        img.alt = item.title || '';
-        img.style.width  = '100%';
-        img.style.height = '100%';
-        img.style.objectFit = 'cover';
-        img.style.objectPosition = 'center';
-        const onImgLoad = () => {
-          if (mount.__scheduleCardsBalance) mount.__scheduleCardsBalance();
+        container.__stopDragInertia = stopInertia;
+
+        const startInertia = () => {
+          stopInertia();
+          let v = velocityX; // px/ms in pointer space
+          if (Math.abs(v) < 0.03) return;
+
+          let lastTs = performance.now();
+          const step = (ts) => {
+            const dt = Math.min(32, Math.max(1, ts - lastTs));
+            lastTs = ts;
+
+            const prev = container.scrollLeft;
+            const next = clampScroll(prev - v * dt);
+            container.scrollLeft = next;
+
+            // friction (keeps direction, no rebound)
+            v *= 0.94;
+
+            const hitEdge = Math.abs(next - prev) < 0.01;
+            if (hitEdge || Math.abs(v) < 0.01) {
+              inertiaRaf = 0;
+              return;
+            }
+            inertiaRaf = requestAnimationFrame(step);
+          };
+
+          inertiaRaf = requestAnimationFrame(step);
         };
-        img.addEventListener('load', onImgLoad, { once: true });
-        mediaCleanup.push(() => img.removeEventListener('load', onImgLoad));
-        img.onerror = () => {
-          console.warn('Не удалось загрузить изображение:', img.src);
-          slide.style.background = '#e8edf6';
+
+        const onStart = (e) => {
+          if (e.type === 'mousedown' && e.button !== 0) return;
+          stopInertia();
+          const p = getPoint(e);
+          isDown = true;
+          moved = false;
+          startX = p.clientX;
+          startY = p.clientY;
+          startLeft = container.scrollLeft;
+          lastMoveX = p.clientX;
+          lastMoveT = performance.now();
+          velocityX = 0;
+          container.classList.add('is-dragging');
         };
-        slide.appendChild(img);
+
+        const onMove = (e) => {
+          if (!isDown) return;
+          const p = getPoint(e);
+          const dx = p.clientX - startX;
+          const dy = p.clientY - startY;
+          if (Math.abs(dx) > 4) moved = true;
+          if (Math.abs(dx) > Math.abs(dy)) e.preventDefault();
+          container.scrollLeft = clampScroll(startLeft - dx);
+
+          const now = performance.now();
+          const dt = Math.max(1, now - lastMoveT);
+          const deltaX = p.clientX - lastMoveX;
+          velocityX = deltaX / dt;
+          lastMoveX = p.clientX;
+          lastMoveT = now;
+        };
+
+        const onEnd = () => {
+          if (moved) {
+            container.__suppressClickUntil = Date.now() + 120;
+          }
+          isDown = false;
+          container.classList.remove('is-dragging');
+          if (moved) startInertia();
+        };
+
+        container.addEventListener('click', (e) => {
+          if ((container.__suppressClickUntil || 0) > Date.now()) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+        }, true);
+
+        container.addEventListener('touchstart', onStart, { passive: true });
+        container.addEventListener('touchmove', onMove, { passive: false });
+        container.addEventListener('touchend', onEnd);
+        container.addEventListener('touchcancel', onEnd);
+        container.addEventListener('mousedown', onStart);
+        window.addEventListener('mousemove', onMove);
+        window.addEventListener('mouseup', onEnd);
       }
 
-      rail.appendChild(slide);
-    });
+      async function loadCardsData(src) {
+        const res = await fetch(src, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`Не удалось загрузить ${src}: ${res.status}`);
 
-    let dots = null;
-    if (pics.length > 1) {
-      dots = el('div','image-dots');
-      for (let i = 0; i < pics.length; i++) dots.appendChild(el('span','image-dot'));
-      imgHost.appendChild(dots);
-    }
-
-    if (item.imageBadge) {
-      const badgeEl = el('span', 'image-badge s20', item.imageBadge);
-      if (item.imageBadgeColor) {
-        const raw = String(item.imageBadgeColor).trim();
-        badgeEl.style.background = raw.startsWith('#') ? raw : `#${raw}`;
+        const data = await res.json();
+        return Array.isArray(data) ? data : [data];
       }
-      imgHost.appendChild(badgeEl);
-    }
 
-    // простой бейдж (если используешь расширенную систему бейджей — можешь заменить)
-    if (item.badge) imgHost.appendChild(makeRibbon(item.badge, item.badgeColor));
-
-    card.appendChild(imgHost);
-
-    if (pics.length > 1) attachSwipe(rail, dots);
-    else imgWrap.classList.add('image--static');
-
-    // --- контент ---
-    const content = el('div','card-content');
-    const topRow = el('div','title-row');
-    topRow.appendChild(el('div','price h4', item.price || ''));
-
-    // избранное (SVG)
-    const heart = el('button','heart');
-    heart.type = 'button';
-    heart.setAttribute('aria-pressed','false');
-    heart.setAttribute('aria-label','Добавить в избранное');
-
-    const heartIcon = new Image();
-    heartIcon.src = HEART_OFF;
-    heartIcon.alt = '';
-    heartIcon.width = 18; heartIcon.height = 18;
-    heart.appendChild(heartIcon);
-
-    heart.addEventListener('click', async () => {
-      const saved = heart.classList.toggle('saved');
-      heart.setAttribute('aria-pressed', saved ? 'true' : 'false');
-      heart.setAttribute('aria-label', saved ? 'Убрать из избранного' : 'Добавить в избранное');
-      heartIcon.src = saved ? HEART_ON : HEART_OFF;
-
-      // ЕДИНЫЕ конфетти on/off
-      try {
-        await loadScriptOnce('./particles-burst.js', document);
-        if (window.ParticlesBurst?.burst) {
-          heart.classList.add('animating');
-          window.ParticlesBurst.burst(
-            heart,
-            saved ? window.ParticlesBurst.presets.heartOn
-                  : window.ParticlesBurst.presets.heartOff
-          );
-          setTimeout(() => heart.classList.remove('animating'), 320);
-        }
-      } catch (e) {
-        console.debug('Particles module not loaded:', e);
+      async function loadJson(src) {
+        const res = await fetch(src, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`Не удалось загрузить ${src}: ${res.status}`);
+        return res.json();
       }
-    });
 
-
-
-    topRow.appendChild(heart);
-    content.appendChild(topRow);
-
-    const oldLine = el('div','old-line');
-    if (item.oldPrice) {
-      const oldPriceClass = useBonusesOldPrice ? 'price-old price-old-bonuses s10' : 'price-old s10';
-      oldLine.appendChild(el('div', oldPriceClass, item.oldPrice));
-    }
-    if (item.discount) oldLine.appendChild(el('div','discount s10', item.discount));
-    if (oldLine.childNodes.length) content.appendChild(oldLine);
-
-    if (item.title) content.appendChild(el('div','card-title m20', item.title));
-
-    const infoText = item.geo || item.meta || item.subtitle;
-    if (infoText) content.appendChild(el('div','s10 card-meta', infoText));
-
-      card.appendChild(content);
-      targetCol.appendChild(card);
-      targetMeta.push({ canStretch: canStretchImage, imgWrap, baseAspectRatio: ratio });
-    });
-
-    const balanceBottomEdge = () => {
-      [...leftMeta, ...rightMeta].forEach((m) => {
-        if (!m.canStretch || !m.imgWrap) return;
-        m.imgWrap.style.height = '';
-        m.imgWrap.style.aspectRatio = m.baseAspectRatio;
-      });
-
-      const leftLastImage = [...leftMeta].reverse().find((m) => m.imgWrap);
-      const rightLastImage = [...rightMeta].reverse().find((m) => m.imgWrap);
-      if (!leftLastImage?.imgWrap || !rightLastImage?.imgWrap) return;
-
-      const leftBottom = Math.round(leftLastImage.imgWrap.getBoundingClientRect().bottom);
-      const rightBottom = Math.round(rightLastImage.imgWrap.getBoundingClientRect().bottom);
-      const diff = leftBottom - rightBottom;
-      if (Math.abs(diff) <= 1) return;
-
-      // Колонка, где нижняя граница последнего изображения выше.
-      const shorterMeta = diff > 0 ? rightMeta : leftMeta;
-      const need = Math.abs(diff);
-      // Ищем последнюю растягиваемую картинку в колонке (включая последнюю карточку).
-      const stretchTarget = [...shorterMeta].reverse().find((m) => m.canStretch && m.imgWrap);
-      if (!stretchTarget || !stretchTarget.imgWrap) return;
-
-      const currentHeight = stretchTarget.imgWrap.getBoundingClientRect().height;
-      stretchTarget.imgWrap.style.aspectRatio = 'auto';
-      stretchTarget.imgWrap.style.height = `${Math.max(1, Math.round(currentHeight + need))}px`;
-    };
-
-    let balanceRaf1 = 0;
-    let balanceRaf2 = 0;
-    let balanceTimer = 0;
-    const scheduleBalance = () => {
-      cancelAnimationFrame(balanceRaf1);
-      cancelAnimationFrame(balanceRaf2);
-      clearTimeout(balanceTimer);
-      balanceRaf1 = requestAnimationFrame(() => {
-        balanceRaf2 = requestAnimationFrame(balanceBottomEdge);
-      });
-      // Повторный проход после стабилизации лэйаута/медиа.
-      balanceTimer = window.setTimeout(() => {
-        balanceBottomEdge();
-      }, 80);
-    };
-
-    mount.__scheduleCardsBalance = scheduleBalance;
-    window.addEventListener('resize', mount.__scheduleCardsBalance, { passive: true });
-    if (document.fonts?.ready) {
-      document.fonts.ready.then(() => {
-        if (mount.__scheduleCardsBalance) mount.__scheduleCardsBalance();
-      }).catch(() => {});
-    }
-    requestAnimationFrame(scheduleBalance);
-
-    mount.__cardsBalanceCleanup = () => {
-      cancelAnimationFrame(balanceRaf1);
-      cancelAnimationFrame(balanceRaf2);
-      clearTimeout(balanceTimer);
-      window.removeEventListener('resize', scheduleBalance);
-      mediaCleanup.forEach((fn) => fn());
-      mediaCleanup.length = 0;
-      mount.__scheduleCardsBalance = null;
-    };
-  }
-
-  function renderMarketDeals(mount, items){
-    mount.replaceChildren();
-
-    items.slice(0, 6).forEach((item) => {
-      const card = el('article', 'market-deal-card');
-      const imageWrap = el('div', 'market-deal-card__image');
-      const image = new Image();
-      image.loading = 'lazy';
-      image.decoding = 'async';
-      image.src = resolveSrc(item.image || '');
-      image.alt = item.title || '';
-      image.onerror = () => {
-        imageWrap.style.background = '#e8edf6';
+      const isGradientOrColor = s => /^(?:linear|radial|conic)-gradient\(|^#|^rgb[a]?\(/i.test(s);
+      const isVideo = s => /\.(mp4|webm|ogg)$/i.test(s);
+      const toAspectRatio = (raw) => {
+        const value = String(raw || '').trim();
+        if (!value) return '1 / 1';
+        if (value.includes(':')) return value.replace(':', ' / ');
+        return value;
       };
-      imageWrap.appendChild(image);
-      card.appendChild(imageWrap);
-
-      const prices = el('div', 'market-deal-card__prices');
-      if (item.price) prices.appendChild(el('div', 'market-deal-card__price h6', item.price));
-      if (item.oldPrice) prices.appendChild(el('div', 'market-deal-card__old price-old s10', item.oldPrice));
-      card.appendChild(prices);
-
-      mount.appendChild(card);
-    });
-  }
-
-  function createBuyTimeCard(item, loadScriptOnceFn){
-    if (item.type === 'placeholder') {
-      const placeholderCard = el('article', 'card buy-time-card buy-time-card--placeholder');
-      if (String(item.size || '').toLowerCase() === 'large') {
-        placeholderCard.classList.add('buy-time-card--large');
-      }
-      const placeholder = el('div', 'buy-time-placeholder');
-      const placeholderVideo = String(item.backgroundVideo || '').trim();
-      if (placeholderVideo) {
-        const v = document.createElement('video');
-        v.src = resolveSrc(placeholderVideo);
-        v.muted = true;
-        v.loop = true;
-        v.autoplay = true;
-        v.playsInline = true;
-        v.preload = 'metadata';
-        v.setAttribute('aria-hidden', 'true');
-        v.tabIndex = -1;
-        placeholder.appendChild(v);
-      } else {
-        placeholder.style.background = item.background || '#ddd';
-      }
-      placeholderCard.appendChild(placeholder);
-      return placeholderCard;
-    }
-
-    const card = el('article', 'card buy-time-card');
-    const imgHost = el('div', 'image-host');
-    const imgWrap = el('div', 'image');
-    imgWrap.style.aspectRatio = '1 / 1';
-
-    const slide = el('div', 'image-slide');
-    const src = String(item.image || '').trim();
-    if (src) {
-      const image = new Image();
-      image.loading = 'lazy';
-      image.decoding = 'async';
-      image.src = resolveSrc(src);
-      image.alt = item.title || '';
-      image.onerror = () => {
-        slide.style.background = '#e8edf6';
+      const isSquareRatio = (raw) => {
+        const ratio = toAspectRatio(raw).replace(/\s+/g, '');
+        return ratio === '1/1' || ratio === '1';
       };
-      slide.appendChild(image);
-    } else {
-      slide.style.background = '#e8edf6';
-    }
-
-    imgWrap.appendChild(slide);
-    imgHost.appendChild(imgWrap);
-
-    if (item.imageBadge) {
-      const badgeEl = el('span', 'image-badge s20', item.imageBadge);
-      imgHost.appendChild(badgeEl);
-    }
-
-    card.appendChild(imgHost);
-
-    const content = el('div', 'card-content');
-    const topRow = el('div', 'title-row');
-    const price = el('div', 'price');
-    const priceHighlight = el('span', 'price-pill h4', item.price || '');
-    const priceColor = String(item.priceHighlightColor || '').trim();
-    if (priceColor) priceHighlight.style.setProperty('--price-pill-color', priceColor);
-    price.appendChild(priceHighlight);
-    topRow.appendChild(price);
-
-    const heart = el('button', 'heart');
-    heart.type = 'button';
-    heart.setAttribute('aria-pressed', 'false');
-    heart.setAttribute('aria-label', 'Добавить в избранное');
-
-    const heartIcon = new Image();
-    heartIcon.src = HEART_OFF;
-    heartIcon.alt = '';
-    heartIcon.width = 18;
-    heartIcon.height = 18;
-    heart.appendChild(heartIcon);
-
-    heart.addEventListener('click', async () => {
-      const saved = heart.classList.toggle('saved');
-      heart.setAttribute('aria-pressed', saved ? 'true' : 'false');
-      heart.setAttribute('aria-label', saved ? 'Убрать из избранного' : 'Добавить в избранное');
-      heartIcon.src = saved ? HEART_ON : HEART_OFF;
-
-      try {
-        await loadScriptOnceFn('./particles-burst.js', document);
-        if (window.ParticlesBurst?.burst) {
-          heart.classList.add('animating');
-          window.ParticlesBurst.burst(
-            heart,
-            saved ? window.ParticlesBurst.presets.heartOn : window.ParticlesBurst.presets.heartOff
-          );
-          setTimeout(() => heart.classList.remove('animating'), 320);
-        }
-      } catch (e) {
-        console.debug('Particles module not loaded:', e);
-      }
-    });
-
-    topRow.appendChild(heart);
-    content.appendChild(topRow);
-
-    if (item.oldPrice) {
-      const oldLine = el('div', 'old-line');
-      oldLine.appendChild(el('div', 'price-old s10', item.oldPrice));
-      content.appendChild(oldLine);
-    }
-    if (item.title) content.appendChild(el('div', 'card-title m20', item.title));
-    if (item.meta) content.appendChild(el('div', 's10 card-meta', item.meta));
-
-    card.appendChild(content);
-    return card;
-  }
-
-  async function initBuyTimeSection(){
-    const section = document.querySelector('.buy-time[data-buy-time-src]');
-    if (!section) return;
-
-    const src = section.dataset.buyTimeSrc;
-    const rail = section.querySelector('[data-buy-time-rail]');
-    const tabsRow = section.querySelector('.buy-time__tabs');
-    const tabButtons = Array.from(section.querySelectorAll('[data-buy-time-tab]'));
-    if (!src || !rail || !tabButtons.length) return;
-    attachHorizontalDragScroll(rail);
-    attachHorizontalDragScroll(tabsRow);
-
-    try {
-      const payload = await loadJson(src);
-      const tabs = Array.isArray(payload?.tabs) ? payload.tabs : [];
-      if (!tabs.length) return;
-
-      const byId = new Map(tabs.map((tab) => [String(tab.id), tab]));
-      let resizeRaf = 0;
-
-      const ensureTabVisible = (btn) => {
-        if (!tabsRow || !btn) return;
-        const EDGE_GAP = 10;
-        const rowRect = tabsRow.getBoundingClientRect();
-        const btnRect = btn.getBoundingClientRect();
-        const visibleLeft = rowRect.left + EDGE_GAP;
-        const visibleRight = rowRect.right - EDGE_GAP;
-
-        let nextLeft = tabsRow.scrollLeft;
-        if (btnRect.left < visibleLeft) {
-          nextLeft -= (visibleLeft - btnRect.left);
-        } else if (btnRect.right > visibleRight) {
-          nextLeft += (btnRect.right - visibleRight);
-        }
-
-        const maxLeft = Math.max(0, tabsRow.scrollWidth - tabsRow.clientWidth);
-        nextLeft = Math.max(0, Math.min(maxLeft, nextLeft));
-        if (Math.abs(nextLeft - tabsRow.scrollLeft) > 0.5) {
-          tabsRow.scrollTo({ left: nextLeft, behavior: 'smooth' });
-        }
+      const resolveSrc = (src) => {
+        const isAbs = /^(https?:|data:|\/|\.\/|\.\.\/)/i.test(src);
+        return encodeURI(isAbs ? src : './' + src);
       };
 
-      const syncPlaceholderHeight = () => {
-        const cards = Array.from(rail.querySelectorAll('.buy-time-card'));
-        if (!cards.length) return;
+      function renderItems(mount, items, src) {
+        if (mount.__cardsBalanceCleanup) {
+          mount.__cardsBalanceCleanup();
+          mount.__cardsBalanceCleanup = null;
+        }
 
-        const regularHeights = cards
-          .filter((node) => !node.classList.contains('buy-time-card--placeholder'))
-          .map((node) => node.offsetHeight)
-          .filter((h) => h > 0);
-        if (!regularHeights.length) return;
+        mount.replaceChildren();
+        const leftCol = el('div', 'cards-col');
+        const rightCol = el('div', 'cards-col');
+        const leftMeta = [];
+        const rightMeta = [];
+        const mediaCleanup = [];
+        mount.append(leftCol, rightCol);
 
-        const maxHeight = Math.max(...regularHeights);
-        cards
-          .filter((node) => node.classList.contains('buy-time-card--placeholder'))
-          .forEach((placeholderCard) => {
-            placeholderCard.style.height = `${maxHeight}px`;
+        const useBonusesOldPrice = /cards-forth\.json$/i.test(String(src || ''));
+
+        items.forEach((item, idx) => {
+          const targetCol = idx % 2 === 0 ? leftCol : rightCol;
+          const targetMeta = idx % 2 === 0 ? leftMeta : rightMeta;
+
+          if (window.SplitCard?.isSplitCard(item)) {
+            const textCard = window.SplitCard.render(item, { loadScriptOnce });
+            if (textCard) {
+              targetCol.appendChild(textCard);
+              targetMeta.push({ canStretch: false, imgWrap: null, baseAspectRatio: '' });
+            }
+            return;
+          }
+
+          const card = el('article', 'card');
+
+          // --- галерея ---
+          const pics = Array.isArray(item.images) && item.images.length
+            ? item.images.slice()
+            : (item.image ? [item.image] : []);
+
+          const imgHost = el('div', 'image-host');
+          const imgWrap = el('div', 'image');
+          const rail = el('div', 'image-rail');
+          const ratio = toAspectRatio(item.imageRatio);
+          const canStretchImage = !isSquareRatio(item.imageRatio);
+          imgWrap.style.aspectRatio = ratio;
+
+          imgWrap.appendChild(rail);
+          imgHost.appendChild(imgWrap);
+
+          pics.forEach(src => {
+            const slide = el('div', 'image-slide');
+
+            if (isGradientOrColor(src)) {
+              slide.style.background = src;
+            } else if (isVideo(src)) {
+              const v = document.createElement('video');
+              v.src = resolveSrc(src);
+              v.muted = true; v.loop = true; v.autoplay = true; v.playsInline = true;
+              v.preload = 'metadata'; v.controls = false;
+              const onVideoReady = () => {
+                if (mount.__scheduleCardsBalance) mount.__scheduleCardsBalance();
+              };
+              v.addEventListener('loadedmetadata', onVideoReady, { once: true });
+              mediaCleanup.push(() => v.removeEventListener('loadedmetadata', onVideoReady));
+              slide.appendChild(v);
+            } else {
+              const img = new Image();
+              img.loading = 'lazy';
+              img.decoding = 'async';
+              img.src = resolveSrc(src);
+              img.alt = item.title || '';
+              img.style.width = '100%';
+              img.style.height = '100%';
+              img.style.objectFit = 'cover';
+              img.style.objectPosition = 'center';
+              const onImgLoad = () => {
+                if (mount.__scheduleCardsBalance) mount.__scheduleCardsBalance();
+              };
+              img.addEventListener('load', onImgLoad, { once: true });
+              mediaCleanup.push(() => img.removeEventListener('load', onImgLoad));
+              img.onerror = () => {
+                console.warn('Не удалось загрузить изображение:', img.src);
+                slide.style.background = '#e8edf6';
+              };
+              slide.appendChild(img);
+            }
+
+            rail.appendChild(slide);
           });
-      };
 
-      const renderTab = (tabId) => {
-        const selected = byId.get(tabId) || tabs[0];
-        tabButtons.forEach((btn) => {
-          const active = btn.dataset.buyTimeTab === selected.id;
-          btn.classList.toggle('is-active', active);
-          btn.setAttribute('aria-selected', active ? 'true' : 'false');
+          let dots = null;
+          if (pics.length > 1) {
+            dots = el('div', 'image-dots');
+            for (let i = 0; i < pics.length; i++) dots.appendChild(el('span', 'image-dot'));
+            imgHost.appendChild(dots);
+          }
+
+          if (item.imageBadge) {
+            const badgeEl = el('span', 'image-badge s20', item.imageBadge);
+            if (item.imageBadgeColor) {
+              const raw = String(item.imageBadgeColor).trim();
+              badgeEl.style.background = raw.startsWith('#') ? raw : `#${raw}`;
+            }
+            imgHost.appendChild(badgeEl);
+          }
+
+          // простой бейдж (если используешь расширенную систему бейджей — можешь заменить)
+          if (item.badge) imgHost.appendChild(makeRibbon(item.badge, item.badgeColor));
+
+          card.appendChild(imgHost);
+
+          if (pics.length > 1) attachSwipe(rail, dots);
+          else imgWrap.classList.add('image--static');
+
+          // --- контент ---
+          const content = el('div', 'card-content');
+          const topRow = el('div', 'title-row');
+          topRow.appendChild(el('div', 'price h4', item.price || ''));
+
+          // избранное (SVG)
+          const heart = el('button', 'heart');
+          heart.type = 'button';
+          heart.setAttribute('aria-pressed', 'false');
+          heart.setAttribute('aria-label', 'Добавить в избранное');
+
+          const heartIcon = new Image();
+          heartIcon.src = HEART_OFF;
+          heartIcon.alt = '';
+          heartIcon.width = 18; heartIcon.height = 18;
+          heart.appendChild(heartIcon);
+
+          heart.addEventListener('click', async () => {
+            const saved = heart.classList.toggle('saved');
+            heart.setAttribute('aria-pressed', saved ? 'true' : 'false');
+            heart.setAttribute('aria-label', saved ? 'Убрать из избранного' : 'Добавить в избранное');
+            heartIcon.src = saved ? HEART_ON : HEART_OFF;
+
+            // ЕДИНЫЕ конфетти on/off
+            try {
+              await loadScriptOnce('./particles-burst.js', document);
+              if (window.ParticlesBurst?.burst) {
+                heart.classList.add('animating');
+                window.ParticlesBurst.burst(
+                  heart,
+                  saved ? window.ParticlesBurst.presets.heartOn
+                    : window.ParticlesBurst.presets.heartOff
+                );
+                setTimeout(() => heart.classList.remove('animating'), 320);
+              }
+            } catch (e) {
+              console.debug('Particles module not loaded:', e);
+            }
+          });
+
+
+
+          topRow.appendChild(heart);
+          content.appendChild(topRow);
+
+          const oldLine = el('div', 'old-line');
+          if (item.oldPrice) {
+            const oldPriceClass = useBonusesOldPrice ? 'price-old price-old-bonuses s10' : 'price-old s10';
+            oldLine.appendChild(el('div', oldPriceClass, item.oldPrice));
+          }
+          if (item.discount) oldLine.appendChild(el('div', 'discount s10', item.discount));
+          if (oldLine.childNodes.length) content.appendChild(oldLine);
+
+          if (item.title) content.appendChild(el('div', 'card-title m20', item.title));
+
+          const infoText = item.geo || item.meta || item.subtitle;
+          if (infoText) content.appendChild(el('div', 's10 card-meta', infoText));
+
+          card.appendChild(content);
+          targetCol.appendChild(card);
+          targetMeta.push({ canStretch: canStretchImage, imgWrap, baseAspectRatio: ratio });
         });
 
-        if (typeof rail.__stopDragInertia === 'function') rail.__stopDragInertia();
-        rail.replaceChildren();
-        const items = Array.isArray(selected.items) ? selected.items.slice(0, 6) : [];
-        items.forEach((item) => rail.appendChild(createBuyTimeCard(item, loadScriptOnce)));
-        rail.scrollLeft = 0;
-        requestAnimationFrame(syncPlaceholderHeight);
-        setTimeout(syncPlaceholderHeight, 60);
-      };
+        const balanceBottomEdge = () => {
+          [...leftMeta, ...rightMeta].forEach((m) => {
+            if (!m.canStretch || !m.imgWrap) return;
+            m.imgWrap.style.height = '';
+            m.imgWrap.style.aspectRatio = m.baseAspectRatio;
+          });
 
-      tabButtons.forEach((btn) => {
-        btn.addEventListener('click', () => {
-          ensureTabVisible(btn);
-          renderTab(btn.dataset.buyTimeTab);
-        });
-      });
+          const leftLastImage = [...leftMeta].reverse().find((m) => m.imgWrap);
+          const rightLastImage = [...rightMeta].reverse().find((m) => m.imgWrap);
+          if (!leftLastImage?.imgWrap || !rightLastImage?.imgWrap) return;
 
-      const firstTab = tabButtons[0]?.dataset.buyTimeTab || tabs[0].id;
-      renderTab(firstTab);
+          const leftBottom = Math.round(leftLastImage.imgWrap.getBoundingClientRect().bottom);
+          const rightBottom = Math.round(rightLastImage.imgWrap.getBoundingClientRect().bottom);
+          const diff = leftBottom - rightBottom;
+          if (Math.abs(diff) <= 1) return;
 
-      window.addEventListener('resize', () => {
-        cancelAnimationFrame(resizeRaf);
-        resizeRaf = requestAnimationFrame(syncPlaceholderHeight);
-      }, { passive: true });
-    } catch (err) {
-      console.error(err);
-      const fail = el('div', 's10');
-      fail.style.color = '#6b7280';
-      fail.textContent = `Ошибка загрузки карточек: ${src}`;
-      rail.appendChild(fail);
-    }
-  }
+          // Колонка, где нижняя граница последнего изображения выше.
+          const shorterMeta = diff > 0 ? rightMeta : leftMeta;
+          const need = Math.abs(diff);
+          // Ищем последнюю растягиваемую картинку в колонке (включая последнюю карточку).
+          const stretchTarget = [...shorterMeta].reverse().find((m) => m.canStretch && m.imgWrap);
+          if (!stretchTarget || !stretchTarget.imgWrap) return;
 
-  const blocks = Array.from(document.querySelectorAll('.snippets-block[data-snippets-src]'));
+          const currentHeight = stretchTarget.imgWrap.getBoundingClientRect().height;
+          stretchTarget.imgWrap.style.aspectRatio = 'auto';
+          stretchTarget.imgWrap.style.height = `${Math.max(1, Math.round(currentHeight + need))}px`;
+        };
 
-  for (const block of blocks) {
-    const src = block.dataset.snippetsSrc;
-    const mount = block.querySelector('.cards');
-    if (!src || !mount) continue;
+        let balanceRaf1 = 0;
+        let balanceRaf2 = 0;
+        let balanceTimer = 0;
+        const scheduleBalance = () => {
+          cancelAnimationFrame(balanceRaf1);
+          cancelAnimationFrame(balanceRaf2);
+          clearTimeout(balanceTimer);
+          balanceRaf1 = requestAnimationFrame(() => {
+            balanceRaf2 = requestAnimationFrame(balanceBottomEdge);
+          });
+          // Повторный проход после стабилизации лэйаута/медиа.
+          balanceTimer = window.setTimeout(() => {
+            balanceBottomEdge();
+          }, 80);
+        };
 
-    try {
-      const items = await loadCardsData(src);
-      renderItems(mount, items, src);
-    } catch (err) {
-      console.error(err);
-      const fail = el('div', 's10');
-      fail.style.padding = '0 10px 12px';
-      fail.style.color = '#6b7280';
-      fail.textContent = `Ошибка загрузки карточек: ${src}`;
-      block.appendChild(fail);
-    }
-  }
+        mount.__scheduleCardsBalance = scheduleBalance;
+        window.addEventListener('resize', mount.__scheduleCardsBalance, { passive: true });
+        if (document.fonts?.ready) {
+          document.fonts.ready.then(() => {
+            if (mount.__scheduleCardsBalance) mount.__scheduleCardsBalance();
+          }).catch(() => { });
+        }
+        requestAnimationFrame(scheduleBalance);
 
-  const dealsBlock = document.querySelector('.market-deals[data-deals-src]');
-  if (dealsBlock) {
-    const src = dealsBlock.dataset.dealsSrc;
-    const mount = dealsBlock.querySelector('.market-deals__grid');
-    if (src && mount) {
-      try {
-        const items = await loadCardsData(src);
-        renderMarketDeals(mount, items);
-      } catch (err) {
-        console.error(err);
+        mount.__cardsBalanceCleanup = () => {
+          cancelAnimationFrame(balanceRaf1);
+          cancelAnimationFrame(balanceRaf2);
+          clearTimeout(balanceTimer);
+          window.removeEventListener('resize', scheduleBalance);
+          mediaCleanup.forEach((fn) => fn());
+          mediaCleanup.length = 0;
+          mount.__scheduleCardsBalance = null;
+        };
       }
+
+      function renderMarketDeals(mount, items) {
+        mount.replaceChildren();
+
+        items.slice(0, 6).forEach((item) => {
+          const card = el('article', 'market-deal-card');
+          const imageWrap = el('div', 'market-deal-card__image');
+          const image = new Image();
+          image.loading = 'lazy';
+          image.decoding = 'async';
+          image.src = resolveSrc(item.image || '');
+          image.alt = item.title || '';
+          image.onerror = () => {
+            imageWrap.style.background = '#e8edf6';
+          };
+          imageWrap.appendChild(image);
+          card.appendChild(imageWrap);
+
+          const prices = el('div', 'market-deal-card__prices');
+          if (item.price) prices.appendChild(el('div', 'market-deal-card__price h6', item.price));
+          if (item.oldPrice) prices.appendChild(el('div', 'market-deal-card__old price-old s10', item.oldPrice));
+          card.appendChild(prices);
+
+          mount.appendChild(card);
+        });
+      }
+
+      function createBuyTimeCard(item, loadScriptOnceFn) {
+        if (item.type === 'placeholder') {
+          const placeholderCard = el('article', 'card buy-time-card buy-time-card--placeholder');
+          if (String(item.size || '').toLowerCase() === 'large') {
+            placeholderCard.classList.add('buy-time-card--large');
+          }
+          const placeholder = el('div', 'buy-time-placeholder');
+          const placeholderVideo = String(item.backgroundVideo || '').trim();
+          if (placeholderVideo) {
+            const v = document.createElement('video');
+            v.src = resolveSrc(placeholderVideo);
+            v.muted = true;
+            v.loop = true;
+            v.autoplay = true;
+            v.playsInline = true;
+            v.preload = 'metadata';
+            v.setAttribute('aria-hidden', 'true');
+            v.tabIndex = -1;
+            placeholder.appendChild(v);
+          } else {
+            placeholder.style.background = item.background || '#ddd';
+          }
+          placeholderCard.appendChild(placeholder);
+          return placeholderCard;
+        }
+
+        const card = el('article', 'card buy-time-card');
+        const imgHost = el('div', 'image-host');
+        const imgWrap = el('div', 'image');
+        imgWrap.style.aspectRatio = '1 / 1';
+
+        const slide = el('div', 'image-slide');
+        const src = String(item.image || '').trim();
+        if (src) {
+          const image = new Image();
+          image.loading = 'lazy';
+          image.decoding = 'async';
+          image.src = resolveSrc(src);
+          image.alt = item.title || '';
+          image.onerror = () => {
+            slide.style.background = '#e8edf6';
+          };
+          slide.appendChild(image);
+        } else {
+          slide.style.background = '#e8edf6';
+        }
+
+        imgWrap.appendChild(slide);
+        imgHost.appendChild(imgWrap);
+
+        if (item.imageBadge) {
+          const badgeEl = el('span', 'image-badge s20', item.imageBadge);
+          imgHost.appendChild(badgeEl);
+        }
+
+        card.appendChild(imgHost);
+
+        const content = el('div', 'card-content');
+        const topRow = el('div', 'title-row');
+        const price = el('div', 'price');
+        const priceHighlight = el('span', 'price-pill h4', item.price || '');
+        const priceColor = String(item.priceHighlightColor || '').trim();
+        if (priceColor) priceHighlight.style.setProperty('--price-pill-color', priceColor);
+        price.appendChild(priceHighlight);
+        topRow.appendChild(price);
+
+        const heart = el('button', 'heart');
+        heart.type = 'button';
+        heart.setAttribute('aria-pressed', 'false');
+        heart.setAttribute('aria-label', 'Добавить в избранное');
+
+        const heartIcon = new Image();
+        heartIcon.src = HEART_OFF;
+        heartIcon.alt = '';
+        heartIcon.width = 18;
+        heartIcon.height = 18;
+        heart.appendChild(heartIcon);
+
+        heart.addEventListener('click', async () => {
+          const saved = heart.classList.toggle('saved');
+          heart.setAttribute('aria-pressed', saved ? 'true' : 'false');
+          heart.setAttribute('aria-label', saved ? 'Убрать из избранного' : 'Добавить в избранное');
+          heartIcon.src = saved ? HEART_ON : HEART_OFF;
+
+          try {
+            await loadScriptOnceFn('./particles-burst.js', document);
+            if (window.ParticlesBurst?.burst) {
+              heart.classList.add('animating');
+              window.ParticlesBurst.burst(
+                heart,
+                saved ? window.ParticlesBurst.presets.heartOn : window.ParticlesBurst.presets.heartOff
+              );
+              setTimeout(() => heart.classList.remove('animating'), 320);
+            }
+          } catch (e) {
+            console.debug('Particles module not loaded:', e);
+          }
+        });
+
+        topRow.appendChild(heart);
+        content.appendChild(topRow);
+
+        if (item.oldPrice) {
+          const oldLine = el('div', 'old-line');
+          oldLine.appendChild(el('div', 'price-old s10', item.oldPrice));
+          content.appendChild(oldLine);
+        }
+        if (item.title) content.appendChild(el('div', 'card-title m20', item.title));
+        if (item.meta) content.appendChild(el('div', 's10 card-meta', item.meta));
+
+        card.appendChild(content);
+        return card;
+      }
+
+      async function initBuyTimeSection() {
+        const section = document.querySelector('.buy-time[data-buy-time-src]');
+        if (!section) return;
+
+        const src = section.dataset.buyTimeSrc;
+        const rail = section.querySelector('[data-buy-time-rail]');
+        const tabsRow = section.querySelector('.buy-time__tabs');
+        const tabButtons = Array.from(section.querySelectorAll('[data-buy-time-tab]'));
+        if (!src || !rail || !tabButtons.length) return;
+        attachHorizontalDragScroll(rail);
+        attachHorizontalDragScroll(tabsRow);
+
+        try {
+          const payload = await loadJson(src);
+          const tabs = Array.isArray(payload?.tabs) ? payload.tabs : [];
+          if (!tabs.length) return;
+
+          const byId = new Map(tabs.map((tab) => [String(tab.id), tab]));
+          let resizeRaf = 0;
+
+          const ensureTabVisible = (btn) => {
+            if (!tabsRow || !btn) return;
+            const EDGE_GAP = 10;
+            const rowRect = tabsRow.getBoundingClientRect();
+            const btnRect = btn.getBoundingClientRect();
+            const visibleLeft = rowRect.left + EDGE_GAP;
+            const visibleRight = rowRect.right - EDGE_GAP;
+
+            let nextLeft = tabsRow.scrollLeft;
+            if (btnRect.left < visibleLeft) {
+              nextLeft -= (visibleLeft - btnRect.left);
+            } else if (btnRect.right > visibleRight) {
+              nextLeft += (btnRect.right - visibleRight);
+            }
+
+            const maxLeft = Math.max(0, tabsRow.scrollWidth - tabsRow.clientWidth);
+            nextLeft = Math.max(0, Math.min(maxLeft, nextLeft));
+            if (Math.abs(nextLeft - tabsRow.scrollLeft) > 0.5) {
+              tabsRow.scrollTo({ left: nextLeft, behavior: 'smooth' });
+            }
+          };
+
+          const syncPlaceholderHeight = () => {
+            const cards = Array.from(rail.querySelectorAll('.buy-time-card'));
+            if (!cards.length) return;
+
+            const regularHeights = cards
+              .filter((node) => !node.classList.contains('buy-time-card--placeholder'))
+              .map((node) => node.offsetHeight)
+              .filter((h) => h > 0);
+            if (!regularHeights.length) return;
+
+            const maxHeight = Math.max(...regularHeights);
+            cards
+              .filter((node) => node.classList.contains('buy-time-card--placeholder'))
+              .forEach((placeholderCard) => {
+                placeholderCard.style.height = `${maxHeight}px`;
+              });
+          };
+
+          const renderTab = (tabId) => {
+            const selected = byId.get(tabId) || tabs[0];
+            tabButtons.forEach((btn) => {
+              const active = btn.dataset.buyTimeTab === selected.id;
+              btn.classList.toggle('is-active', active);
+              btn.setAttribute('aria-selected', active ? 'true' : 'false');
+            });
+
+            if (typeof rail.__stopDragInertia === 'function') rail.__stopDragInertia();
+            rail.replaceChildren();
+            const items = Array.isArray(selected.items) ? selected.items.slice(0, 6) : [];
+            items.forEach((item) => rail.appendChild(createBuyTimeCard(item, loadScriptOnce)));
+            rail.scrollLeft = 0;
+            requestAnimationFrame(syncPlaceholderHeight);
+            setTimeout(syncPlaceholderHeight, 60);
+          };
+
+          tabButtons.forEach((btn) => {
+            btn.addEventListener('click', () => {
+              ensureTabVisible(btn);
+              renderTab(btn.dataset.buyTimeTab);
+            });
+          });
+
+          const firstTab = tabButtons[0]?.dataset.buyTimeTab || tabs[0].id;
+          renderTab(firstTab);
+
+          window.addEventListener('resize', () => {
+            cancelAnimationFrame(resizeRaf);
+            resizeRaf = requestAnimationFrame(syncPlaceholderHeight);
+          }, { passive: true });
+        } catch (err) {
+          console.error(err);
+          const fail = el('div', 's10');
+          fail.style.color = '#6b7280';
+          fail.textContent = `Ошибка загрузки карточек: ${src}`;
+          rail.appendChild(fail);
+        }
+      }
+
+      const blocks = Array.from(document.querySelectorAll('.snippets-block[data-snippets-src]'));
+
+      for (const block of blocks) {
+        const src = block.dataset.snippetsSrc;
+        const mount = block.querySelector('.cards');
+        if (!src || !mount) continue;
+
+        try {
+          const items = await loadCardsData(src);
+          renderItems(mount, items, src);
+        } catch (err) {
+          console.error(err);
+          const fail = el('div', 's10');
+          fail.style.padding = '0 10px 12px';
+          fail.style.color = '#6b7280';
+          fail.textContent = `Ошибка загрузки карточек: ${src}`;
+          block.appendChild(fail);
+        }
+      }
+
+      const dealsBlock = document.querySelector('.market-deals[data-deals-src]');
+      if (dealsBlock) {
+        const src = dealsBlock.dataset.dealsSrc;
+        const mount = dealsBlock.querySelector('.market-deals__grid');
+        if (src && mount) {
+          try {
+            const items = await loadCardsData(src);
+            renderMarketDeals(mount, items);
+          } catch (err) {
+            console.error(err);
+          }
+        }
+      }
+
+      await initBuyTimeSection();
+    })();
+  </script>
+
+  <script>
+    /* бейдж из исходного кода */
+    function makeRibbon(text, color = '#30c977') {
+      const wrap = document.createElement('span');
+      wrap.className = 'ribbon';
+      wrap.style.setProperty('--ribbon', color);
+
+      const left = document.createElement('span');
+      left.className = 'ribbon__cap ribbon__cap--left';
+      left.setAttribute('aria-hidden', 'true');
+
+      const body = document.createElement('span');
+      body.className = 'ribbon__body s10';
+      body.textContent = text;
+
+      const right = document.createElement('span');
+      right.className = 'ribbon__cap ribbon__cap--right';
+      right.setAttribute('aria-hidden', 'true');
+
+      wrap.append(left, body, right);
+      return wrap;
     }
-  }
+  </script>
 
-  await initBuyTimeSection();
-})();
-</script>
-
-<script>
-/* бейдж из исходного кода */
-function makeRibbon(text, color = '#30c977') {
-  const wrap = document.createElement('span');
-  wrap.className = 'ribbon';
-  wrap.style.setProperty('--ribbon', color);
-
-  const left = document.createElement('span');
-  left.className = 'ribbon__cap ribbon__cap--left';
-  left.setAttribute('aria-hidden', 'true');
-
-  const body = document.createElement('span');
-  body.className = 'ribbon__body s10';
-  body.textContent = text;
-
-  const right = document.createElement('span');
-  right.className = 'ribbon__cap ribbon__cap--right';
-  right.setAttribute('aria-hidden', 'true');
-
-  wrap.append(left, body, right);
-  return wrap;
-}
-</script>
-
-<script>
-document.querySelectorAll('.tabbar__btn').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    document.querySelectorAll('.tabbar__btn').forEach(b=>{
-      b.classList.remove('is-active');
-      b.setAttribute('aria-current','false');
-      b.setAttribute('aria-pressed','false');
+  <script>
+    document.querySelectorAll('.tabbar__btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tabbar__btn').forEach(b => {
+          b.classList.remove('is-active');
+          b.setAttribute('aria-current', 'false');
+          b.setAttribute('aria-pressed', 'false');
+        });
+        btn.classList.add('is-active');
+        btn.setAttribute('aria-current', 'page');
+        btn.setAttribute('aria-pressed', 'true');
+      });
     });
-    btn.classList.add('is-active');
-    btn.setAttribute('aria-current','page');
-    btn.setAttribute('aria-pressed','true');
-  });
-});
-</script>
+  </script>
 
-<script>
-(function(){
-  const floater = document.querySelector('.float-cta');
-  if (!floater) return;
+  <script>
+    (function () {
+      const floater = document.querySelector('.float-cta');
+      if (!floater) return;
 
-  let lastY = window.scrollY;
-  let hidden = false;
-  let raf = null;
+      let lastY = window.scrollY;
+      let hidden = false;
+      let raf = null;
 
-  // Насколько «близко к низу» считаем, что уже низ (px)
-  const BOTTOM_EPS = 24;
-  // Малый порог для "самого верха", чтобы не дёргать у шапки
-  const TOP_EPS = 8;
+      // Насколько «близко к низу» считаем, что уже низ (px)
+      const BOTTOM_EPS = 24;
+      // Малый порог для "самого верха", чтобы не дёргать у шапки
+      const TOP_EPS = 8;
 
-  function atBottom() {
-    const doc = document.documentElement;
-    // высота видимой области + скролл ≥ вся высота документа - эпсилон
-    return (window.innerHeight + window.scrollY) >= (doc.scrollHeight - BOTTOM_EPS);
-  }
+      function atBottom() {
+        const doc = document.documentElement;
+        // высота видимой области + скролл ≥ вся высота документа - эпсилон
+        return (window.innerHeight + window.scrollY) >= (doc.scrollHeight - BOTTOM_EPS);
+      }
 
-  function atTop() {
-    return window.scrollY < TOP_EPS;
-  }
+      function atTop() {
+        return window.scrollY < TOP_EPS;
+      }
 
-  const onScroll = () => {
-    const y = window.scrollY;
-    const goingDown = y > lastY;
-    lastY = y;
+      const onScroll = () => {
+        const y = window.scrollY;
+        const goingDown = y > lastY;
+        lastY = y;
 
-    // ЛОГИКА:
-    // - если крутим вниз и не у самого верха → скрываем
-    // - НО если у самого низа → всегда показываем
-    // - если крутим вверх → показываем
-    let shouldHide = goingDown && !atTop();
+        // ЛОГИКА:
+        // - если крутим вниз и не у самого верха → скрываем
+        // - НО если у самого низа → всегда показываем
+        // - если крутим вверх → показываем
+        let shouldHide = goingDown && !atTop();
 
-    if (atBottom()) shouldHide = false; // у низа всегда показаны
+        if (atBottom()) shouldHide = false; // у низа всегда показаны
 
-    if (shouldHide !== hidden) {
-      hidden = shouldHide;
-      floater.classList.toggle('is-away', hidden);
-    }
-  };
+        if (shouldHide !== hidden) {
+          hidden = shouldHide;
+          floater.classList.toggle('is-away', hidden);
+        }
+      };
 
-  // rAF-троттлинг скролла
-  window.addEventListener('scroll', () => {
-    if (raf) return;
-    raf = requestAnimationFrame(() => { raf = null; onScroll(); });
-  }, {passive:true});
+      // rAF-троттлинг скролла
+      window.addEventListener('scroll', () => {
+        if (raf) return;
+        raf = requestAnimationFrame(() => { raf = null; onScroll(); });
+      }, { passive: true });
 
-  window.addEventListener('resize', onScroll);
+      window.addEventListener('resize', onScroll);
 
-  // первичная инициализация
-  onScroll();
-})();
-</script>
+      // первичная инициализация
+      onScroll();
+    })();
+  </script>
 
 
-<script>
-(() => {
-  const originalRow = document.querySelector('.search-row');
-  const sentinel    = document.getElementById('search-sentinel');
-  if (!originalRow || !sentinel) return;
+  <script>
+    (() => {
+      const originalRow = document.querySelector('.search-row');
+      const sentinel = document.getElementById('search-sentinel');
+      if (!originalRow || !sentinel) return;
 
-  const sticky = document.createElement('div');
-  sticky.className = 'search-sticky';
-  sticky.setAttribute('aria-hidden', 'true');
+      const sticky = document.createElement('div');
+      sticky.className = 'search-sticky';
+      sticky.setAttribute('aria-hidden', 'true');
 
-  const stickyRow    = document.createElement('div');
-  stickyRow.className = 'search-row';
+      const stickyRow = document.createElement('div');
+      stickyRow.className = 'search-row';
 
-  const stickyBadge  = originalRow.querySelector('.search-badge')?.cloneNode(true);
-  const stickySearch = originalRow.querySelector('.search')?.cloneNode(true);
+      const stickyBadge = originalRow.querySelector('.search-badge')?.cloneNode(true);
+      const stickySearch = originalRow.querySelector('.search')?.cloneNode(true);
 
-  if (stickyBadge)  stickyRow.appendChild(stickyBadge);
-  if (stickySearch) stickyRow.appendChild(stickySearch);
+      if (stickyBadge) stickyRow.appendChild(stickyBadge);
+      if (stickySearch) stickyRow.appendChild(stickySearch);
 
-  sticky.appendChild(stickyRow);
-  document.body.appendChild(sticky);
+      sticky.appendChild(stickyRow);
+      document.body.appendChild(sticky);
 
-  const io = new IntersectionObserver(([entry]) => {
-    sticky.classList.toggle('is-on', !entry.isIntersecting);
-  }, { threshold: 0 });
-  io.observe(sentinel);
-})();
-</script>
+      const io = new IntersectionObserver(([entry]) => {
+        sticky.classList.toggle('is-on', !entry.isIntersecting);
+      }, { threshold: 0 });
+      io.observe(sentinel);
+    })();
+  </script>
 
-<script>
-(() => {
-  const timer = document.getElementById('discount-timer');
-  if (!timer) return;
+  <script>
+    (() => {
+      const timer = document.getElementById('discount-timer');
+      if (!timer) return;
 
-  const hh = timer.querySelector('[data-unit="hh"]');
-  const mm = timer.querySelector('[data-unit="mm"]');
-  const ss = timer.querySelector('[data-unit="ss"]');
-  if (!hh || !mm || !ss) return;
+      const hh = timer.querySelector('[data-unit="hh"]');
+      const mm = timer.querySelector('[data-unit="mm"]');
+      const ss = timer.querySelector('[data-unit="ss"]');
+      if (!hh || !mm || !ss) return;
 
-  let left = (12 * 3600) + (26 * 60) + 56;
+      let left = (12 * 3600) + (26 * 60) + 56;
 
-  const pad = (n) => String(n).padStart(2, '0');
-  const draw = () => {
-    const h = Math.floor(left / 3600);
-    const m = Math.floor((left % 3600) / 60);
-    const s = left % 60;
-    hh.textContent = pad(h);
-    mm.textContent = pad(m);
-    ss.textContent = pad(s);
-  };
+      const pad = (n) => String(n).padStart(2, '0');
+      const draw = () => {
+        const h = Math.floor(left / 3600);
+        const m = Math.floor((left % 3600) / 60);
+        const s = left % 60;
+        hh.textContent = pad(h);
+        mm.textContent = pad(m);
+        ss.textContent = pad(s);
+      };
 
-  draw();
-  setInterval(() => {
-    left = Math.max(0, left - 1);
-    draw();
-  }, 1000);
-})();
-</script>
+      draw();
+      setInterval(() => {
+        left = Math.max(0, left - 1);
+        draw();
+      }, 1000);
+    })();
+  </script>
 
-<script>
-(() => {
-  let lastTouchEnd = 0;
-  document.addEventListener('touchend', (e) => {
-    const now = Date.now();
-    if (now - lastTouchEnd <= 300) e.preventDefault();
-    lastTouchEnd = now;
-  }, { passive: false });
-})();
-</script>
+  <script>
+    (() => {
+      let lastTouchEnd = 0;
+      document.addEventListener('touchend', (e) => {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) e.preventDefault();
+        lastTouchEnd = now;
+      }, { passive: false });
+    })();
+  </script>
 
 </body>
+
 </html>
